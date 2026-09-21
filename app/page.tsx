@@ -1,69 +1,33 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+/* ============================================================
+   HOME PAGE  —  shown at  /
+   ------------------------------------------------------------
+   This file is deliberately just a list of sections, top to
+   bottom, in the order they appear on screen. To reorder the
+   page, reorder these lines. To remove a section, delete its
+   line. Each section's own code lives in components/home/.
 
-export default function Home() {
+   Styles for all four sections: styles/pages/home.css
+   ============================================================ */
+
+import HeroSection from "@/components/home/HeroSection";
+import CategoriesSection from "@/components/home/CategoriesSection";
+import ListingGridSection from "@/components/home/ListingGridSection";
+import HostCtaSection from "@/components/home/HostCtaSection";
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      {/* 1. HERO — big photo, headline, search bar */}
+      <HeroSection />
+
+      {/* 2. CATEGORIES — row of property type filters */}
+      <CategoriesSection />
+
+      {/* 3. LISTING GRID — the grid of places to stay */}
+      <ListingGridSection />
+
+      {/* 4. HOST CTA — "Become a host" banner */}
+      <HostCtaSection />
+    </>
   );
 }

@@ -1,0 +1,90 @@
+/* ============================================================
+   TYPOGRAPHY PRIMITIVES  —  the raw scale
+   ------------------------------------------------------------
+   Families, weights, sizes, line heights, tracking. No opinion
+   about WHERE anything is used — that is the semantic layer.
+
+   >> DO NOT USE THESE IN COMPONENTS. <<
+   Components use a semantic style (.type-body-m and friends).
+
+   Sizes are in REM, never px. A person who has set their browser
+   text to "large" gets larger text everywhere; px would ignore
+   them outright. 1rem = 16px at default settings.
+   ============================================================ */
+
+:root {
+
+  /* --- FAMILIES --------------------------------------------
+     Two families doing three jobs, plus mono for codes.       */
+  --font-family-display: "Season Mix", Georgia, "Times New Roman", serif;
+  --font-family-body:    -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-family-mono:    ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+                         Consolas, "Liberation Mono", monospace;
+
+  /* --- WEIGHTS ---------------------------------------------
+     Five, and no more. Each has a job; anything else is drift.
+
+     IMPORTANT: the display family ships only 300 / 400 / 700.
+     Asking it for 500 or 600 gets you nothing useful, so
+     display styles never do. See font-synthesis below.        */
+  --font-weight-light:    300;  /* very large display only     */
+  --font-weight-regular:  400;  /* body copy, the default      */
+  --font-weight-medium:   500;  /* labels, buttons, emphasis   */
+  --font-weight-semibold: 600;  /* headings in the body family */
+  --font-weight-bold:     700;  /* strongest emphasis          */
+
+  /* --- SIZES -----------------------------------------------
+     Dual-ratio scale. The text range steps by 1.125 because at
+     small sizes 14 vs 16 is a real decision; the display range
+     steps by 1.25 because a hero has to dominate, not nudge.
+     Shipped values are rounded to whole pixels — the largest
+     drift from the pure ratio is 5.6%.                        */
+  --font-size-3xs: 0.750rem;  /* 12px  caption, overline       */
+  --font-size-2xs: 0.875rem;  /* 14px  body small, labels      */
+  --font-size-xs:  1.000rem;  /* 16px  BASE — body medium      */
+  --font-size-sm:  1.125rem;  /* 18px  body large              */
+  --font-size-md:  1.250rem;  /* 20px  title / heading small   */
+  --font-size-lg:  1.500rem;  /* 24px  heading medium          */
+  --font-size-xl:  2.000rem;  /* 32px  heading large           */
+  --font-size-2xl: 2.500rem;  /* 40px  heading xl              */
+  --font-size-3xl: 3.000rem;  /* 48px  display medium          */
+  --font-size-4xl: 3.750rem;  /* 60px  display large           */
+  --font-size-5xl: 4.500rem;  /* 72px  display xl              */
+
+  /* --- LINE HEIGHTS ----------------------------------------
+     Unitless, so they scale with whatever size inherits them.
+     Big text needs proportionally LESS leading than small text
+     — that is why one value for everything always looks wrong. */
+  --line-height-tight:   1.05;  /* 48px and above              */
+  --line-height-snug:    1.20;  /* headings 24-40px            */
+  --line-height-normal:  1.50;  /* body — the WCAG 1.4.12 floor */
+  --line-height-relaxed: 1.70;  /* long-form reading           */
+
+  /* --- LETTER SPACING --------------------------------------
+     Large text looks loose at 0 and wants pulling in; small and
+     uppercase text looks cramped and wants opening up.        */
+  --letter-spacing-tighter: -0.03em;  /* 48px and above        */
+  --letter-spacing-tight:   -0.015em; /* 24-40px               */
+  --letter-spacing-normal:  0;        /* all body copy         */
+  --letter-spacing-wide:    0.02em;   /* small labels          */
+  --letter-spacing-wider:   0.08em;   /* UPPERCASE overline    */
+
+  /* --- MEASURE ---------------------------------------------
+     Maximum line length. Past roughly 75 characters the eye
+     loses its place returning to the next line.               */
+  --measure-narrow: 45ch;   /* captions, sidebars              */
+  --measure:        65ch;   /* default for body copy           */
+  --measure-wide:   75ch;   /* the absolute ceiling            */
+}
+
+/* Never fake a weight or an italic. If a cut is missing, the
+   browser would otherwise smear the 400 into a fake bold, which
+   looks wrong in a way nobody can quite name. Off means a
+   missing weight falls back visibly instead. */
+html {
+  font-synthesis-weight: none;
+  font-synthesis-style: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

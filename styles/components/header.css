@@ -1,0 +1,72 @@
+/* ============================================================
+   SITE HEADER COMPONENT
+   ------------------------------------------------------------
+   The bar across the top of every page: logo, links, account.
+   Used by <SiteHeader /> in components/shared/SiteHeader.tsx.
+   ============================================================ */
+
+.site-header {
+  position: sticky;                 /* stays visible while scrolling */
+  top: 0;
+  z-index: 50;                      /* sits above page content       */
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  height: 80px;
+}
+
+/* --- LOGO (left) ------------------------------------------- */
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  color: var(--color-brand);
+  flex-shrink: 0;
+}
+
+/* --- NAV LINKS (middle) ------------------------------------ */
+.site-header__nav {
+  display: flex;
+  gap: var(--space-lg);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+}
+
+/* --- ACCOUNT MENU (right) ---------------------------------- */
+.site-header__account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.site-header__account:hover { box-shadow: var(--shadow-md); }
+
+.site-header__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-muted);
+  color: var(--color-text-inverse);
+  display: grid;
+  place-items: center;
+  font-size: var(--text-small);
+}
+
+@media (max-width: 900px) {
+  /* Hide the middle links on small screens — logo and account remain */
+  .site-header__nav { display: none; }
+  .site-header__inner { height: 64px; }
+}

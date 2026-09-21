@@ -1,0 +1,74 @@
+/* ============================================================
+   LISTING CARD COMPONENT
+   ------------------------------------------------------------
+   One "place to stay" tile: photo, location, details, price.
+   Used by <ListingCard /> in components/shared/ListingCard.tsx.
+   ============================================================ */
+
+.listing-card { display: block; }
+
+/* --- PHOTO ------------------------------------------------- */
+.listing-card__photo {
+  position: relative;
+  aspect-ratio: 20 / 19;            /* keeps every photo the same shape */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-alt);  /* grey placeholder while loading */
+  margin-bottom: var(--space-sm);
+}
+
+.listing-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                /* fill the box, crop the overflow */
+  transition: transform 0.3s ease;
+}
+
+.listing-card:hover .listing-card__photo img { transform: scale(1.04); }
+
+/* Heart button floating on the top-right of the photo */
+.listing-card__favourite {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.25rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px var(--color-overlay-text));
+}
+
+/* --- TEXT DETAILS ------------------------------------------ */
+
+/* Top row: place name on the left, star rating pushed right */
+.listing-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.listing-card__location {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;          /* long names end in "..." */
+}
+
+.listing-card__rating {
+  font-size: var(--text-small);
+  flex-shrink: 0;
+}
+
+/* Grey supporting lines: distance, available dates */
+.listing-card__meta {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* Bottom line: price per night */
+.listing-card__price {
+  margin-top: var(--space-xs);
+  font-size: var(--text-body);
+}
+
+.listing-card__price strong { font-weight: var(--weight-bold); }

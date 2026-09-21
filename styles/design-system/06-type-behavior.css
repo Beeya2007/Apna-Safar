@@ -1,0 +1,72 @@
+/* ============================================================
+   TEXT BEHAVIOUR  —  what happens when text does not fit
+   ------------------------------------------------------------
+   These are the rules that stop a layout breaking on a long
+   Sri Lankan place name, a pasted URL, or a price that gained
+   a digit. Add them alongside a semantic style.
+   ============================================================ */
+
+/* ---- TRUNCATION — one line, ellipsis ----------------------
+   Only for text that is repeated elsewhere in full. Never
+   truncate the only copy of something a person needs.        */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;   /* without this it will not shrink in a flex row */
+}
+
+/* ---- LINE CLAMP — several lines, then ellipsis ------------- */
+.clamp-2, .clamp-3, .clamp-4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.clamp-2 { -webkit-line-clamp: 2; line-clamp: 2; }
+.clamp-3 { -webkit-line-clamp: 3; line-clamp: 3; }
+.clamp-4 { -webkit-line-clamp: 4; line-clamp: 4; }
+
+/* ---- WRAPPING ----------------------------------------------
+   `break-word` only breaks a word that would otherwise overflow
+   its box — it does not hyphenate ordinary prose.            */
+.wrap-anywhere { overflow-wrap: anywhere; word-break: break-word; }
+
+/* URLs, email addresses, booking references. These have no
+   spaces, so without this they push a card wider than the
+   screen and the whole page scrolls sideways. */
+.wrap-url {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  hyphens: none;   /* a hyphen inside a URL reads as part of it */
+}
+
+/* Never break these. A price split across two lines is unreadable
+   and a date split mid-way is ambiguous. */
+.nowrap { white-space: nowrap; }
+
+/* Keeps the last word of a heading from sitting alone on its
+   own line. Supported everywhere that matters; harmless where
+   it is not. */
+.balance { text-wrap: balance; }
+
+/* For paragraphs — avoids a one-word final line. */
+.pretty { text-wrap: pretty; }
+
+/* ---- MEASURE ------------------------------------------------ */
+.measure-narrow { max-width: var(--measure-narrow); }
+.measure        { max-width: var(--measure); }
+.measure-wide   { max-width: var(--measure-wide); }
+.measure-none   { max-width: none; }
+
+/* ---- VISUALLY HIDDEN ----------------------------------------
+   Read by a screen reader, invisible on screen. For the text
+   that gives an icon its meaning. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

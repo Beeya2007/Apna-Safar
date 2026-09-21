@@ -1,0 +1,164 @@
+/* ============================================================
+   ATOMS — the smallest reusable pieces
+   ------------------------------------------------------------
+   One atom per section, in the order you meet them on a page:
+   headings, then buttons, then inputs, then chips.
+
+   Every value here comes from tokens.css. If you find a raw
+   colour or size in this file, it is a mistake.
+   ============================================================ */
+
+/* ---- HEADINGS — the bracketed display type ---------------- */
+
+.ds-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-brand);
+  text-align: center;
+  margin: 0;
+}
+
+/* The { } around a headline. Written in CSS, not typed into
+   the text, so the brackets can never end up in a page title
+   or a search result.                                        */
+.ds-display::before { content: "{ "; }
+.ds-display::after  { content: " }"; }
+
+.ds-display--hero { font-size: var(--text-hero); }
+
+/* The accent word, e.g. "Travel with passion".
+   Season Mix has no handwritten cut, so the accent is its
+   italic — which is what gives the word its lift. */
+.ds-script {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: 1.25em;         /* relative, so it scales with its neighbour */
+  font-weight: var(--weight-normal);
+  color: var(--color-brand);
+}
+
+/* ---- BUTTONS ---------------------------------------------- */
+
+.ds-button {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  padding: var(--space-md) var(--space-xl);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-button:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* The solid terracotta one — "Search your trip" */
+.ds-button--primary {
+  background: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+.ds-button--primary:hover  { background: var(--color-brand-hover); }
+.ds-button--primary:active { background: var(--color-brand-active); }
+
+/* Outlined — for the second-choice action next to a primary */
+.ds-button--secondary {
+  background: transparent;
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+.ds-button--secondary:hover {
+  background: var(--color-brand-wash);
+}
+
+/* No box at all — for quiet actions like "Skip" */
+.ds-button--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+}
+.ds-button--ghost:hover { color: var(--color-text); }
+
+.ds-button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* Sizes — add alongside a look, e.g. ds-button--primary ds-button--large */
+.ds-button--small { padding: var(--space-sm) var(--space-md); font-size: var(--text-small); }
+.ds-button--large { padding: var(--space-md) var(--space-2xl); font-size: var(--text-heading); }
+
+/* Fills the width of whatever it sits in */
+.ds-button--full { width: 100%; }
+
+/* ---- TEXT INPUT AND MESSAGE BOX --------------------------- */
+
+.ds-input,
+.ds-textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  background: var(--color-paper-dark);
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  padding: var(--space-md);
+  width: 100%;
+}
+
+.ds-input::placeholder,
+.ds-textarea::placeholder { color: var(--color-placeholder); }
+
+.ds-input:focus-visible,
+.ds-textarea:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 1px;
+  border-color: var(--color-brand);
+}
+
+.ds-textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* A field the visitor got wrong */
+.ds-input--error { border-color: var(--color-error); }
+
+.ds-field-note {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+}
+.ds-field-note--error { color: var(--color-error); }
+
+/* ---- MOOD CHIPS — "Happy  Bored  Sad  Moody" -------------- */
+
+.ds-chip {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius-xs);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+}
+
+.ds-chip:hover { background: var(--color-brand-wash); }
+
+/* The one the visitor has picked */
+.ds-chip[aria-pressed="true"] {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+.ds-chip:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

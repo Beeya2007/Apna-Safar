@@ -1,0 +1,190 @@
+/* ============================================================
+   HOME PAGE STYLES
+   ------------------------------------------------------------
+   Every section below matches a section on the home page,
+   in the same top-to-bottom order you see on screen.
+
+   Sections on this page:
+     1. HERO          — big photo, headline, search bar
+     2. CATEGORIES    — row of property type filters
+     3. LISTING GRID  — the grid of place cards
+     4. HOST CTA      — "Become a host" invitation banner
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. HERO SECTION
+   The first thing a visitor sees. Full-width photo with the
+   headline and search bar sitting on top of it.
+   ------------------------------------------------------------ */
+
+.hero {
+  position: relative;               /* lets the overlay sit on top */
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* CHANGE THE HERO PHOTO HERE */
+  background-image: url("/images/hero.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Dark veil over the photo so white text stays readable */
+.hero__overlay {
+  position: absolute;
+  inset: 0;                         /* stretch to all four edges */
+  background: var(--color-overlay);  /* change it in the token file */
+}
+
+/* Wrapper that keeps text above the dark veil */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-inverse);
+  padding: var(--space-xl) var(--space-md);
+  width: 100%;
+  max-width: 900px;
+}
+
+.hero__title {
+  font-size: var(--text-hero);
+  font-weight: var(--weight-bold);
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+}
+
+.hero__subtitle {
+  font-size: var(--text-title);
+  font-weight: var(--weight-normal);
+  opacity: 0.95;
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 640px) {
+  .hero { min-height: 440px; }
+  .hero__subtitle { font-size: var(--text-body); }
+}
+
+
+/* ------------------------------------------------------------
+   2. CATEGORIES SECTION
+   Horizontal strip of property types (Beach, Cabin, City...).
+   Scrolls sideways on phones instead of wrapping.
+   ------------------------------------------------------------ */
+
+.categories {
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-md);
+}
+
+.categories__row {
+  display: flex;
+  gap: var(--space-xl);
+  overflow-x: auto;                 /* sideways scroll on small screens */
+  scrollbar-width: none;            /* hide the scrollbar (Firefox)     */
+}
+.categories__row::-webkit-scrollbar { display: none; } /* hide (Chrome/Safari) */
+
+/* One category button: icon above a label */
+.categories__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;                   /* stop items squashing together */
+  padding-bottom: var(--space-sm);
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  border-bottom: 2px solid transparent;
+}
+
+.categories__item:hover { color: var(--color-text); }
+
+/* The currently selected category */
+.categories__item--active {
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+  border-bottom-color: var(--color-text);
+}
+
+.categories__icon { font-size: 1.5rem; }
+
+
+/* ------------------------------------------------------------
+   3. LISTING GRID SECTION
+   The grid of places to stay.
+   Column count adapts automatically to screen width.
+   ------------------------------------------------------------ */
+
+.listing-grid {
+  padding-block: var(--space-xl);
+}
+
+.listing-grid__title {
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-lg);
+}
+
+/* `auto-fill` + `minmax` = cards are at least 260px wide and
+   the browser fits as many per row as it can. No breakpoints
+   needed — this is what makes the grid responsive. */
+.listing-grid__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-lg);
+}
+
+@media (max-width: 480px) {
+  /* On narrow phones force a single column so cards aren't cramped */
+  .listing-grid__cards { grid-template-columns: 1fr; }
+}
+
+
+/* ------------------------------------------------------------
+   4. HOST CTA SECTION
+   "Call To Action" — the banner that invites a visitor to
+   list their own property. Text on the left, photo on the right.
+   ------------------------------------------------------------ */
+
+.host-cta {
+  background: var(--color-brand-wash);
+  padding-block: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.host-cta__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.host-cta__text { flex: 1; }
+
+.host-cta__title {
+  font-size: var(--text-hero);
+  font-weight: var(--weight-bold);
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+}
+
+.host-cta__body {
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  max-width: var(--width-text);
+  margin-bottom: var(--space-lg);
+}
+
+.host-cta__image {
+  flex: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  /* Stack text above photo once there isn't room side by side */
+  .host-cta__inner { flex-direction: column; text-align: center; }
+  .host-cta__body  { margin-inline: auto; }
+}

@@ -1,0 +1,82 @@
+/* ============================================================
+   SPACING SCALE  —  --space-<step>
+   ------------------------------------------------------------
+   Every distance in the product comes from this file. There is
+   no second spacing vocabulary to learn: a card asks for
+   var(--space-4), not for "the component padding token".
+
+   HOW THE NAMES WORK
+   The number is the multiplier. The base unit is 4px, so:
+
+       --space-4  =  4 x 4px  =  16px
+       --space-8  =  8 x 4px  =  32px
+
+   Halve the number, halve the distance. That is the whole
+   system, and it is why the names are numbers and not t-shirt
+   sizes: "is 10 bigger than 6" has an obvious answer, "is xl
+   bigger than 2xl" does not.
+
+   WHY 4px
+   Every distance stays a whole pixel at 100%, 150% and 200%
+   browser zoom, so nothing ever lands on a half-pixel and goes
+   blurry. It is also the step icon sets and line-heights
+   already use, so components stack without gaps appearing.
+
+   WHY IT STOPS AT 32 (128px)
+   Above this, distance is a layout decision. The four layout
+   distances that change with screen width — the grid gutter,
+   the page gutter and the two section gaps — live in
+   styles/03-grid.css, beside the media queries that change
+   them. They pick steps from this scale.
+
+   NOTHING HERE CHANGES AT A BREAKPOINT. 4px is 4px on a phone.
+   ============================================================ */
+
+:root {
+
+  /* --- MICRO — 0 to 8px ------------------------------------
+     Distances you feel rather than see. Gaps inside a single
+     control: icon to its label, a chip's breathing room.      */
+  --space-0:    0;      /* deliberately none — collapse a gap  */
+  --space-0-5:  2px;    /* hairline nudge, optical correction  */
+  --space-1:    4px;    /* icon -> label, tightest real gap    */
+  --space-2:    8px;    /* label -> input, chip padding        */
+
+  /* --- COMPONENT — 12 to 24px ------------------------------
+     Distances inside and immediately around a component. The
+     working range: most of the app is built from these four.  */
+  --space-3:   12px;    /* button padding, list item -> item   */
+  --space-4:   16px;    /* THE DEFAULT. Card padding, field gap */
+  --space-5:   20px;    /* card padding when 16 feels cramped  */
+  --space-6:   24px;    /* grid gutter, generous card padding  */
+
+  /* --- GROUP — 32 to 48px ----------------------------------
+     Distance between related blocks that still read as one
+     idea: a form's sections, a heading and the cards under it. */
+  --space-8:   32px;    /* form section -> section             */
+  --space-10:  40px;    /* heading block -> content below it   */
+  --space-12:  48px;    /* card grid row -> row                */
+
+  /* --- SECTION — 64 to 96px --------------------------------
+     Distance between the big bands of a page. This is the gap
+     that tells a reader "new topic starts here".              */
+  --space-16:  64px;    /* section -> section on a dense page  */
+  --space-20:  80px;    /* section -> section, comfortable     */
+  --space-24:  96px;    /* THE PAGE RHYTHM. Marketing sections */
+
+  /* --- PAGE — 128px ----------------------------------------
+     The one deliberately huge gap. Use it sparingly: above a
+     footer, around a single quiet statement.                  */
+  --space-32: 128px;
+
+  /* --- WHAT IS NOT HERE, AND WHY --------------------------
+     No 28, 36, 56, 72. Sixteen steps is already more than any
+     one screen needs, and every extra rung is another argument
+     about which one is right. If a design asks for 28px, the
+     answer is 24 or 32 — pick one and the page gets more
+     consistent, not less correct.
+
+     No 6px and no 10px. They read as "8, slightly off" rather
+     than as their own distance, and they break the whole-pixel
+     promise at 150% zoom.                                     */
+}

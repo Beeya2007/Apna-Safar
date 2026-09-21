@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# SEASON MIX — the app's display font, but a TRIAL licence.
+# Licensed for evaluation only; publishing the files would
+# redistribute them, which the licence forbids. The app falls
+# back to Georgia wherever they are missing.
+# Buy a web licence from Sunday Fonts, then delete this line.
+/public/fonts/seasonmix-*.otf
+
+*storybook.log
+storybook-static

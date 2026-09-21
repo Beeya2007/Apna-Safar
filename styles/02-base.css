@@ -1,0 +1,63 @@
+/* ============================================================
+   BASE STYLES — SENSIBLE DEFAULTS
+   ------------------------------------------------------------
+   How plain HTML looks before any of our own styling.
+   You will rarely need to edit this file.
+   ============================================================ */
+
+/* Make width calculations include padding and borders.
+   Without this, adding padding makes boxes overflow. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Remove the browser's built-in page margin */
+body, h1, h2, h3, h4, p, figure, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings use the display serif. The script font is never a
+   default — you opt into it with a class, one accent word at a
+   time. */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h4 { font-family: var(--font-body); font-weight: var(--weight-bold); }
+
+/* Images never spill outside their container */
+img, video { max-width: 100%; display: block; }
+
+/* Links use the brand colour and only underline on hover */
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Buttons and inputs inherit the page font instead of the browser's */
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+
+/* Visible outline when navigating by keyboard (accessibility) */
+:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+
+/* ---- SHARED LAYOUT HELPER --------------------------------
+   `.page-container` centres content and keeps it off the
+   screen edges. Used on almost every section.               */
+.page-container {
+  width: 100%;
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+@media (max-width: 640px) {
+  .page-container { padding-inline: var(--space-md); }
+}

@@ -1,0 +1,51 @@
+/* ============================================================
+   INPUT COMPONENT — text fields and the message box
+   ------------------------------------------------------------
+   The kraft-paper field from the postcard. Matches the Inputs
+   section of the design system page: /design-system/index.html
+   ============================================================ */
+
+/* Shared by the one-line field and the big message box */
+.input,
+.textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  background: var(--color-paper-dark);
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  padding: var(--space-md);
+  width: 100%;
+}
+
+.input::placeholder,
+.textarea::placeholder { color: var(--color-placeholder); }
+
+/* The big "Tell us about your trip" box */
+.textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* A field the visitor got wrong */
+.input--error { border-color: var(--color-error); }
+
+/* ---- HELPER TEXT — the small line under a field ----------- */
+
+.field-note {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+}
+
+.field-note--error { color: var(--color-error); }
+
+/* ---- LABEL ------------------------------------------------- */
+
+.field-label {
+  display: block;
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-xs);
+}

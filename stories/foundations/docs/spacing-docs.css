@@ -1,0 +1,117 @@
+/* ============================================================
+   SPACING DOCS CHROME
+   ------------------------------------------------------------
+   Styles for the Spacing foundation page. Every gap below is a
+   step from the scale — the docs are its first consumer, so if
+   a value is wrong this page shows it rather than hiding it.
+   ============================================================ */
+
+/* ---- ON THIS PAGE — the jump index ------------------------
+   A rail parked to the right of the docs column. It is hidden
+   below 1400px, where there is no longer room beside the text
+   and a floating panel would sit on top of it. */
+.sp-nav {
+  position: fixed;
+  top: var(--space-16);
+  right: var(--space-6);
+  width: 190px;
+  z-index: 2;
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--color-border-weak);
+}
+.sp-nav__title {
+  margin: 0 0 var(--space-2);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-content-tertiary);
+}
+.sp-nav__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-1); }
+.sp-nav__link {
+  display: block;
+  padding: var(--space-0-5) 0;
+  font-size: 12px;
+  line-height: 1.35;
+  text-decoration: none;
+  color: var(--color-content-secondary);
+}
+.sp-nav__link:hover { color: var(--color-content-link); }
+.sp-nav__link.is-active { color: var(--color-content-primary); font-weight: 600; }
+.sp-nav__link:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+
+@media (max-width: 1400px) { .sp-nav { display: none; } }
+
+/* ---- THE SCALE, AS BARS ------------------------------------- */
+.sp-scale { display: grid; gap: var(--space-2); margin: var(--space-4) 0 var(--space-8); }
+.sp-scale__row {
+  display: grid;
+  grid-template-columns: 110px 54px 46px minmax(120px, 1fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: var(--space-3);
+}
+.sp-scale__name { font-size: 11px; font-weight: 600; }
+.sp-scale__px   { font-size: 11px; color: var(--color-content-primary); }
+.sp-scale__mult { font-size: 10px; color: var(--color-content-tertiary); }
+.sp-scale__track { background: var(--color-surface-sunken); border-radius: 2px; height: 12px; }
+.sp-scale__bar {
+  height: 12px;
+  background: var(--color-primary-600);
+  border-radius: 2px;
+  min-width: 1px;
+}
+.sp-scale__use { font-size: 11px; color: var(--color-content-secondary); }
+
+@media (max-width: 800px) {
+  .sp-scale__row { grid-template-columns: 96px 48px minmax(0, 1fr); }
+  .sp-scale__mult, .sp-scale__use { display: none; }
+}
+
+/* ---- THE MEASURED LINE -------------------------------------
+   Reads live, so it is the one thing on the page that proves
+   the matrix beneath it is true. */
+.sp-bp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-4) 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-primary-600);
+  background: var(--color-surface-subtle);
+  font-size: 12px;
+  color: var(--color-content-secondary);
+}
+.sp-bp__now { color: var(--color-content-primary); }
+.sp-bp__w   { color: var(--color-content-tertiary); }
+.sp-bp__item code { color: var(--color-content-primary); }
+
+/* ---- HIERARCHY LADDER ---------------------------------------
+   The gap column is drawn at its real height, so the jump from
+   one level to the next is visible rather than asserted. */
+.sp-hier { display: grid; gap: var(--space-2); margin: var(--space-4) 0 var(--space-8); }
+.sp-hier__row {
+  display: grid;
+  grid-template-columns: 96px 72px minmax(80px, 140px) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-1);
+}
+.sp-hier__name  { font-size: 12px; font-weight: 600; }
+.sp-hier__range { font-size: 11px; color: var(--color-content-tertiary); }
+.sp-hier__gap {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-primary-200) 0 4px,
+    var(--color-primary-100) 4px 8px
+  );
+  border-radius: 3px;
+}
+.sp-hier__use { font-size: 11px; color: var(--color-content-secondary); }
+
+/* ---- OPTICAL ------------------------------------------------ */
+.sp-opt__pair { display: inline-flex; align-items: center; gap: var(--space-1); font-size: 13px; }
+.sp-opt__pair--round { gap: var(--space-2); }
+.sp-opt__pair--tight { gap: var(--space-0-5); }
+.sp-opt__pair--round.sp-opt__pair--tight { gap: 6px; }
+.sp-opt__mark { color: var(--color-primary-600); }

@@ -1,0 +1,119 @@
+/* ============================================================
+   LAYOUT — container, grid and section rhythm
+   ------------------------------------------------------------
+   These are the bones every page is built on. Three ideas:
+
+     .container  keeps content centred and off the screen edges
+     .grid       splits a row into 12 columns
+     .section    the vertical breathing room between bands
+
+   Nothing here has a colour. Layout decides WHERE things sit,
+   never what they look like.
+
+   THE FOUR LAYOUT DISTANCES live at the top of this file rather
+   than in the tokens file, because they are the only spacing in
+   the whole system that changes with screen width — and the
+   media queries that change them need to sit beside the rules
+   they affect. Each one picks a step from the spacing scale in
+   styles/design-system/07-spacing-primitives.css.
+
+   Live reference: Storybook -> Foundations -> Spacing
+   ============================================================ */
+
+:root {
+  --grid-gutter:       var(--space-6);   /* 24px, column to column */
+  --container-gutter:  var(--space-6);   /* 24px, screen edge to content */
+  --section-gap:       var(--space-24);  /* 96px, band to band */
+  --section-gap-loose: var(--space-32);  /* 128px, quiet marketing bands */
+}
+
+/* TABLET — only the tallest gaps come down. */
+@media (max-width: 1024px) {
+  :root {
+    --section-gap:       var(--space-20);  /* 96 -> 80 */
+    --section-gap-loose: var(--space-24);  /* 128 -> 96 */
+  }
+}
+
+/* PHONE — the gutters tighten and the bands close up. Nothing
+   INSIDE a component changes: a 4px icon gap looks the same on
+   every screen, and shrinking button padding only makes it
+   harder to tap. */
+@media (max-width: 640px) {
+  :root {
+    --grid-gutter:       var(--space-4);   /* 24 -> 16 */
+    --container-gutter:  var(--space-4);   /* 24 -> 16 */
+    --section-gap:       var(--space-16);  /* 96 -> 64 */
+    --section-gap-loose: var(--space-20);  /* 128 -> 80 */
+  }
+}
+
+/* ---- CONTAINER — centres the content area ------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+/* For full-bleed bands and hero artwork that should run wider */
+.container--wide { max-width: var(--width-wide); }
+
+/* For a single column of readable prose */
+.container--text { max-width: var(--width-text); }
+
+/* ---- GRID — 12 columns ------------------------------------
+   Put .grid on a row, then tell each child how many of the 12
+   columns to span with .col-4, .col-6 and so on.             */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+}
+
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }   /* a quarter */
+.col-4  { grid-column: span 4; }   /* a third   */
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }   /* a half    */
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }   /* two thirds */
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }  /* full width */
+
+/* Push a column to the right by starting it further along.
+   Useful for the offset text block in "How are we..".        */
+.start-2 { grid-column-start: 2; }
+.start-3 { grid-column-start: 3; }
+.start-4 { grid-column-start: 4; }
+.start-7 { grid-column-start: 7; }
+
+/* ---- SECTION — vertical rhythm between bands --------------- */
+
+.section-band        { padding-block: var(--section-gap); }
+.section-band--loose { padding-block: var(--section-gap-loose); }
+
+/* ---- RESPONSIVE -------------------------------------------
+   The rules live directly under the thing they change, not
+   collected at the bottom of the file.
+
+   TABLET — twelve columns is too many to be useful, so
+   anything narrower than a half becomes a half.              */
+@media (max-width: 1024px) {
+  .col-1, .col-2, .col-3, .col-4, .col-5 { grid-column: span 6; }
+  .start-2, .start-3, .start-4, .start-7 { grid-column-start: auto; }
+}
+
+/* PHONE — one thing per row, always. The gaps already shrank
+   in the media query at the top of this file.               */
+@media (max-width: 640px) {
+  .col-1, .col-2, .col-3,  .col-4,  .col-5,  .col-6,
+  .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    grid-column: span 12;
+  }
+}

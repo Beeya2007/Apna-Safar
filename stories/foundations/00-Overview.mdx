@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Overview" />
+
+# ApnaSafar Design System
+
+<div className="lede">
+The shared language for how ApnaSafar looks and behaves — colour, type,
+space, and the components built from them. One source of truth for Figma,
+for this codebase, and for anyone joining either.
+</div>
+
+## Foundations
+
+| | Page | Status |
+|---|---|---|
+| 1 | **Color** | Complete |
+| 2 | **Typography** | Complete |
+| 3 | **Spacing** | Complete |
+| 4 | Elevation &amp; Shadow | Not started |
+| 5 | Motion | Not started |
+| 6 | Iconography | Not started |
+
+## Every foundation page follows this shape
+
+So that finding something on the Typography page takes the same moves as
+finding it on Color:
+
+```text
+ 1. Architecture      how the layers relate
+ 2. Primitives        the raw generated scale
+ 3. Semantic tokens   named by job, not by value
+ 4. Modifiers         alpha / weight / ratio — whatever varies
+ 5. States            how it behaves when interacted with
+ 6. Light theme       resolved values
+ 7. Dark theme        resolved values, and where they deliberately differ
+ 8. Accessibility     a computed table, never hand-typed claims
+ 9. Usage guidelines  Do / Don't, then a per-category rule table
+10. Naming            the Figma ↔ CSS mapping
+11. Files             what is on disk and what generates it
+```
+
+## The rule that holds it together
+
+```text
+PRIMITIVE  →  SEMANTIC  →  COMPONENT
+```
+
+Components read semantic tokens only. They never reach past that layer to a
+primitive. This single constraint is what makes theming, rebranding and
+accessibility fixes possible without touching component code.
+
+## Non-negotiables
+
+- **Nothing is hand-transcribed.** Scales are generated; the docs read the
+  generated output. A value cannot change without its documentation changing.
+- **Accessibility is computed, not claimed.** Contrast tables come from a
+  script run against the real tokens.
+- **Failures are named, not quietly adjusted.** If something does not meet
+  the bar, the page says so and says why.

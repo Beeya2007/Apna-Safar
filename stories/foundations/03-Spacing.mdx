@@ -1,0 +1,154 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ScaleRuler, LiveLayout } from './docs/Spacing';
+import { Hierarchy, Optical } from './docs/SpacingDemos';
+import { PageNav } from './docs/PageNav';
+import { DoDont, Do, Dont } from './docs/Guidance';
+
+<Meta title="Foundations/Spacing" />
+
+<PageNav />
+
+# Spacing
+
+<div className="lede">
+One scale. Fifteen distances, all multiples of 4px, and every gap in the
+product is one of them. There is no second spacing vocabulary to learn — a
+card asks for <code>var(--space-4)</code>, not for a padding token that
+points at it.
+</div>
+
+---
+
+## 1. The Scale
+
+<ScaleRuler />
+
+Numbers are read from the browser at render time, so this table cannot drift
+from the CSS.
+
+---
+
+## 2. How It Works
+
+**The number in the name is the multiplier, on a 4px base unit.**
+`--space-6` is 6 × 4px = 24px. Halve the number, halve the distance.
+
+Numbers rather than t-shirt sizes, because *"is 10 bigger than 6"* has an
+obvious answer and *"is xl bigger than 2xl"* does not.
+
+**Why 4px.** Every distance stays a whole pixel at 100%, 150% and 200% browser
+zoom, so nothing lands on a half pixel and goes soft.
+
+**Why it stops at 128.** Above that, distance is a layout decision — see §4.
+
+### What is deliberately missing
+
+| Not in the scale | Because |
+|---|---|
+| 6px, 10px | They read as "8, slightly off" rather than as their own distance. |
+| 28px, 36px, 56px, 72px | Fifteen steps is already more than one screen needs, and nobody can see the difference. |
+
+If a design asks for 30px, the answer is 24 or 32. Picking one makes the page
+more consistent, not less correct.
+
+---
+
+## 3. Choosing a Value
+
+Pick the level first, then the step. Every level is at least **1.5× the one
+above it** — that jump is what makes grouping visible without a reader having
+to think about it.
+
+<Hierarchy />
+
+If two levels look similar on screen, one of them is wrong. Move a level;
+never invent a value between them.
+
+---
+
+## 4. Responsive
+
+**Big gaps shrink. Small gaps never do.**
+
+Only four distances change with screen width, and they all live in
+`styles/03-grid.css` beside the media queries that change them.
+
+| | Desktop | Tablet | Mobile |
+|---|---|---|---|
+| `--container-gutter` | 24px | 24px | 16px |
+| `--grid-gutter` | 24px | 24px | 16px |
+| `--section-gap` | 96px | 80px | 64px |
+| `--section-gap-loose` | 128px | 96px | 80px |
+
+<LiveLayout />
+
+Those figures are read from the browser as you resize, so the table above them
+cannot quietly go stale.
+
+Scaling every value down by the same percentage is the usual mistake: it makes
+buttons harder to hit while saving almost no scrolling. A 96px band gap costs
+a quarter of a phone viewport; a 4px icon gap costs nothing.
+
+**No component file should contain a media query that changes a gap.**
+
+---
+
+## 5. Optical Adjustment
+
+Maths gets you close; the eye is the judge. `--space-0-5` exists for this.
+
+**Icons** carry padding inside their own artwork, so a 4px gap reads as 6px:
+
+<Optical kind="icon" />
+
+**Circles** touch their box at one point only, so they read further away than a
+square at the same distance:
+
+<Optical kind="circle" />
+
+A nudge is **one step on the scale, or 2px — never a new number**, it applies
+to one specific pairing, and it gets a comment saying why. If you are nudging
+the same thing in five files, the scale step is wrong — fix that instead.
+
+---
+
+## 6. Accessibility
+
+| Requirement | How spacing meets it |
+|---|---|
+| Touch target (2.5.5) | 44 × 44px minimum, padding included. |
+| Focus visible (2.4.7) | Rings draw outside the element, so two focusable things stay at least 8px apart — 4px makes the rings collide. |
+| Text spacing (1.4.12) | Padding that hugs a string is written in `em`, so the box grows with enlarged text instead of clipping it. |
+| Reflow (1.4.10) | At 400% zoom the layout holds in one column. Gutters shrink first; padding inside a component shrinks last. |
+
+**The 8px floor between controls is an accessibility rule, not an aesthetic
+one.**
+
+---
+
+## 7. Usage
+
+<DoDont>
+  <Do title="Use a step from the scale. padding: var(--space-4)." />
+  <Dont title="Don't type a pixel value. padding: 15px is off the scale and nobody knows why it is 15." />
+  <Do title="Set gap on the parent of a stack or grid." />
+  <Dont title="Don't put margin-bottom on every child. The last one is always wrong." />
+  <Do title="Give all four sides of a card the same padding." />
+  <Dont title="Don't write padding: 16px 20px 12px 16px. It reads as broken." />
+  <Do title="Pick 24 or 32 when a design asks for 28." />
+  <Dont title="Don't add a step to the scale. Fifteen is already generous." />
+  <Do title="Keep 8px between any two focusable controls." />
+  <Dont title="Don't tighten controls to 4px — the focus rings collide." />
+</DoDont>
+
+---
+
+## 8. Files
+
+| File | What is in it |
+|---|---|
+| `styles/design-system/07-spacing-primitives.css` | The scale. Fifteen values, nothing else. |
+| `styles/03-grid.css` | The four layout distances and their breakpoints. |
+| `styles/01-design-tokens.css` | The old `--space-xs…4xl` names, now aliases onto the scale. |
+
+Figma variables use the same path with a slash: `spacing/4` ↔ `--space-4`.

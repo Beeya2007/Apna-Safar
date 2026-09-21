@@ -1,0 +1,139 @@
+/* ============================================================
+   SEMANTIC TYPOGRAPHY  —  the styles components actually use
+   ------------------------------------------------------------
+   Each class bundles family + size + weight + line height +
+   tracking into one decision. A component asks for "body
+   medium", not for five separate values it might get wrong.
+
+        primitive        semantic         component
+        font-size-xs  →  .type-body-m  →  button label
+
+   Only the DISPLAY range is fluid. Body text stays fixed,
+   because a paragraph that grows with the viewport is harder
+   to read, not easier — and the person may already have set a
+   text size they want respected.
+   ============================================================ */
+
+/* ---- DISPLAY — the bracketed hero lines --------------------
+   Serif, light, tight. Fluid between mobile and desktop.     */
+.type-display-xl,
+.type-display-l,
+.type-display-m {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+.type-display-xl { font-size: clamp(2.5rem, 1.2rem + 6.5vw, 4.5rem); }  /* 40 -> 72 */
+.type-display-l  { font-size: clamp(2.0rem, 1.1rem + 4.5vw, 3.75rem); } /* 32 -> 60 */
+.type-display-m  { font-size: clamp(1.75rem, 1.1rem + 3.2vw, 3rem); }   /* 28 -> 48 */
+
+/* ---- HEADING — section titles -------------------------------
+   Serif. Regular weight, because the display face is already
+   high-contrast and bolding it turns headings into shouting.  */
+.type-heading-xl,
+.type-heading-l,
+.type-heading-m,
+.type-heading-s {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.type-heading-xl { font-size: var(--font-size-2xl); }  /* 40 */
+.type-heading-l  { font-size: var(--font-size-xl); }   /* 32 */
+.type-heading-m  { font-size: var(--font-size-lg); }   /* 24 */
+.type-heading-s  { font-size: var(--font-size-md); }   /* 20 */
+
+/* ---- TITLE — card and panel headings ------------------------
+   The switch to the body family happens HERE. Titles sit close
+   to the content they label, where a serif would compete.     */
+.type-title-l,
+.type-title-m,
+.type-title-s {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.type-title-l { font-size: var(--font-size-md); }   /* 20 */
+.type-title-m { font-size: var(--font-size-sm); }   /* 18 */
+.type-title-s { font-size: var(--font-size-xs); }   /* 16 */
+
+/* ---- BODY — everything a person reads at length ------------- */
+.type-body-l,
+.type-body-m,
+.type-body-s {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  max-width: var(--measure);
+}
+.type-body-l { font-size: var(--font-size-sm); }   /* 18 */
+.type-body-m { font-size: var(--font-size-xs); }   /* 16 — the default */
+.type-body-s { font-size: var(--font-size-2xs); }  /* 14 */
+
+/* Long-form reading — articles, destination guides */
+.type-body-m--relaxed { line-height: var(--line-height-relaxed); }
+
+/* ---- LABEL — buttons, fields, chips, tabs -------------------
+   Medium weight so a label reads as interactive furniture
+   rather than as prose. Never wraps to a second line.         */
+.type-label-l,
+.type-label-m,
+.type-label-s {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-wide);
+}
+.type-label-l { font-size: var(--font-size-xs); }   /* 16 */
+.type-label-m { font-size: var(--font-size-2xs); }  /* 14 */
+.type-label-s { font-size: var(--font-size-3xs); }  /* 12 */
+
+/* ---- CAPTION — helper text, timestamps, image credits ------- */
+.type-caption {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-3xs);       /* 12 */
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  max-width: var(--measure-narrow);
+}
+
+/* ---- OVERLINE — the "( 01 )" eyebrow above a section --------
+   The only uppercase style in the system. Uppercase needs real
+   tracking or the letters jam together.                       */
+.type-overline {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-3xs);       /* 12 */
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+/* ---- ACCENT — the italic word, e.g. "Travel with passion" --- */
+.type-accent {
+  font-family: var(--font-family-display);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+}
+
+/* ---- NUMERIC ------------------------------------------------
+   Add to any style. Tabular figures are the same width, so
+   digits line up in a column and a changing price does not make
+   the layout jitter. See the Numeric section of the docs.     */
+.type-numeric {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Prices, PNRs, booking references — fixed width, unambiguous */
+.type-code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2xs);
+  letter-spacing: var(--letter-spacing-wide);
+  font-variant-numeric: tabular-nums;
+}

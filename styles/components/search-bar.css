@@ -1,0 +1,80 @@
+/* ============================================================
+   SEARCH BAR COMPONENT
+   ------------------------------------------------------------
+   The pill-shaped "Where / When / Who" search control.
+   Used by <SearchBar /> in components/home/SearchBar.tsx.
+   ============================================================ */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-xs);
+  max-width: 850px;
+  margin-inline: auto;
+  text-align: left;
+}
+
+/* One field inside the bar (Where, Check in, Check out, Who) */
+.search-bar__field {
+  flex: 1;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  min-width: 0;                     /* lets fields shrink without overflow */
+}
+
+.search-bar__field:hover { background: var(--color-bg-alt); }
+
+/* Thin grey line between fields */
+.search-bar__divider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+.search-bar__label {
+  display: block;
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  /* Optical: 4px looks like 6px under a small bold label, so the
+     label sits one notch closer to its input. */
+  margin-bottom: var(--space-0-5);
+}
+
+.search-bar__input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: var(--text-small);
+  color: var(--color-text);
+  outline: none;
+}
+
+.search-bar__input::placeholder { color: var(--color-text-muted); }
+
+/* Round pink search button on the far right */
+.search-bar__submit {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand);
+  color: var(--color-text-inverse);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.search-bar__submit:hover { background: var(--color-brand-hover); }
+
+@media (max-width: 780px) {
+  /* Stack the fields vertically on phones and square off the corners */
+  .search-bar { flex-direction: column; border-radius: var(--radius-lg); padding: var(--space-md); gap: var(--space-xs); }
+  .search-bar__field { width: 100%; border-radius: var(--radius-sm); background: var(--color-bg-alt); }
+  .search-bar__divider { display: none; }
+  .search-bar__submit { width: 100%; border-radius: var(--radius-sm); }
+}

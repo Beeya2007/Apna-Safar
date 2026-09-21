@@ -1,0 +1,37 @@
+/* ============================================================
+   CHIP COMPONENT — the mood pills ("Happy  Bored  Sad  Moody")
+   ------------------------------------------------------------
+   The picked chip is marked in the HTML with aria-pressed="true".
+   That one attribute does two jobs: it fills the chip in
+   visually AND tells a screen reader it is selected, so the two
+   can never drift apart.
+
+   Matches the Mood Chips section of /design-system/index.html
+   ============================================================ */
+
+.chip {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius-xs);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.chip:hover { background: var(--color-brand-wash); }
+
+/* The one the visitor has picked */
+.chip[aria-pressed="true"] {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+/* ---- CHIP ROW — a line of chips with even gaps ------------- */
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}

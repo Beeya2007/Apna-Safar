@@ -1,0 +1,85 @@
+/* ============================================================
+   LAYOUT — container, grid and section rhythm
+   ------------------------------------------------------------
+   These are the bones every page is built on. Three ideas:
+
+     .container  keeps content centred and off the screen edges
+     .grid       splits a row into 12 columns
+     .section    the vertical breathing room between bands
+
+   Nothing here has a colour. Layout decides WHERE things sit,
+   never what they look like.
+   ============================================================ */
+
+/* ---- CONTAINER — centres the content area ------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+/* For full-bleed bands and hero artwork that should run wider */
+.container--wide { max-width: var(--width-wide); }
+
+/* For a single column of readable prose */
+.container--text { max-width: var(--width-text); }
+
+/* ---- GRID — 12 columns ------------------------------------
+   Put .grid on a row, then tell each child how many of the 12
+   columns to span with .col-4, .col-6 and so on.             */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+}
+
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }   /* a quarter */
+.col-4  { grid-column: span 4; }   /* a third   */
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }   /* a half    */
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }   /* two thirds */
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }  /* full width */
+
+/* Push a column to the right by starting it further along.
+   Useful for the offset text block in "How are we..".        */
+.start-2 { grid-column-start: 2; }
+.start-3 { grid-column-start: 3; }
+.start-4 { grid-column-start: 4; }
+.start-7 { grid-column-start: 7; }
+
+/* ---- SECTION — vertical rhythm between bands --------------- */
+
+.section-band        { padding-block: var(--section-gap); }
+.section-band--loose { padding-block: var(--section-gap-loose); }
+
+/* ---- RESPONSIVE -------------------------------------------
+   The rules live directly under the thing they change, not
+   collected at the bottom of the file.
+
+   TABLET — twelve columns is too many to be useful, so
+   anything narrower than a half becomes a half.              */
+@media (max-width: 1024px) {
+  .col-1, .col-2, .col-3, .col-4, .col-5 { grid-column: span 6; }
+  .start-2, .start-3, .start-4, .start-7 { grid-column-start: auto; }
+}
+
+/* PHONE — one thing per row, always. */
+@media (max-width: 640px) {
+  .grid { gap: var(--grid-gutter-tight); }
+  .col-1, .col-2, .col-3,  .col-4,  .col-5,  .col-6,
+  .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    grid-column: span 12;
+  }
+  .container { padding-inline: var(--space-md); }
+  .section-band,
+  .section-band--loose { padding-block: var(--space-2xl); }
+}

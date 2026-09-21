@@ -1,0 +1,381 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Ramp, Swatch, SwatchGrid, TokenSwatch } from './docs/Swatch';
+import { ContrastTable, TokenTable } from './docs/Tables';
+import { DoDont, Do, Dont, StateRow, StatusBanner, Elevation } from './docs/Guidance';
+
+<Meta title="Foundations/Color" />
+
+# Color
+
+<div className="lede">
+The colour foundation for ApnaSafar. Two values are fixed points that
+everything else is built around: <code>primary-600</code> is the brand
+terracotta <code>#C2402B</code>, and <code>neutral-50</code> is the page
+cream <code>#FDF7EC</code>. Every other colour in the system was generated
+from those, in OKLCH, so the steps are perceptually even rather than
+eyeballed.
+</div>
+
+Use the **Theme** control in the toolbar above to switch between light and
+dark. Everything on this page re-renders, because everything on this page
+reads semantic tokens.
+
+---
+
+## 1. Architecture
+
+Three layers, one direction of travel. A component never reaches past the
+layer above it.
+
+```text
+PRIMITIVE          neutral-900          the raw palette, 77 colours
+     ↓
+SEMANTIC           content.primary      named by job, theme-aware
+     ↓
+COMPONENT          button.primary.content
+```
+
+Primitives are raw material. They have no opinion about where they are used
+and **components may not touch them**. Semantic tokens are the contract:
+`content.primary` means "the colour readable body text should be", and it
+resolves differently in each theme without a single component knowing.
+
+The third layer barely exists on purpose. A component token is only justified
+when a component has a genuine requirement no semantic token expresses. Most
+do not.
+
+---
+
+## 2. Primitive Colors
+
+Seven families, eleven steps each. Generated in OKLCH at fixed perceptual
+lightness targets, with chroma peaking mid-ramp and easing off at both ends
+so the palest and deepest steps stay believable.
+
+<Ramp family="primary"   note="The brand. 600 is the exact terracotta; everything else is derived from it." />
+<Ramp family="secondary" note="Indigo — the dye India traded to the world, and the cool counterweight to terracotta." />
+<Ramp family="neutral"   note="Warm paper, not grey. 50 is the cream page, 300 the kraft postcard, 950 near-black." />
+<Ramp family="success"   note="Sage. Muted enough to sit on cream without shouting." />
+<Ramp family="warning"   note="Ochre. Turmeric, not highlighter yellow." />
+<Ramp family="error"     note="Crimson, pushed 20° cooler than the brand so the two never blur." />
+<Ramp family="info"      note="Azure. Distinct from the indigo secondary; reads as neutral information." />
+
+---
+
+## 3. Semantic Colors
+
+### Content
+
+<TokenTable rows={[
+  ['color-content-primary',    'neutral-900 / neutral-100', 'Headings and body copy. The default for anything read.'],
+  ['color-content-secondary',  'neutral-700 / neutral-300', 'Captions, helper text, supporting detail.'],
+  ['color-content-tertiary',   'neutral-600 / neutral-400', 'Timestamps, counts, metadata. Still fully legible.'],
+  ['color-content-disabled',   'neutral-400 / neutral-600', 'Text in an unavailable control. Exempt from contrast rules.'],
+  ['color-content-inverse',    'neutral-50 / neutral-950',  'Text on a filled brand or inverse surface.'],
+  ['color-content-link',       'primary-700 / primary-300', 'Inline links. Never the only cue — keep the underline.'],
+  ['color-content-link-hover', 'primary-800 / primary-200', 'Link under the cursor.'],
+]} />
+
+### Surface
+
+Light theme sits on **cream, not white**. White is still in the system — it
+is the *raised* surface, so a card lifts off the page rather than blending
+into it. In dark, surfaces lift by gaining light, because shadow is invisible
+against near-black.
+
+<Elevation />
+
+<TokenTable rows={[
+  ['color-surface-default',  'neutral-50 / void #000203', 'The page itself.'],
+  ['color-surface-subtle',   'neutral-100 / neutral-950', 'Banded sections that need separating from the page.'],
+  ['color-surface-raised',   'white / neutral-900',       'Cards, popovers, anything floating above the page.'],
+  ['color-surface-sunken',   'neutral-200 / void',        'Wells and input troughs — recessed, not raised.'],
+  ['color-surface-inverse',  'neutral-900 / neutral-100', 'Footers, tooltips, deliberate contrast blocks.'],
+  ['color-surface-disabled', 'neutral-200 / neutral-900', 'The body of an unavailable control.'],
+]} />
+
+### Border
+
+Three strengths, and the difference between them matters more than it looks.
+
+<TokenTable rows={[
+  ['color-border-weak',     'alpha-base @ 8%',  'Hairlines inside a card. Decorative only.'],
+  ['color-border-medium',   'alpha-base @ 16%', 'Dividers, table rules. Decorative only.'],
+  ['color-border-strong',   'neutral-500 (solid)', 'Control boundaries. The only border that must clear 3:1.'],
+  ['color-border-focus',    'primary-600 / primary-400', 'Keyboard focus ring.'],
+  ['color-border-selected', 'primary-600 / primary-400', 'The chosen item in a set.'],
+  ['color-border-error',    'error-600 / error-400',     'Invalid field outline — always with an icon and message.'],
+  ['color-border-success',  'success-600 / success-400', 'Confirmed field outline.'],
+  ['color-border-warning',  'warning-600 / warning-400', 'Cautionary field outline.'],
+]} />
+
+**Weak and medium are alpha. Strong is solid, deliberately.** An alpha
+border's final contrast depends on whatever sits behind it, so it can never
+be guaranteed to clear a threshold. `border-strong` is the border that may be
+the *only* thing identifying a control, so it has to be a known quantity.
+`neutral-500` clears 3:1 on both the cream page and the dark page, which is
+why it is the same value in both themes.
+
+### Status
+
+Four kinds, four slots each: content, surface, border, icon.
+
+<StatusBanner kind="success">Your trip to Udaipur is confirmed.</StatusBanner>
+<StatusBanner kind="warning">Only 2 rooms left at this price.</StatusBanner>
+<StatusBanner kind="error">We could not read that date. Try DD/MM/YYYY.</StatusBanner>
+<StatusBanner kind="info">Visa on arrival is available for this route.</StatusBanner>
+
+Each banner above carries a colour, **an icon, and words**. Remove any one of
+the three and it still works. That is the test.
+
+---
+
+## 4. Alpha
+
+The brief proposed seven steps: 8 / 16 / 24 / 32 / 48 / 64 / 80.
+
+**Recommendation: five.** Nobody can reliably tell 16% from 24% on a border,
+and every extra rung is one more thing to argue about in review. These five
+each own a distinct job with no overlap:
+
+<TokenTable rows={[
+  ['alpha-hairline', '8%',  'Weak borders, hover wash.'],
+  ['alpha-weak',     '16%', 'Medium borders, pressed wash.'],
+  ['alpha-medium',   '32%', 'Disabled overlays, heavy dividers.'],
+  ['alpha-strong',   '56%', 'Modal scrim, image scrim.'],
+  ['alpha-solid',    '72%', 'Heavy scrim over busy photography.'],
+]} />
+
+Alpha is mixed from a single token, `--alpha-base`, which is `neutral-900` in
+light and `neutral-50` in dark. Flipping that one value is what makes the
+border definitions work in both themes **without being rewritten** — the
+three border lines are byte-identical in the light and dark files.
+
+**When to use alpha, and when not to.** Use it where the token must sit over
+unknown content: borders, hover washes, scrims. Do not use it where the token
+has a contrast obligation — those must be solid, because alpha makes the
+outcome depend on the backdrop.
+
+---
+
+## 5. Interaction States
+
+<StateRow variant="primary" />
+<StateRow variant="secondary" />
+
+States are **washes laid over the base colour**, not replacement colours. One
+`state.hover` token works on every variant, which means there is no per-variant
+hover colour to keep in sync — and no chance of the secondary button's hover
+drifting away from the primary's.
+
+<TokenTable rows={[
+  ['color-state-hover',      'alpha-base @ 8%',   'Cursor over an interactive thing.'],
+  ['color-state-pressed',    'alpha-base @ 16%',  'Mouse or finger held down.'],
+  ['color-state-selected',   'primary-600 @ 12%', 'Persistent chosen state, not a transient one.'],
+  ['color-state-focus-ring', 'primary-600 / primary-400', 'Keyboard focus. 3px, 2px offset, never removed.'],
+]} />
+
+| State | Background | Content | Border | Icon | Overlay |
+|---|---|---|---|---|---|
+| Default | base | content.primary | border.strong | content.secondary | — |
+| Hover | base | unchanged | unchanged | unchanged | state.hover |
+| Pressed | base | unchanged | unchanged | unchanged | state.pressed |
+| Focus | unchanged | unchanged | unchanged | unchanged | — (3px ring outside) |
+| Selected | base | unchanged | border.selected | content.link | state.selected |
+| Disabled | surface.disabled | content.disabled | transparent | content.disabled | — |
+| Loading | base | content.inverse | unchanged | spinner | — |
+| Error | base | unchanged | border.error | status.error.icon | — |
+| Success | base | unchanged | border.success | status.success.icon | — |
+
+Focus deserves a note. `:focus-visible` gets the ring; plain `:focus` does
+not, so a mouse user clicking a button does not get a ring they did not ask
+for while a keyboard user always does. The ring is never removed for looks.
+
+---
+
+## 6. Light Theme
+
+Page is cream `#FDF7EC`. This departs from the usual `#FFFFFF` default, and
+the reason is that the entire brand — the postcard, the kraft panels, the
+line-art illustrations — is built on warm paper. White would throw that away.
+White earns its keep as `surface.raised` instead.
+
+<SwatchGrid>
+  <TokenSwatch token="color-surface-default" note="The cream page" />
+  <TokenSwatch token="color-surface-subtle"  note="Banded sections" />
+  <TokenSwatch token="color-surface-raised"  note="Cards — white, lifting off cream" />
+  <TokenSwatch token="color-surface-sunken"  note="Input wells" />
+  <TokenSwatch token="color-content-primary" note="Body text" />
+  <TokenSwatch token="color-content-secondary" note="Captions" />
+  <TokenSwatch token="color-border-strong"  note="Control boundaries" />
+  <TokenSwatch token="color-state-focus-ring" note="Focus ring" />
+</SwatchGrid>
+
+---
+
+## 7. Dark Theme
+
+Page is void `#000203`. **This is not an inversion.** Three things are done
+differently on purpose:
+
+1. **Content never goes pure white.** `#FFFFFF` on near-black vibrates and
+   tires the eye over a long booking flow. The top step is `neutral-100`.
+2. **Elevation still lifts toward light.** Surfaces rise by gaining
+   luminance, because a drop shadow is invisible against near-black.
+3. **Colour steps move the other way.** A 600 that reads well on cream is far
+   too dark on near-black, so brand and status colours shift to their 300–400
+   steps where the same hue carries enough luminance.
+
+Switch the toolbar to **Dark** to see the swatches below re-resolve.
+
+<SwatchGrid>
+  <TokenSwatch token="color-surface-default" note="The void page" />
+  <TokenSwatch token="color-surface-subtle"  note="Banded sections" />
+  <TokenSwatch token="color-surface-raised"  note="Cards — lighter, not shadowed" />
+  <TokenSwatch token="color-content-primary" note="Body text — neutral-100, not white" />
+  <TokenSwatch token="color-content-link"    note="Links lift to primary-300" />
+  <TokenSwatch token="color-status-error-content" note="Error text lifts to error-200" />
+  <TokenSwatch token="color-border-strong"  note="Same neutral-500 as light" />
+  <TokenSwatch token="color-state-focus-ring" note="Focus ring lifts to primary-400" />
+</SwatchGrid>
+
+---
+
+## 8. Overlay
+
+<TokenTable rows={[
+  ['color-overlay-scrim',    'neutral-950 @ 56% / void @ 72%', 'Dimming the page behind any layer.'],
+  ['color-overlay-modal',    'neutral-950 @ 56% / void @ 72%', 'Behind a dialog. Same value as scrim by design.'],
+  ['color-overlay-dropdown', 'transparent',                    'Dropdowns use a shadow and a border, never a wash.'],
+  ['color-overlay-light',    'white @ 56% / neutral-100 @ 32%','Lightening a dark photograph.'],
+  ['color-overlay-image',    'gradient to transparent',        'Bottom-up scrim so captions stay readable on photos.'],
+]} />
+
+**Scrims go heavier in dark.** A 56% wash that convincingly dims a cream page
+barely registers against near-black, so dark uses 72%. Overlay opacity is a
+function of the surface underneath, not a constant.
+
+---
+
+## 9. Gradients
+
+Four, all built from steps that already exist in the ramps. No gradient
+introduces a new colour.
+
+<SwatchGrid>
+  <div className="sw"><div className="sw__chip sw__chip--big" style={{ background: 'var(--gradient-brand)' }} /><div className="sw__meta"><code className="sw__name">--gradient-brand</code><span className="sw__note">primary-600 → 800. Hero panels, CTA fills.</span></div></div>
+  <div className="sw"><div className="sw__chip sw__chip--big" style={{ background: 'var(--gradient-sunset)' }} /><div className="sw__meta"><code className="sw__name">--gradient-sunset</code><span className="sw__note">primary-500 → warning-500. Decorative only.</span></div></div>
+  <div className="sw"><div className="sw__chip sw__chip--big" style={{ background: 'var(--gradient-surface)' }} /><div className="sw__meta"><code className="sw__name">--gradient-surface</code><span className="sw__note">neutral-50 → 100. Subtle section lift.</span></div></div>
+  <div className="sw"><div className="sw__chip sw__chip--big" style={{ background: 'var(--color-neutral-300)' }} /><div className="sw__meta"><code className="sw__name">--gradient-scrim</code><span className="sw__note">Transparent → dark. Over photography only.</span></div></div>
+</SwatchGrid>
+
+**The gradient accessibility rule:** text on a gradient must clear 4.5:1
+against the *lightest* point of that gradient, not the average. If it only
+passes against the dark end, it fails wherever the gradient is pale. In
+practice this means body text does not sit on `--gradient-sunset` at all.
+
+---
+
+## 10. Accessibility
+
+Target is **WCAG 2.2 AA**. Every pairing below is computed from the actual
+token values by a script, not typed in by hand, so this table cannot claim a
+ratio the system does not really have.
+
+### Light theme
+
+<ContrastTable theme="light" />
+
+### Dark theme
+
+<ContrastTable theme="dark" />
+
+### What is exempt, and why
+
+`content.disabled` and the weak and medium borders do not meet 3:1, and that
+is correct rather than an oversight. WCAG exempts disabled controls, and
+1.4.11 covers visual information *required to identify* a control — a
+decorative divider is not that. The rule that keeps this honest:
+
+> If a border is the only thing telling you a control is there,
+> it must be `border-strong`.
+
+### Never colour alone
+
+<DoDont>
+  <Do title="Colour, an icon, and words. Any one of the three could be removed and the message survives.">
+    <StatusBanner kind="error">Pick a check-out date.</StatusBanner>
+  </Do>
+  <Dont title="A red outline with nothing else. Invisible to a colour-blind traveller — and your brand is already red.">
+    <div style={{ border: '2px solid var(--color-border-error)', borderRadius: 6, padding: '9px 11px', fontSize: 13, background: 'var(--color-surface-raised)' }}>32 Novembr</div>
+  </Dont>
+</DoDont>
+
+This matters more here than in most products, because roughly 1 in 12 men has
+some form of red–green colour blindness, and **your brand colour and your
+error colour are both reds**. Pair colour with an icon, a label, a pattern, or
+a position change — never ship colour as the only signal.
+
+---
+
+## 11. Usage Guidelines
+
+<DoDont>
+  <Do title="Use semantic tokens in components. color-content-primary works in both themes with no extra code." />
+  <Dont title="Never use a primitive in a component. color-neutral-900 is invisible on the dark page." />
+  <Do title="Use border-strong for anything a person can interact with." />
+  <Dont title="Don't use border-weak as a control boundary. At 1.15:1 it is decoration, not an edge." />
+  <Do title="Let state washes sit over the base colour so one token covers every variant." />
+  <Dont title="Don't invent a new hover colour per component. That is how six slightly different greys happen." />
+  <Do title="Pair every status colour with an icon and words." />
+  <Dont title="Don't signal error, success or selection with colour alone." />
+</DoDont>
+
+### Per-category rules
+
+| Token family | Use for | Do NOT use for |
+|---|---|---|
+| `content.*` | Anything a person reads | Decorative fills, borders, icon backgrounds |
+| `surface.*` | Backgrounds of pages, cards, wells | Text or icon colour |
+| `border.weak` / `medium` | Dividers, hairlines, table rules | The edge of any interactive control |
+| `border.strong` | Control boundaries, input outlines | Decorative separators — too heavy |
+| `status.*` | Feedback about something that happened | Brand decoration or general emphasis |
+| `primary.*` | The brand, primary actions, links | Error states — it is too close to the error red |
+| `alpha.*` | Washes over unknown content | Anything with a contrast obligation |
+
+---
+
+## 12. Token Naming
+
+Flat, dot-separated, and identical in Figma Variables and in CSS. The CSS
+custom property is the dotted name with hyphens.
+
+```text
+Figma                       CSS
+color.primary.600       →   --color-primary-600
+color.content.primary   →   --color-content-primary
+color.surface.raised    →   --color-surface-raised
+color.border.strong     →   --color-border-strong
+color.status.error.icon →   --color-status-error-icon
+```
+
+Theme-specific values are never new token *names*. Light and dark define the
+same names with different values, which is exactly why a component written
+once works in both.
+
+---
+
+## 13. Files
+
+```text
+styles/design-system/
+├── 01-color-primitives.css      77 colours, 7 families
+├── 02-color-semantic-light.css  the cream theme
+├── 03-color-semantic-dark.css   the void theme
+├── ramps.json                   generated palette, read by these docs
+└── a11y.json                    generated contrast audit, read by §10
+```
+
+The two JSON files are build output from the OKLCH generator. The docs read
+them directly, so **a colour cannot change without this page changing with
+it**. Nothing on this page is hand-transcribed.

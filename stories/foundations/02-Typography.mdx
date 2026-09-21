@@ -1,0 +1,420 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Specimen, ScaleBars, WeightRow } from './docs/Type';
+import { GroupingTable, TabularDemo, CodeSample } from './docs/Numeric';
+import { BehaviorDemo, TextSpacingTest } from './docs/Behavior';
+import { TokenTable } from './docs/Tables';
+import { DoDont, Do, Dont } from './docs/Guidance';
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+<div className="lede">
+Two families, eleven sizes, five weights, eighteen semantic styles. Every
+size is in <code>rem</code> rather than pixels, so a person who has set their
+browser text larger actually gets larger text. The numbers beside each
+specimen below are read back from the browser at render time, not typed in —
+they cannot drift from the CSS.
+</div>
+
+Switch the **Theme** control in the toolbar to check every style in dark.
+
+---
+
+## 1. Architecture
+
+```text
+PRIMITIVE      font-size-xs, font-weight-medium, line-height-normal
+     ↓
+SEMANTIC       .type-body-m
+     ↓
+COMPONENT      button label, input label, table cell
+```
+
+A component asks for **one** thing — "body medium" — not five separate values
+it could get subtly wrong. Primitives are never used directly in a component.
+
+---
+
+## 2. Font Family
+
+<Specimen cls="type-display-m" token="--font-family-display"
+  sample="Your Journey. Your Way."
+  note="Season Mix. Headings and display only. Trial licence — see Color §13." />
+
+<Specimen cls="type-body-l" token="--font-family-body"
+  sample="Tell us how you want to travel — mountains, food, culture, adventure, silence."
+  note="SF Pro via the system stack. All body, labels and UI." />
+
+<Specimen cls="type-code" token="--font-family-mono"
+  sample="PNR 4X8ZQ1 · 6E-2134 · IN-RJ-UDR-0042"
+  note="System monospace. Reference codes only, never prose." />
+
+<TokenTable rows={[
+  ['font-family-display', '"Season Mix", Georgia, serif', 'Display and heading tiers. Never body copy.'],
+  ['font-family-body',    'system stack → SF Pro',        'Titles, body, labels, captions. The workhorse.'],
+  ['font-family-mono',    'system stack → SF Mono',       'Booking references, flight numbers, IDs.'],
+]} />
+
+**Why the split happens at Title.** Display and Heading are serif because
+they carry the brand. Title sits directly on top of the content it labels,
+where a second serif would compete with the copy rather than introduce it —
+so Title switches to the body family. That is the only rule you need to
+remember about family selection.
+
+**The body family is a system stack**, which means it renders as SF Pro on
+Mac and iPhone, Segoe UI on Windows, and Roboto on Android. Metrics differ
+slightly between them, so never hard-code a pixel width that assumes a
+particular font's measurements.
+
+---
+
+## 3. Font Weights
+
+Five. Anything else is drift.
+
+<WeightRow weight={300} name="light"    usage="Display 48px and up, only" />
+<WeightRow weight={400} name="regular"  usage="Body copy and headings — the default" />
+<WeightRow weight={500} name="medium"   usage="Labels, buttons, tabs, chips" />
+<WeightRow weight={600} name="semibold" usage="Titles and overlines" />
+<WeightRow weight={700} name="bold"     usage="Strongest emphasis. Use sparingly" />
+
+**The display family only ships 300, 400 and 700.** Asking it for 500 or 600
+gets you nothing, so no display or heading style does. To stop the browser
+smearing a 400 into a convincing-looking fake bold, the system sets
+`font-synthesis: none` — a missing weight now falls back visibly instead of
+rendering as a slightly wrong shape nobody can name.
+
+**Readability note:** 300 is only safe at large sizes. Light weight at 14px on
+a cream background loses too much stem contrast to stay comfortable, so the
+system never pairs it with the text range.
+
+---
+
+## 4. Font Sizes
+
+<ScaleBars />
+
+### How the scale was built
+
+A **dual-ratio** scale, because one ratio cannot serve both ends well.
+
+| Range | Ratio | Anchor | Why |
+|---|---|---|---|
+| Text (12–20px) | **1.125** | 16px | At small sizes, 14 vs 16 is a real decision. Fine steps are needed. |
+| Display (20–72px) | **1.25** | 20px | A hero must dominate, not nudge. Big steps are needed. |
+
+Shipped values are rounded to whole pixels so text renders crisply. The
+largest deviation from the pure ratio is **5.6%** (72px against a computed
+76.29), which is invisible in use and worth the clean number.
+
+Eleven sizes, and every one is used by at least two semantic styles. There
+are no single-use sizes.
+
+---
+
+## 5. Line Heights
+
+<TokenTable rows={[
+  ['line-height-tight',   '1.05', 'Display, 48px and above.'],
+  ['line-height-snug',    '1.20', 'Headings and titles, 20–40px.'],
+  ['line-height-normal',  '1.50', 'All body copy. The WCAG 1.4.12 floor.'],
+  ['line-height-relaxed', '1.70', 'Long-form reading — guides, articles.'],
+]} />
+
+Unitless values, so they scale with whatever size inherits them.
+
+**Large text needs proportionally less leading than small text.** At 72px,
+1.5 leading opens a chasm between lines and the headline stops reading as one
+thing. At 14px, 1.2 leading crowds the lines and the eye loses its place. One
+line-height for everything is always wrong at one end.
+
+---
+
+## 6. Letter Spacing
+
+<TokenTable rows={[
+  ['letter-spacing-tighter', '-0.03em', 'Display 48px and up.'],
+  ['letter-spacing-tight',   '-0.015em','Headings 24–40px.'],
+  ['letter-spacing-normal',  '0',       'All body copy. Never track body text.'],
+  ['letter-spacing-wide',    '0.02em',  'Labels and captions at 12–16px.'],
+  ['letter-spacing-wider',   '0.08em',  'UPPERCASE overlines only.'],
+]} />
+
+The rule in one line: **large text gets pulled in, small and uppercase text
+gets opened up.** Type is drawn to look right at a text size; scaled up, the
+gaps look loose, and scaled down they look cramped.
+
+Body copy is always `0`. Tracking body text is the most common way to make a
+page look designed while making it measurably harder to read.
+
+Uppercase is the exception that needs the most: capitals were never designed
+to sit beside each other, so without `0.08em` an overline reads as one long
+word.
+
+---
+
+## 7. Semantic Typography
+
+Eighteen styles across six tiers. Each bundles family, size, weight, leading
+and tracking into one decision.
+
+### Display
+
+<Specimen cls="type-display-xl" token=".type-display-xl" sample="Coming Soon" note="Fluid 40 → 72px. One per page, at most." />
+<Specimen cls="type-display-l"  token=".type-display-l"  sample="Your Journey. Your Way." note="Fluid 32 → 60px. Section heroes." />
+<Specimen cls="type-display-m"  token=".type-display-m"  sample="Why travel with Apnasafar?" note="Fluid 28 → 48px." />
+
+### Heading
+
+<Specimen cls="type-heading-xl" token=".type-heading-xl" sample="How are we" />
+<Specimen cls="type-heading-l"  token=".type-heading-l"  sample="Verified stays across India" />
+<Specimen cls="type-heading-m"  token=".type-heading-m"  sample="Curated experiences" />
+<Specimen cls="type-heading-s"  token=".type-heading-s"  sample="Seamless travel" />
+
+### Title — the family switches here
+
+<Specimen cls="type-title-l" token=".type-title-l" sample="Taj Lalit Bagh, Udaipur" />
+<Specimen cls="type-title-m" token=".type-title-m" sample="Heritage suite, garden view" />
+<Specimen cls="type-title-s" token=".type-title-s" sample="What's included" />
+
+### Body
+
+<Specimen cls="type-body-l" token=".type-body-l" sample="Set on a centuries-old estate in Udaipur, Taj Lalit Bagh blends heritage charm with modern luxury." />
+<Specimen cls="type-body-m" token=".type-body-m" sample="We connect travellers with verified local guides, reliable transport, and accurate on-the-ground information." note="The default for all prose." />
+<Specimen cls="type-body-s" token=".type-body-s" sample="Experience greater transparency with verified rooms, views, amenities and locations." />
+
+### Label, Caption, Overline, Accent
+
+<Specimen cls="type-label-l" token=".type-label-l" sample="Search your trip" />
+<Specimen cls="type-label-m" token=".type-label-m" sample="Check in" />
+<Specimen cls="type-label-s" token=".type-label-s" sample="Happy" />
+<Specimen cls="type-caption" token=".type-caption" sample="Prices include all taxes. Updated 3 hours ago." />
+<Specimen cls="type-overline" token=".type-overline" sample="( 01 ) Our promise" />
+<Specimen cls="type-accent"  token=".type-accent"  sample="passion" note="Season Mix italic. One or two words, never a sentence." />
+
+**On Title overlapping Heading.** `title-l` at 20px sits beside
+`heading-s` at 20px — same size, different family and weight. They are kept
+apart because they do different jobs: Heading introduces a *section*, Title
+labels a *thing*. If a future component audit shows nothing needs both, merge
+them. Do not add a nineteenth style before checking whether one of these
+eighteen already fits.
+
+---
+
+## 8. Numeric Typography
+
+This product shows prices, durations, distances and booking references on
+nearly every screen, so numbers get their own rules.
+
+### Indian digit grouping is not optional
+
+<GroupingTable />
+
+**`en-IN` groups by lakh and crore, not by thousand.** ₹12,34,567 is how the
+number is written and spoken in India; ₹1,234,567 is how it is written
+everywhere else. Getting this wrong makes a price look foreign on a product
+whose entire premise is local expertise.
+
+Always format with `Intl.NumberFormat('en-IN')`. Never assemble a price by
+hand with string concatenation.
+
+### Tabular figures for anything in a column
+
+<TabularDemo />
+
+Default figures are proportional — a `1` is narrower than a `0` — so a column
+of prices comes out ragged and jumps sideways when a value updates. Add
+`.type-numeric` to any style to get fixed-width digits.
+
+**Use tabular figures for:** tables, price columns, countdowns, anything that
+updates in place, and totals that must align with their line items.
+**Use default figures for:** a price inside a sentence, where fixed-width
+digits look mechanically spaced.
+
+### Reference codes
+
+<CodeSample />
+
+PNRs, flight numbers and property IDs use `.type-code`. The monospace family
+keeps `0`/`O` and `1`/`l`/`I` distinguishable — which matters when someone is
+reading a code aloud down a phone line.
+
+### Money
+
+Per the project rules, money is a **whole number of rupees** — never a string,
+never a float. `12500`, not `"12500"` and not `12500.00`. Formatting to
+`₹12,500` happens at the moment of display, never in storage.
+
+---
+
+## 9. Responsive Typography
+
+**Only the display tier scales.** Everything else is fixed.
+
+<TokenTable rows={[
+  ['type-display-xl', 'clamp(2.5rem → 4.5rem)',  'Fluid. 40px on a phone, 72px on a desktop.'],
+  ['type-display-l',  'clamp(2rem → 3.75rem)',   'Fluid. 32px → 60px.'],
+  ['type-display-m',  'clamp(1.75rem → 3rem)',   'Fluid. 28px → 48px.'],
+  ['type-heading-*',  'fixed',                   'A 32px heading is 32px everywhere.'],
+  ['type-body-*',     'fixed',                   'Never scales. See below.'],
+  ['type-label-*',    'fixed',                   'Never scales.'],
+]} />
+
+| | Mobile (≤640) | Tablet (≤1024) | Desktop |
+|---|---|---|---|
+| Display | 40 / 32 / 28px | scales fluidly | 72 / 60 / 48px |
+| Heading | unchanged | unchanged | unchanged |
+| Body | 16px | 16px | 16px |
+| Measure | full width | 65ch | 65ch |
+| Leading | unchanged | unchanged | unchanged |
+
+**Body text does not scale, and that is deliberate.** 16px is already the
+comfortable reading size on a phone; shrinking it to fit more on screen is the
+single most common accessibility mistake in mobile design. If a layout is
+tight, the layout gives way, not the text.
+
+Display scales with `clamp()` rather than breakpoints, so there is no jump at
+641px — it moves continuously and there is no width at which the hero looks
+wrong.
+
+---
+
+## 10. Text Behaviour
+
+### Truncation — one line
+<BehaviorDemo kind="truncate" />
+Only truncate text that appears in full somewhere else. Never truncate the
+only copy of something a person needs to read.
+
+### Line clamping — several lines
+<BehaviorDemo kind="clamp" />
+
+### URLs and unbroken strings
+<BehaviorDemo kind="url" />
+A URL has no spaces, so without `.wrap-url` it pushes its container wider than
+the viewport and the whole page scrolls sideways.
+
+### Things that must never break
+<BehaviorDemo kind="nowrap" />
+Prices, dates and reference codes get `.nowrap`. A price split across two
+lines is unreadable.
+
+<TokenTable rows={[
+  ['truncate',       'one line + ellipsis',  'Card titles, breadcrumbs.'],
+  ['clamp-2 / 3 / 4','n lines + ellipsis',   'Card descriptions — keeps card heights even.'],
+  ['wrap-anywhere',  'break long words',     'User-generated place names.'],
+  ['wrap-url',       'break anywhere',       'URLs, emails, long references.'],
+  ['nowrap',         'never break',          'Prices, dates, codes.'],
+  ['balance',        'even heading lines',   'Headings of 2–3 lines.'],
+  ['pretty',         'no orphan last word',  'Paragraphs.'],
+  ['sr-only',        'hidden, still read',   'The text that gives an icon meaning.'],
+]} />
+
+**Minimum readable size is 12px, and only for non-essential text** —
+timestamps, image credits, legal fine print. Anything a person must read to
+complete a booking is 14px at the absolute minimum, and 16px by default.
+
+---
+
+## 11. Accessibility
+
+### Everything is in rem
+
+The single most important decision on this page. A person who sets their
+browser text size to "large" gets larger text across the whole product,
+because no size is locked to a pixel value.
+
+### It survives the WCAG 1.4.12 spacing override
+
+<TextSpacingTest />
+
+Success criterion 1.4.12 requires that text stay readable and nothing get
+clipped when a user stylesheet forces line-height 1.5, letter-spacing 0.12em
+and word-spacing 0.16em. Body copy already ships at 1.5 leading, so the
+override barely changes it — which is the point.
+
+### Checklist
+
+| Requirement | How this system meets it |
+|---|---|
+| Resize to 200% (1.4.4) | All sizes in `rem`; layout uses `ch` and `%`, not fixed px widths. |
+| Text spacing (1.4.12) | Body at 1.5 leading; no fixed-height text containers. |
+| Minimum body size | 16px default, 14px floor for meaningful text. |
+| Line length | Capped at 65ch by `.type-body-*`. |
+| Contrast | Handled by the Color foundation — every content token clears AA on both themes. |
+| Not by appearance alone | Never signal meaning with weight, size or italic on their own. |
+
+**Never use typography as the only carrier of meaning.** Bold does not mean
+"required", italic does not mean "unavailable", and a smaller size does not
+mean "less important" to a screen reader — it reads all of them identically.
+Pair the visual treatment with a word, an icon, or an ARIA attribute.
+
+---
+
+## 12. Hierarchy
+
+```text
+DISPLAY    the one thing this page is about          1 per page
+   ↓
+HEADING    sections within the page                  serif, introduces
+   ↓
+TITLE      the name of a specific thing              sans, labels
+   ↓
+BODY       what you actually read                    the default
+   ↓
+LABEL      interactive furniture                     buttons, fields
+   ↓
+CAPTION    supporting detail you may skip            12px
+```
+
+Pick a level by **what the text is doing**, never by what size looks right. If
+a heading feels too big, the problem is the hierarchy, not the token — a
+section that needs a smaller heading is probably a subsection.
+
+---
+
+## 13. Usage Guidelines
+
+<DoDont>
+  <Do title="Use one semantic class. .type-body-m sets all five properties correctly." />
+  <Dont title="Don't compose from primitives in a component. That is how eleven slightly different body styles happen." />
+  <Do title="Format money with Intl.NumberFormat('en-IN') so grouping is by lakh." />
+  <Dont title="Don't build a price string by hand. ₹1,234,567 is wrong for this audience." />
+  <Do title="Add .type-numeric to any number in a column." />
+  <Dont title="Don't use tabular figures inside a sentence — the spacing looks mechanical." />
+  <Do title="Let display text scale fluidly with clamp()." />
+  <Dont title="Don't shrink body text on mobile to fit more in. 16px stays 16px." />
+  <Do title="Cap prose at 65ch so the eye finds the next line." />
+  <Dont title="Don't let a paragraph run the full width of a desktop screen." />
+  <Do title="Use .nowrap on prices and .wrap-url on links." />
+  <Dont title="Don't leave a pasted URL unstyled — it will scroll the whole page sideways." />
+</DoDont>
+
+### Per-tier rules
+
+| Tier | Use for | Do NOT use for |
+|---|---|---|
+| `display-*` | The single subject of a page | Section headings, or more than once per page |
+| `heading-*` | Sections within a page | Naming a card or a list item — that is Title |
+| `title-*` | The name of a specific thing | Running prose |
+| `body-*` | Anything read at length | Buttons or field labels |
+| `label-*` | Interactive furniture | Sentences, or anything that wraps |
+| `caption` | Detail that can be skipped | Anything needed to complete a task |
+| `overline` | A short eyebrow above a heading | More than three or four words |
+| `accent` | One or two emphasised words | A whole sentence |
+
+---
+
+## 14. Files
+
+```text
+styles/design-system/
+├── 04-type-primitives.css   families, weights, sizes, leading, tracking
+├── 05-type-semantic.css     the 18 semantic styles
+└── 06-type-behavior.css     truncation, clamping, wrapping, measure
+```
+
+Sizes are `rem`, line heights unitless, tracking in `em`. The specimen values
+shown throughout this page are read from the live DOM at render time, so if a
+token changes, this page changes with it.

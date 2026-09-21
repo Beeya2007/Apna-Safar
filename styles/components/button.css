@@ -1,0 +1,66 @@
+/* ============================================================
+   BUTTON COMPONENT
+   ------------------------------------------------------------
+   Used by <Button /> in components/shared/Button.tsx.
+   Three looks: primary (filled), secondary (outlined), ghost.
+
+   This matches the Buttons section of the design system page:
+   /design-system/index.html
+   ============================================================ */
+
+/* Shared by every button */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.button:hover { text-decoration: none; }
+
+/* PRIMARY — the main action on a screen ("Search your trip") */
+.button--primary {
+  background: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+.button--primary:hover  { background: var(--color-brand-hover); }
+.button--primary:active { background: var(--color-brand-active); }
+
+/* SECONDARY — a less important action sitting next to a primary */
+.button--secondary {
+  background: transparent;
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+.button--secondary:hover { background: var(--color-brand-wash); }
+
+/* GHOST — quiet, text-only ("Cancel", "Skip") */
+.button--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  padding-inline: var(--space-sm);
+}
+.button--ghost:hover { color: var(--color-text); }
+
+/* A button you cannot press. Greyed rather than faded, so it
+   never looks like the page is still loading. */
+.button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* SIZE MODIFIERS — add alongside a look, e.g. button--primary button--large */
+.button--small { padding: var(--space-sm) var(--space-md); font-size: var(--text-small); }
+.button--large { padding: var(--space-md) var(--space-2xl); font-size: var(--text-heading); }
+
+/* Makes the button fill the width of its container */
+.button--full { width: 100%; }

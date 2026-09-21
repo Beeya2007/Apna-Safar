@@ -1,0 +1,86 @@
+/* ============================================================
+   FONTS — loading the typefaces
+   ------------------------------------------------------------
+   The app uses TWO typefaces:
+
+     Season Mix  — headlines and accents. Loaded from files in
+                   public/fonts/ (see the licence warning below).
+     SF Pro      — all body text. NOT loaded here, because it is
+                   already on the reader's device. See the note
+                   at the bottom.
+
+   ############################################################
+   #  LICENCE WARNING — READ BEFORE DEPLOYING                 #
+   #                                                          #
+   #  Season Mix is a TRIAL font. It is licensed for personal #
+   #  evaluation only. Putting these files on a public server #
+   #  redistributes them, which the licence forbids.          #
+   #                                                          #
+   #  The .otf files are therefore listed in .gitignore, so   #
+   #  they cannot be committed or deployed by accident. The   #
+   #  app works on this machine and falls back to Georgia     #
+   #  anywhere the files are missing.                         #
+   #                                                          #
+   #  TO GO LIVE: buy a web licence from Sunday Fonts, drop   #
+   #  the .woff2 files they send into public/fonts/, update   #
+   #  the four blocks below, and remove the .gitignore line.  #
+   ############################################################
+
+   This file only LOADS fonts. Which font does which job is
+   decided in 01-design-tokens.css (--font-display, --font-body,
+   --font-script).
+
+   These are .otf rather than .woff2 because the trial ships as
+   OpenType. Browsers read it fine, it is just a bigger file.
+   The licensed version will come as .woff2 and should replace
+   these.
+   ============================================================ */
+
+/* ---- SEASON MIX — display, accents, headings -------------- */
+
+@font-face {
+  font-family: "Season Mix";
+  src: url("/fonts/seasonmix-light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;   /* show fallback text at once, swap when ready */
+}
+
+@font-face {
+  font-family: "Season Mix";
+  src: url("/fonts/seasonmix-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Season Mix";
+  src: url("/fonts/seasonmix-bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The italic doubles as the accent face — the "passion" word */
+@font-face {
+  font-family: "Season Mix";
+  src: url("/fonts/seasonmix-regularitalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---- SF PRO — body text ------------------------------------
+   There is nothing to load. SF Pro is Apple's system typeface
+   and cannot be downloaded or self-hosted. The token
+   --font-body asks the operating system for it instead:
+
+     Mac / iPhone : real SF Pro
+     Windows      : Segoe UI
+     Android      : Roboto
+
+   So body text will NOT look identical on every device. That
+   is the trade-off of choosing a system font, and it is why
+   the fallback list in the token file matters.
+   ------------------------------------------------------------ */

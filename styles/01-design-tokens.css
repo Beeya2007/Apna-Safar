@@ -1,0 +1,176 @@
+/* ============================================================
+   DESIGN TOKENS — THE CONTROL PANEL
+   ------------------------------------------------------------
+   This is the ONE file to change if you want to restyle the
+   whole app. Change a colour here and it updates everywhere.
+
+   Nothing in this file draws anything on screen. It only gives
+   names to values, so the rest of the app can say
+   "use the brand colour" instead of "#C2402B".
+
+   The live reference for all of this is the design system page:
+   http://localhost:3000/design-system/index.html
+   ============================================================ */
+
+:root {
+
+  /* --- BRAND: TERRACOTTA ----------------------------------
+     The red from the headlines, the search button and the
+     ticket outlines. This is the one colour that carries the
+     whole brand.                                             */
+  --color-brand:          #C2402B;  /* buttons, headlines, price */
+  --color-brand-hover:    #A83322;  /* button under the cursor   */
+  --color-brand-active:   #8A2719;  /* button while pressed      */
+  --color-brand-line:     #E8A48D;  /* the line-art illustrations */
+  --color-brand-tint:     #F6D8CE;  /* soft fill behind brand text */
+  --color-brand-wash:     #FBEDE8;  /* palest hint of brand       */
+
+  /* --- SURFACES: CREAM & KRAFT PAPER ----------------------
+     The page is cream. Things that should feel like a real
+     postcard sitting on it use the kraft tones.              */
+  --color-bg:             #FDF7EC;  /* the page itself           */
+  --color-bg-alt:         #F7EADB;  /* header bar, banded sections */
+  --color-paper-light:    #EBD7C7;  /* the offset card behind the postcard */
+  --color-paper:          #DCC3B0;  /* the postcard front        */
+  --color-paper-dark:     #CDAE99;  /* the message box on the postcard */
+
+  /* --- TEXT ------------------------------------------------ */
+  --color-text:           #221D1A;  /* headings and body copy    */
+  --color-text-muted:     #6E635B;  /* captions, helper text     */
+  --color-text-faint:     #766A5E;  /* greyed-out dates, de-emphasised labels */
+  --color-placeholder:    #4A4039;  /* typed-in hint inside a kraft input */
+  --color-text-inverse:   #FDF7EC;  /* text sitting on terracotta */
+
+  /* --- LINES ---------------------------------------------- */
+  --color-border:         #D8C4B2;  /* quiet hairlines, input outlines */
+  --color-border-strong:  #C2402B;  /* the terracotta ticket outline   */
+
+  /* --- STATUS ---------------------------------------------
+     Not in the reference image, but every real form needs
+     them. Tuned warm so they sit in the same family.         */
+  --color-success:        #4A7C59;  /* "Trip confirmed"          */
+  --color-warning:        #8A5A12;  /* "Only 2 seats left"       */
+  --color-error:          #B3291E;  /* "Please pick a date"      */
+  --color-disabled-bg:    #E7DDD1;  /* a button you cannot press */
+  --color-disabled-text:  #7C6F62;
+  --color-focus-ring:     rgba(194, 64, 43, 0.35); /* keyboard outline */
+
+  /* --- WARM NEUTRALS --------------------------------------
+     Greys with a little warmth in them, so nothing on the
+     cream page ever looks cold or blue.                      */
+  --color-neutral-50:     #F7F2EA;
+  --color-neutral-100:    #EDE5DA;
+  --color-neutral-200:    #DCD0C2;
+  --color-neutral-300:    #BFB1A1;
+  --color-neutral-400:    #8C8075;
+  --color-neutral-500:    #5C534B;
+  --color-neutral-900:    #221D1A;
+
+  /* --- TYPEFACES ------------------------------------------
+     Two fonts, three jobs. See 00-fonts.css for how they load.
+
+     Season Mix is a TRIAL font — buy a licence before going
+     live. SF Pro comes from the reader's device, so body text
+     looks slightly different on Windows and Android.          */
+  --font-display: "Season Mix", Georgia, serif;   /* { bracketed headlines } */
+  --font-script:  "Season Mix", Georgia, serif;   /* accent words — set in italic */
+  --font-body:    -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                  "Segoe UI", Roboto, sans-serif; /* everything else */
+
+  /* --- TEXT SIZES -----------------------------------------
+     Named by job, not by number, so you pick by meaning.
+     The clamp() ones shrink by themselves on small screens.  */
+  --text-hero:    clamp(3rem, 9vw, 7rem);      /* "{ Coming Soon }"      */
+  --text-display: clamp(2rem, 5vw, 3.25rem);   /* "{ Your Journey. }"    */
+  --text-title:   1.5rem;                      /* "Tell the place..."    */
+  --text-heading: 1.125rem;                    /* "Verified Stays"       */
+  --text-body:    1rem;                        /* normal paragraphs      */
+  --text-small:   0.875rem;                    /* card descriptions      */
+  --text-caption: 0.75rem;                     /* "( 01 )", day names    */
+
+  /* --- FONT WEIGHTS --------------------------------------- */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-bold:   600;
+
+  /* --- LINE HEIGHTS --------------------------------------- */
+  --leading-tight: 1.15;  /* big headlines        */
+  --leading-snug:  1.35;  /* card titles          */
+  --leading-body:  1.6;   /* paragraphs           */
+
+  /* --- LETTER SPACING ------------------------------------- */
+  --tracking-tight: -0.01em; /* large display text  */
+  --tracking-wide:   0.08em; /* small caps, labels  */
+
+  /* --- SPACING --------------------------------------------
+     Gaps between things. These eight names are the OLD scale,
+     kept because the whole app already uses them. Each one
+     points at the real spacing scale in
+     styles/design-system/07-spacing-primitives.css.
+
+     >> FOR NEW WORK, USE THE NUMBERED SCALE INSTEAD: <<
+        var(--space-4), var(--space-6), var(--space-24).
+     "Is 10 bigger than 6" has an obvious answer; "is xl bigger
+     than 2xl" does not.
+
+     One value moved: --space-4xl was 144px and is now 128px,
+     so that every gap on the page is a multiple of the same
+     4px step.                                                 */
+  --space-xs:  var(--space-1);   /*   4px */
+  --space-sm:  var(--space-2);   /*   8px */
+  --space-md:  var(--space-4);   /*  16px */
+  --space-lg:  var(--space-6);   /*  24px */
+  --space-xl:  var(--space-10);  /*  40px */
+  --space-2xl: var(--space-16);  /*  64px */
+  --space-3xl: var(--space-24);  /*  96px */
+  --space-4xl: var(--space-32);  /* 128px — was 144px */
+
+  /* --- CORNERS --------------------------------------------
+     This brand is mostly square-ish. Only the mood chips are
+     fully rounded.                                           */
+  --radius-xs:   4px;    /* inputs, small boxes    */
+  --radius-sm:   6px;    /* buttons                */
+  --radius-md:   10px;   /* cards, photos          */
+  --radius-lg:   16px;   /* large panels           */
+  --radius-full: 999px;  /* mood chips             */
+
+  /* --- SHADOWS --------------------------------------------
+     Tinted brown, never grey, so they look like paper resting
+     on paper rather than plastic.                            */
+  --shadow-sm: 0 1px 2px  rgba(60, 35, 20, 0.08);
+  --shadow-md: 0 4px 12px rgba(60, 35, 20, 0.12);
+  --shadow-lg: 0 12px 32px rgba(60, 35, 20, 0.18);
+
+  /* --- OVERLAYS -------------------------------------------
+     Dark washes laid OVER a photo so white text stays
+     readable on top of it. Raise the last number to darken. */
+  --color-overlay:      rgba(34, 29, 26, 0.42);  /* over a hero photo  */
+  --color-overlay-text: rgba(34, 29, 26, 0.40);  /* halo behind text   */
+
+  /* --- GRID ------------------------------------------------
+     A 12-column grid. Twelve divides by 2, 3, 4 and 6, so a
+     row can hold halves, thirds, quarters or sixths without
+     any leftover space.
+
+     The gutter is the gap BETWEEN columns. The container is
+     the content area, centred, with the page gutter keeping
+     it off the screen edges.                                 */
+  --grid-columns:       12;
+
+  /* The gutter and the section gaps moved to styles/03-grid.css.
+     They are the only distances that change with screen width,
+     so they live beside the media queries that change them.   */
+
+  /* --- LAYOUT WIDTHS -------------------------------------- */
+  --width-page: 1200px;  /* max width of page content        */
+  --width-wide: 1440px;  /* full-bleed bands, hero artwork   */
+  --width-text: 620px;   /* max width of a paragraph         */
+
+  /* --- BREAKPOINTS ----------------------------------------
+     For reference only. CSS media queries cannot read
+     variables, so these numbers are typed out wherever they
+     are used. Keep them matching what is written here.
+       phone   : up to  640px
+       tablet  : up to 1024px
+       desktop : above 1024px                                 */
+}

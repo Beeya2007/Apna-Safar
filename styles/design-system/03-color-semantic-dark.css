@@ -1,0 +1,117 @@
+/* ============================================================
+   SEMANTIC COLOUR — DARK THEME
+   ------------------------------------------------------------
+   Same token names as the light theme, different values. That
+   is the whole trick: components never change.
+
+   This is NOT an inversion. Three things are done deliberately
+   differently:
+
+   1. Content never goes pure white. #FFFFFF on a near-black
+      page vibrates and tires the eye. The top content step is
+      neutral-100.
+
+   2. Elevation reverses. On light, raised surfaces get
+      LIGHTER (white cards on cream). On dark, raised surfaces
+      also get lighter — surfaces lift toward the viewer by
+      gaining light, never by gaining shadow, because shadow is
+      invisible on a near-black page.
+
+   3. Colour steps move the other way. A 600 that reads well on
+      cream is far too dark on near-black, so status and brand
+      colours shift to their 300-400 steps, where the same hue
+      has enough luminance to carry.
+   ============================================================ */
+
+[data-theme="dark"] {
+
+  /* Alpha now LIGHTENS instead of darkening. Same scale. */
+  --alpha-base: var(--color-neutral-50);
+
+  /* --- CONTENT --------------------------------------------- */
+  --color-content-primary:    var(--color-neutral-100);  /* not #FFFFFF, on purpose */
+  --color-content-secondary:  var(--color-neutral-300);
+  --color-content-tertiary:   var(--color-neutral-400);
+  --color-content-disabled:   var(--color-neutral-600);
+  --color-content-inverse:    var(--color-neutral-950);
+  --color-content-link:       var(--color-primary-300);
+  --color-content-link-hover: var(--color-primary-200);
+
+  /* --- SURFACE ---------------------------------------------
+     The page is the void. Everything above it is a lighter
+     neutral, so depth reads as light rather than shadow.      */
+  --color-surface-default:  var(--color-void);         /* #000203 page     */
+  --color-surface-subtle:   var(--color-neutral-950);  /* banded sections  */
+  --color-surface-raised:   var(--color-neutral-900);  /* cards, popovers  */
+  --color-surface-sunken:   var(--color-void);         /* wells, inputs    */
+  --color-surface-inverse:  var(--color-neutral-100);  /* light-on-dark UI */
+  --color-surface-disabled: var(--color-neutral-900);
+
+  /* --- BORDER ----------------------------------------------
+     Identical formula to light. Only --alpha-base flipped, so
+     these three lines did not need rewriting at all.         */
+  --color-border-weak:   color-mix(in srgb, var(--alpha-base) var(--alpha-hairline), transparent);
+  --color-border-medium: color-mix(in srgb, var(--alpha-base) var(--alpha-weak),     transparent);
+  --color-border-strong: var(--color-neutral-500);  /* solid — see the light file */
+
+  --color-border-focus:    var(--color-primary-400);
+  --color-border-selected: var(--color-primary-400);
+  --color-border-disabled: var(--color-border-weak);
+  --color-border-error:    var(--color-error-400);
+  --color-border-success:  var(--color-success-400);
+  --color-border-warning:  var(--color-warning-400);
+
+  /* --- STATUS ----------------------------------------------
+     Content and icon climb to the light steps; the tinted
+     surface drops to 950 so the panel still reads as a panel. */
+  --color-status-success-content: var(--color-success-200);
+  --color-status-success-surface: var(--color-success-950);
+  --color-status-success-border:  var(--color-success-800);
+  --color-status-success-icon:    var(--color-success-400);
+
+  --color-status-warning-content: var(--color-warning-200);
+  --color-status-warning-surface: var(--color-warning-950);
+  --color-status-warning-border:  var(--color-warning-800);
+  --color-status-warning-icon:    var(--color-warning-400);
+
+  --color-status-error-content:   var(--color-error-200);
+  --color-status-error-surface:   var(--color-error-950);
+  --color-status-error-border:    var(--color-error-800);
+  --color-status-error-icon:      var(--color-error-400);
+
+  --color-status-info-content:    var(--color-info-200);
+  --color-status-info-surface:    var(--color-info-950);
+  --color-status-info-border:     var(--color-info-800);
+  --color-status-info-icon:       var(--color-info-400);
+
+  /* --- INTERACTION STATES ---------------------------------- */
+  --color-state-hover:      color-mix(in srgb, var(--alpha-base) var(--alpha-hairline), transparent);
+  --color-state-pressed:    color-mix(in srgb, var(--alpha-base) var(--alpha-weak),     transparent);
+  --color-state-selected:   color-mix(in srgb, var(--color-primary-400) 16%, transparent);
+  --color-state-focus-ring: var(--color-primary-400);
+
+  /* --- OVERLAY ---------------------------------------------
+     Scrims go HEAVIER in dark. A 56% wash that dims a cream
+     page barely registers against near-black.                 */
+  --color-overlay-scrim:    color-mix(in srgb, var(--color-void) var(--alpha-solid), transparent);
+  --color-overlay-modal:    color-mix(in srgb, var(--color-void) var(--alpha-solid), transparent);
+  --color-overlay-dropdown: transparent;
+  --color-overlay-light:    color-mix(in srgb, var(--color-neutral-100) var(--alpha-medium), transparent);
+  --color-overlay-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-void) var(--alpha-solid), transparent) 0%,
+    transparent 60%);
+
+  /* --- GRADIENTS -------------------------------------------
+     Shifted lighter so they read against the void.           */
+  --gradient-brand:   linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+  --gradient-sunset:  linear-gradient(135deg, var(--color-primary-400), var(--color-warning-400));
+  --gradient-surface: linear-gradient(180deg, var(--color-neutral-950), var(--color-neutral-900));
+  --gradient-scrim:   var(--color-overlay-image);
+}
+
+/* Respect the operating system's setting too, unless the page
+   has explicitly asked for light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { color-scheme: dark; }
+}

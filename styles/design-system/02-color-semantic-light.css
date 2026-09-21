@@ -1,0 +1,127 @@
+/* ============================================================
+   SEMANTIC COLOUR — LIGHT THEME
+   ------------------------------------------------------------
+   Named by JOB, not by colour. A component asks for
+   "the primary content colour", never "neutral 900".
+
+   This is the layer components are allowed to use. It is also
+   the only layer that changes between light and dark, which is
+   exactly why components never need to know a theme exists.
+
+        primitive  ->  semantic  ->  component
+        neutral-900    content-primary   button-primary-content
+
+   Light theme sits on CREAM, not white. That is deliberate:
+   the whole brand is printed-postcard warmth, and white would
+   throw it away. White is still here — it is the RAISED
+   surface, so cards lift off the cream page.
+   ============================================================ */
+
+:root {
+
+  /* --- ALPHA SCALE ----------------------------------------
+     Five values, not the seven originally proposed. 24, 48, 64
+     and 80 were dropped: nobody can reliably tell 16 from 24 on
+     a border, and every extra rung is another argument. These
+     five each own a distinct job.                             */
+  --alpha-hairline: 8%;    /* weak borders, hover wash          */
+  --alpha-weak:     16%;   /* medium borders, pressed wash      */
+  --alpha-medium:   32%;   /* strong borders, disabled overlays */
+  --alpha-strong:   56%;   /* modal scrim, image scrim          */
+  --alpha-solid:    72%;   /* heavy scrim over busy photography */
+
+  /* The colour that alpha is mixed FROM. Light theme darkens
+     with the deepest neutral; dark theme lightens instead.     */
+  --alpha-base: var(--color-neutral-900);
+
+  /* --- CONTENT — anything a person reads ------------------- */
+  --color-content-primary:    var(--color-neutral-900);  /* headings, body */
+  --color-content-secondary:  var(--color-neutral-700);  /* captions       */
+  --color-content-tertiary:   var(--color-neutral-600);  /* timestamps     */
+  --color-content-disabled:   var(--color-neutral-400);  /* unavailable    */
+  --color-content-inverse:    var(--color-neutral-50);   /* on dark fills  */
+  --color-content-link:       var(--color-primary-700);
+  --color-content-link-hover: var(--color-primary-800);
+
+  /* --- SURFACE — the things content sits on ---------------- */
+  --color-surface-default:  var(--color-neutral-50);   /* the cream page   */
+  --color-surface-subtle:   var(--color-neutral-100);  /* banded sections  */
+  --color-surface-raised:   var(--color-white);        /* cards, popovers  */
+  --color-surface-sunken:   var(--color-neutral-200);  /* wells, inputs    */
+  --color-surface-inverse:  var(--color-neutral-900);  /* footer, tooltip  */
+  --color-surface-disabled: var(--color-neutral-200);
+
+  /* --- BORDER ----------------------------------------------
+     The three strengths are one colour at three alphas, not
+     three colours. They therefore work on ANY surface — cream,
+     white or kraft — without a special case for each.         */
+  --color-border-weak:   color-mix(in srgb, var(--alpha-base) var(--alpha-hairline), transparent);
+  --color-border-medium: color-mix(in srgb, var(--alpha-base) var(--alpha-weak),     transparent);
+  /* Strong is SOLID, not alpha, and that is the point. An alpha
+     border's final contrast depends on whatever is behind it, so
+     it can never be guaranteed. Any border that is the only thing
+     identifying a control must be this one. neutral-500 clears
+     3:1 on cream AND on the dark page, so it is the same value in
+     both themes. */
+  --color-border-strong: var(--color-neutral-500);
+
+  --color-border-focus:    var(--color-primary-600);
+  --color-border-selected: var(--color-primary-600);
+  --color-border-disabled: var(--color-border-weak);
+  --color-border-error:    var(--color-error-600);
+  --color-border-success:  var(--color-success-600);
+  --color-border-warning:  var(--color-warning-600);
+
+  /* --- STATUS ----------------------------------------------
+     Four sets of four. Content is the text, surface the tinted
+     panel behind it, border the outline, icon the glyph.
+     NEVER use status colour on its own — see the icon rule in
+     the docs. Colour alone fails for colour-blind readers.    */
+  --color-status-success-content: var(--color-success-800);
+  --color-status-success-surface: var(--color-success-50);
+  --color-status-success-border:  var(--color-success-300);
+  --color-status-success-icon:    var(--color-success-700);
+
+  --color-status-warning-content: var(--color-warning-800);
+  --color-status-warning-surface: var(--color-warning-50);
+  --color-status-warning-border:  var(--color-warning-300);
+  --color-status-warning-icon:    var(--color-warning-700);
+
+  --color-status-error-content:   var(--color-error-800);
+  --color-status-error-surface:   var(--color-error-50);
+  --color-status-error-border:    var(--color-error-300);
+  --color-status-error-icon:      var(--color-error-700);
+
+  --color-status-info-content:    var(--color-info-800);
+  --color-status-info-surface:    var(--color-info-50);
+  --color-status-info-border:     var(--color-info-300);
+  --color-status-info-icon:       var(--color-info-700);
+
+  /* --- INTERACTION STATES ----------------------------------
+     Washes laid OVER whatever is underneath, not replacement
+     colours. One hover token works on every button variant, so
+     there is no hover colour per component to keep in sync.   */
+  --color-state-hover:    color-mix(in srgb, var(--alpha-base) var(--alpha-hairline), transparent);
+  --color-state-pressed:  color-mix(in srgb, var(--alpha-base) var(--alpha-weak),     transparent);
+  --color-state-selected: color-mix(in srgb, var(--color-primary-600) 12%, transparent);
+  --color-state-focus-ring: var(--color-primary-600);
+
+  /* --- OVERLAY --------------------------------------------- */
+  --color-overlay-scrim:    color-mix(in srgb, var(--color-neutral-950) var(--alpha-strong), transparent);
+  --color-overlay-modal:    color-mix(in srgb, var(--color-neutral-950) var(--alpha-strong), transparent);
+  --color-overlay-dropdown: transparent;  /* dropdowns use a shadow, not a wash */
+  --color-overlay-light:    color-mix(in srgb, var(--color-white) var(--alpha-strong), transparent);
+  --color-overlay-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-neutral-950) var(--alpha-solid), transparent) 0%,
+    transparent 60%);
+
+  /* --- GRADIENTS -------------------------------------------
+     Four, all from existing ramp steps. Text never sits
+     directly on a gradient unless it clears 4.5:1 against the
+     LIGHTEST end of it.                                       */
+  --gradient-brand:   linear-gradient(135deg, var(--color-primary-600), var(--color-primary-800));
+  --gradient-sunset:  linear-gradient(135deg, var(--color-primary-500), var(--color-warning-500));
+  --gradient-surface: linear-gradient(180deg, var(--color-neutral-50), var(--color-neutral-100));
+  --gradient-scrim:   var(--color-overlay-image);
+}

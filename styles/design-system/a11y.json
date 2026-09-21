@@ -1,0 +1,426 @@
+{
+ "light": [
+  {
+   "use": "Body text",
+   "fg": "content.primary",
+   "fgHex": "#3A2E29",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 12.29,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Caption",
+   "fg": "content.secondary",
+   "fgHex": "#6A564B",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 6.47,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Timestamp",
+   "fg": "content.tertiary",
+   "fgHex": "#806A5B",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 4.77,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Disabled text",
+   "fg": "content.disabled",
+   "fgHex": "#B59D87",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 2.42,
+   "need": 0,
+   "verdict": "exempt"
+  },
+  {
+   "use": "Link",
+   "fg": "content.link",
+   "fgHex": "#A02A17",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 6.94,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Body on raised card",
+   "fg": "content.primary",
+   "fgHex": "#3A2E29",
+   "bg": "surface.raised",
+   "bgHex": "#FFFFFF",
+   "ratio": 13.1,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Text on inverse",
+   "fg": "content.inverse",
+   "fgHex": "#FDF7EC",
+   "bg": "surface.inverse",
+   "bgHex": "#3A2E29",
+   "ratio": 12.29,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Primary button label",
+   "fg": "content.inverse",
+   "fgHex": "#FDF7EC",
+   "bg": "primary.600",
+   "bgHex": "#C2402B",
+   "ratio": 4.85,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Success text",
+   "fg": "status.success.content",
+   "fgHex": "#1A522E",
+   "bg": "status.success.surface",
+   "bgHex": "#F1FBF3",
+   "ratio": 8.66,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Success icon",
+   "fg": "status.success.icon",
+   "fgHex": "#286A3E",
+   "bg": "status.success.surface",
+   "bgHex": "#F1FBF3",
+   "ratio": 6.16,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Warning text",
+   "fg": "status.warning.content",
+   "fgHex": "#5F3E00",
+   "bg": "status.warning.surface",
+   "bgHex": "#FEF7EC",
+   "ratio": 9.07,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Warning icon",
+   "fg": "status.warning.icon",
+   "fgHex": "#7A5200",
+   "bg": "status.warning.surface",
+   "bgHex": "#FEF7EC",
+   "ratio": 6.5,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Error text",
+   "fg": "status.error.content",
+   "fgHex": "#83072F",
+   "bg": "status.error.surface",
+   "bgHex": "#FFF5F6",
+   "ratio": 9.65,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Error icon",
+   "fg": "status.error.icon",
+   "fgHex": "#A61440",
+   "bg": "status.error.surface",
+   "bgHex": "#FFF5F6",
+   "ratio": 7.03,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Info text",
+   "fg": "status.info.content",
+   "fgHex": "#004B6F",
+   "bg": "status.info.surface",
+   "bgHex": "#F1F9FF",
+   "ratio": 8.83,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Info icon",
+   "fg": "status.info.icon",
+   "fgHex": "#00618F",
+   "bg": "status.info.surface",
+   "bgHex": "#F1F9FF",
+   "ratio": 6.35,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Focus ring",
+   "fg": "border.focus",
+   "fgHex": "#C2402B",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 4.85,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Control border",
+   "fg": "border.strong",
+   "fgHex": "#99826F",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 3.41,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Divider (decorative)",
+   "fg": "border.medium",
+   "fgHex": "#DED7CD",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 1.34,
+   "need": 0,
+   "verdict": "exempt"
+  },
+  {
+   "use": "Hairline (decorative)",
+   "fg": "border.weak",
+   "fgHex": "#EDE7DC",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 1.15,
+   "need": 0,
+   "verdict": "exempt"
+  },
+  {
+   "use": "Error border",
+   "fg": "border.error",
+   "fgHex": "#C82D54",
+   "bg": "surface.default",
+   "bgHex": "#FDF7EC",
+   "ratio": 4.97,
+   "need": 3.0,
+   "verdict": "PASS"
+  }
+ ],
+ "dark": [
+  {
+   "use": "Body text",
+   "fg": "content.primary",
+   "fgHex": "#F2E9DA",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 17.27,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Caption",
+   "fg": "content.secondary",
+   "fgHex": "#CFBAA3",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 11.09,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Timestamp",
+   "fg": "content.tertiary",
+   "fgHex": "#B59D87",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 8.06,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Disabled text",
+   "fg": "content.disabled",
+   "fgHex": "#806A5B",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 4.09,
+   "need": 0,
+   "verdict": "exempt"
+  },
+  {
+   "use": "Link",
+   "fg": "content.link",
+   "fgHex": "#FDA290",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 10.64,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Body on raised card",
+   "fg": "content.primary",
+   "fgHex": "#F2E9DA",
+   "bg": "surface.raised",
+   "bgHex": "#3A2E29",
+   "ratio": 10.88,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Text on inverse",
+   "fg": "content.inverse",
+   "fgHex": "#221A17",
+   "bg": "surface.inverse",
+   "bgHex": "#F2E9DA",
+   "ratio": 14.2,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Primary button label",
+   "fg": "content.inverse",
+   "fgHex": "#221A17",
+   "bg": "primary.400",
+   "bgHex": "#EF7C67",
+   "ratio": 6.31,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Success text",
+   "fg": "status.success.content",
+   "fgHex": "#C1E0C8",
+   "bg": "status.success.surface",
+   "bgHex": "#062210",
+   "ratio": 11.87,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Success icon",
+   "fg": "status.success.icon",
+   "fgHex": "#76B386",
+   "bg": "status.success.surface",
+   "bgHex": "#062210",
+   "ratio": 6.88,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Warning text",
+   "fg": "status.warning.content",
+   "fgHex": "#ECD3AF",
+   "bg": "status.warning.surface",
+   "bgHex": "#281800",
+   "ratio": 11.88,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Warning icon",
+   "fg": "status.warning.icon",
+   "fgHex": "#C99850",
+   "bg": "status.warning.surface",
+   "bgHex": "#281800",
+   "ratio": 6.63,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Error text",
+   "fg": "status.error.content",
+   "fgHex": "#FFC6CB",
+   "bg": "status.error.surface",
+   "bgHex": "#3B0010",
+   "ratio": 11.89,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Error icon",
+   "fg": "status.error.icon",
+   "fgHex": "#F67187",
+   "bg": "status.error.surface",
+   "bgHex": "#3B0010",
+   "ratio": 6.39,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Info text",
+   "fg": "status.info.content",
+   "fgHex": "#B9DCF5",
+   "bg": "status.info.surface",
+   "bgHex": "#001E31",
+   "ratio": 11.88,
+   "need": 4.5,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Info icon",
+   "fg": "status.info.icon",
+   "fgHex": "#63ABD9",
+   "bg": "status.info.surface",
+   "bgHex": "#001E31",
+   "ratio": 6.79,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Focus ring",
+   "fg": "border.focus",
+   "fgHex": "#EF7C67",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 7.67,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Control border",
+   "fg": "border.strong",
+   "fgHex": "#99826F",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 5.72,
+   "need": 3.0,
+   "verdict": "PASS"
+  },
+  {
+   "use": "Divider (decorative)",
+   "fg": "border.medium",
+   "fgHex": "#282928",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 1.42,
+   "need": 0,
+   "verdict": "exempt"
+  },
+  {
+   "use": "Hairline (decorative)",
+   "fg": "border.weak",
+   "fgHex": "#141616",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 1.14,
+   "need": 0,
+   "verdict": "exempt"
+  },
+  {
+   "use": "Error border",
+   "fg": "border.error",
+   "fgHex": "#F67187",
+   "bg": "surface.default",
+   "bgHex": "#000203",
+   "ratio": 7.55,
+   "need": 3.0,
+   "verdict": "PASS"
+  }
+ ]
+}

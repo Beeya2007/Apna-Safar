@@ -1,0 +1,181 @@
+/* ============================================================
+   SHOWCASE — styles for THIS PAGE ONLY
+   ------------------------------------------------------------
+   The grid of swatches, the labels under them, the section
+   dividers. None of this belongs in the app. It exists only to
+   put the atoms on screen so they can be looked at.
+   ============================================================ */
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+.page {
+  max-width: var(--width-page);
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-4xl);
+}
+
+/* ---- SECTION — one band per topic -------------------------- */
+
+.section { padding-block: var(--space-3xl); }
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  color: var(--color-brand);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+  margin: 0 0 var(--space-xl);
+}
+
+.section__note {
+  max-width: var(--width-text);
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  margin: calc(var(--space-xl) * -1) 0 var(--space-xl);
+}
+
+/* ---- SWATCH GRID ------------------------------------------- */
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.swatch {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-neutral-50);
+}
+
+.swatch__colour { height: 88px; }
+
+.swatch__label {
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+}
+
+.swatch__name {
+  display: block;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
+.swatch__value {
+  display: block;
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  font-family: monospace;
+}
+
+.swatch__use {
+  display: block;
+  font-size: var(--text-caption);
+  color: var(--color-text-faint);
+  margin-top: var(--space-xs);
+}
+
+/* ---- SPECIMEN ROWS — type, buttons, chips ------------------ */
+
+.specimen {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-lg);
+  align-items: baseline;
+  padding-block: var(--space-lg);
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.specimen__label {
+  font-size: var(--text-caption);
+  font-family: monospace;
+  color: var(--color-text-muted);
+}
+
+.specimen--middle { align-items: center; }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+/* ---- SPACING RULER ----------------------------------------- */
+
+.ruler { display: grid; gap: var(--space-sm); }
+
+.ruler__bar {
+  background: var(--color-brand-line);
+  height: 20px;
+  border-radius: var(--radius-xs);
+}
+
+/* On a phone the two-column specimen rows stack. */
+@media (max-width: 640px) {
+  .specimen { grid-template-columns: 1fr; gap: var(--space-sm); }
+}
+
+/* ---- GRID DEMO — only for showing the grid on this page ---- */
+
+.demo-grid { margin-bottom: var(--space-xl); }
+
+.demo-col {
+  background: var(--color-brand-tint);
+  border: 1px solid var(--color-brand-line);
+  border-radius: var(--radius-xs);
+  padding-block: var(--space-md);
+  text-align: center;
+  font-size: var(--text-caption);
+  font-family: monospace;
+  color: var(--color-brand);
+}
+
+code {
+  font-size: 0.9em;
+  background: var(--color-brand-wash);
+  padding: 2px var(--space-xs);
+  border-radius: var(--radius-xs);
+}
+
+
+/* ---- LICENCE TABLE — the font candidates list -------------- */
+
+.table-wrap { overflow-x: auto; }   /* so it scrolls, not the page */
+
+.lic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+  min-width: 560px;
+}
+
+.lic-table th,
+.lic-table td {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.lic-table th {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.lic--ok { color: var(--color-success); font-weight: var(--weight-medium); }
+.lic--no { color: var(--color-error);   font-weight: var(--weight-medium); }
+
+/* A font that comes from the operating system, not a file */
+.lic--warn { color: var(--color-warning); font-weight: var(--weight-medium); }
+

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ApnaSafar — Design System</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="layout.css">
+<link rel="stylesheet" href="atoms.css">
+<link rel="stylesheet" href="showcase.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- TITLE — what this page is -->
+  <h1 class="ds-display">Design System</h1>
+  <p class="section__note" style="text-align:center;margin:var(--space-md) auto var(--space-2xl)">
+    Colours, type and atoms for ApnaSafar. Nothing here is wired into the app yet.
+  </p>
+
+  <!-- FONT CANDIDATES — what is being auditioned and what it costs -->
+  <section class="section">
+    <h2 class="section__title">Typefaces</h2>
+    <p class="section__note">Two typefaces doing three jobs. Each name below is set in its own font. <strong>Season Mix is a trial font</strong> &mdash; a web licence must be bought from Sunday Fonts before this site goes live, and the files are kept out of the repository until then.</p>
+    <div class="table-wrap">
+      <table class="lic-table">
+        <thead><tr><th>Font</th><th>Role</th><th>Licence</th><th>Character</th></tr></thead>
+        <tbody>
+      <tr>
+        <td style="font-family:'Season Mix',serif;font-style:normal;font-size:var(--text-heading)">Season Mix</td>
+        <td>Display &amp; accents</td>
+        <td class="lic--no">Trial &mdash; licence needed</td>
+        <td>Elegant fashion serif. Sets every heading; its italic is the accent face.</td>
+      </tr>
+      <tr>
+        <td style="font-family:'Season Mix',serif;font-style:italic;font-size:var(--text-heading)">Season Mix Italic</td>
+        <td>Accent words</td>
+        <td class="lic--no">Trial &mdash; licence needed</td>
+        <td>The lift on words like <em>passion</em>. Same family, no extra font.</td>
+      </tr>
+      <tr>
+        <td style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-style:normal;font-size:var(--text-heading)">SF Pro</td>
+        <td>All body text</td>
+        <td class="lic--warn">Apple system font</td>
+        <td>Comes from the device. Segoe UI on Windows, Roboto on Android.</td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BRAND COLOURS — the terracotta that carries the brand -->
+  <section class="section">
+    <h2 class="section__title">Brand — Terracotta</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-brand)"></div><div class="swatch__label"><span class="swatch__name">--color-brand</span><span class="swatch__value">#C2402B</span><span class="swatch__use">Buttons, headlines</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-brand-hover)"></div><div class="swatch__label"><span class="swatch__name">--color-brand-hover</span><span class="swatch__value">#A83322</span><span class="swatch__use">Cursor over a button</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-brand-active)"></div><div class="swatch__label"><span class="swatch__name">--color-brand-active</span><span class="swatch__value">#8A2719</span><span class="swatch__use">Button being pressed</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-brand-line)"></div><div class="swatch__label"><span class="swatch__name">--color-brand-line</span><span class="swatch__value">#E8A48D</span><span class="swatch__use">Line-art illustrations</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-brand-tint)"></div><div class="swatch__label"><span class="swatch__name">--color-brand-tint</span><span class="swatch__value">#F6D8CE</span><span class="swatch__use">Soft fill</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-brand-wash)"></div><div class="swatch__label"><span class="swatch__name">--color-brand-wash</span><span class="swatch__value">#FBEDE8</span><span class="swatch__use">Palest hint</span></div></div>
+    </div>
+  </section>
+
+  <!-- SURFACES — cream page, kraft-paper postcard -->
+  <section class="section">
+    <h2 class="section__title">Surfaces — Cream &amp; Kraft Paper</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-bg)"></div><div class="swatch__label"><span class="swatch__name">--color-bg</span><span class="swatch__value">#FDF7EC</span><span class="swatch__use">The page itself</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-bg-alt)"></div><div class="swatch__label"><span class="swatch__name">--color-bg-alt</span><span class="swatch__value">#F7EADB</span><span class="swatch__use">Header bar</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-paper-light)"></div><div class="swatch__label"><span class="swatch__name">--color-paper-light</span><span class="swatch__value">#EBD7C7</span><span class="swatch__use">Card behind the postcard</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-paper)"></div><div class="swatch__label"><span class="swatch__name">--color-paper</span><span class="swatch__value">#DCC3B0</span><span class="swatch__use">The postcard front</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-paper-dark)"></div><div class="swatch__label"><span class="swatch__name">--color-paper-dark</span><span class="swatch__value">#CDAE99</span><span class="swatch__use">Message box, inputs</span></div></div>
+    </div>
+  </section>
+
+  <!-- TEXT AND LINE COLOURS -->
+  <section class="section">
+    <h2 class="section__title">Text &amp; Lines</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-text)"></div><div class="swatch__label"><span class="swatch__name">--color-text</span><span class="swatch__value">#221D1A</span><span class="swatch__use">Headings, body</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-text-muted)"></div><div class="swatch__label"><span class="swatch__name">--color-text-muted</span><span class="swatch__value">#6E635B</span><span class="swatch__use">Captions</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-text-faint)"></div><div class="swatch__label"><span class="swatch__name">--color-text-faint</span><span class="swatch__value">#766A5E</span><span class="swatch__use">Greyed-out dates</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-placeholder)"></div><div class="swatch__label"><span class="swatch__name">--color-placeholder</span><span class="swatch__value">#4A4039</span><span class="swatch__use">Hint text in inputs</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-border)"></div><div class="swatch__label"><span class="swatch__name">--color-border</span><span class="swatch__value">#D8C4B2</span><span class="swatch__use">Quiet hairlines</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-border-strong)"></div><div class="swatch__label"><span class="swatch__name">--color-border-strong</span><span class="swatch__value">#C2402B</span><span class="swatch__use">Ticket outlines</span></div></div>
+    </div>
+  </section>
+
+  <!-- STATUS — added, not in the reference image -->
+  <section class="section">
+    <h2 class="section__title">Status</h2>
+    <p class="section__note">Not in the reference image. Added because every real form needs them, and tuned warm so they belong to the same family.</p>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-success)"></div><div class="swatch__label"><span class="swatch__name">--color-success</span><span class="swatch__value">#4A7C59</span><span class="swatch__use">"Trip confirmed"</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-warning)"></div><div class="swatch__label"><span class="swatch__name">--color-warning</span><span class="swatch__value">#8A5A12</span><span class="swatch__use">"Only 2 seats left"</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-error)"></div><div class="swatch__label"><span class="swatch__name">--color-error</span><span class="swatch__value">#B3291E</span><span class="swatch__use">"Please pick a date"</span></div></div>
+      <div class="swatch"><div class="swatch__colour" style="background:var(--color-disabled-bg)"></div><div class="swatch__label"><span class="swatch__name">--color-disabled-bg</span><span class="swatch__value">#E7DDD1</span><span class="swatch__use">Button you cannot press</span></div></div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY — three fonts, three jobs -->
+  <section class="section">
+    <h2 class="section__title">Typography</h2>
+    <p class="section__note">Two fonts, three jobs. Season Mix sets every heading, its italic carries accent words, and SF Pro handles all body text. Never use a font for a job it is not listed against.</p>
+
+    <div class="specimen"><span class="specimen__label">--text-hero<br>display</span><span class="ds-display ds-display--hero" style="text-align:left">Coming Soon</span></div>
+    <div class="specimen"><span class="specimen__label">--text-display<br>display</span><span class="ds-display" style="text-align:left">Your Journey. Your Way.</span></div>
+    <div class="specimen"><span class="specimen__label">--font-script</span><span style="font-family:var(--font-body);font-size:var(--text-title)">Travel with <em class="ds-script">passion</em></span></div>
+    <div class="specimen"><span class="specimen__label">--text-title<br>body 600</span><span style="font-size:var(--text-title);font-weight:var(--weight-bold)">Tell the place you are dreaming for</span></div>
+    <div class="specimen"><span class="specimen__label">--text-heading<br>body 600</span><span style="font-size:var(--text-heading);font-weight:var(--weight-bold)">Verified Stays</span></div>
+    <div class="specimen"><span class="specimen__label">--text-body<br>body 400</span><span>Tell us how you want to travel like mountains, food, culture, adventure, silence.</span></div>
+    <div class="specimen"><span class="specimen__label">--text-small<br>body 400</span><span style="font-size:var(--text-small);color:var(--color-text-muted)">Experience greater transparency with verified rooms, views, amenities and locations.</span></div>
+    <div class="specimen"><span class="specimen__label">--text-caption<br>body 500</span><span style="font-size:var(--text-caption);font-weight:var(--weight-medium)">( 01 )&nbsp;&nbsp;&nbsp;Mon Tue Wed Thu Fri Sat Sun</span></div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="section">
+    <h2 class="section__title">Buttons</h2>
+    <div class="specimen specimen--middle"><span class="specimen__label">--primary</span><div class="row"><button class="ds-button ds-button--primary">Search your trip</button><button class="ds-button ds-button--primary" disabled>Disabled</button></div></div>
+    <div class="specimen specimen--middle"><span class="specimen__label">--secondary</span><div class="row"><button class="ds-button ds-button--secondary">See all trips</button></div></div>
+    <div class="specimen specimen--middle"><span class="specimen__label">--ghost</span><div class="row"><button class="ds-button ds-button--ghost">Skip for now</button></div></div>
+    <div class="specimen specimen--middle"><span class="specimen__label">sizes</span><div class="row"><button class="ds-button ds-button--primary ds-button--small">Small</button><button class="ds-button ds-button--primary">Default</button><button class="ds-button ds-button--primary ds-button--large">Large</button></div></div>
+  </section>
+
+  <!-- INPUTS -->
+  <section class="section">
+    <h2 class="section__title">Inputs</h2>
+    <div class="specimen"><span class="specimen__label">.ds-input</span><div><input class="ds-input" placeholder="Where are you going?"><p class="ds-field-note">Helper text sits under the field.</p></div></div>
+    <div class="specimen"><span class="specimen__label">.ds-input--error</span><div><input class="ds-input ds-input--error" value="32 Novembr"><p class="ds-field-note ds-field-note--error">That is not a date we recognise.</p></div></div>
+    <div class="specimen"><span class="specimen__label">.ds-textarea</span><textarea class="ds-textarea" placeholder="Tell us about your trip here so we can make your trip happen..."></textarea></div>
+  </section>
+
+  <!-- CHIPS — the mood pills -->
+  <section class="section">
+    <h2 class="section__title">Mood Chips</h2>
+    <div class="specimen specimen--middle"><span class="specimen__label">.ds-chip</span><div class="row">
+      <button class="ds-chip" aria-pressed="true">Happy</button>
+      <button class="ds-chip" aria-pressed="false">Bored</button>
+      <button class="ds-chip" aria-pressed="false">Sad</button>
+      <button class="ds-chip" aria-pressed="false">Moody</button>
+    </div></div>
+    <p class="section__note" style="margin-top:var(--space-lg)">The picked one is marked with <code>aria-pressed="true"</code>, so it is filled in visually and announced correctly to a screen reader at the same time.</p>
+  </section>
+
+  <!-- GRID — 12 columns, the bones every page sits on -->
+  <section class="section">
+    <h2 class="section__title">Grid</h2>
+    <p class="section__note">Twelve columns, because twelve divides by 2, 3, 4 and 6 &mdash; so a row holds halves, thirds, quarters or sixths with nothing left over. Put <code>.grid</code> on a row and <code>.col-6</code> on a child. Narrow the window to watch it fold.</p>
+
+    <div class="grid demo-grid">
+      <div class="col-12 demo-col">12</div>
+      <div class="col-6 demo-col">6</div>
+      <div class="col-6 demo-col">6</div>
+      <div class="col-4 demo-col">4</div>
+      <div class="col-4 demo-col">4</div>
+      <div class="col-4 demo-col">4</div>
+      <div class="col-3 demo-col">3</div>
+      <div class="col-3 demo-col">3</div>
+      <div class="col-3 demo-col">3</div>
+      <div class="col-3 demo-col">3</div>
+    </div>
+
+    <div class="specimen"><span class="specimen__label">--grid-gutter<br>24px</span><span>The gap between columns. Drops to 16px on phones.</span></div>
+    <div class="specimen"><span class="specimen__label">--width-page<br>1200px</span><span>Normal content width. <code>.container</code> centres it.</span></div>
+    <div class="specimen"><span class="specimen__label">--width-wide<br>1440px</span><span>Full-bleed bands and hero artwork.</span></div>
+    <div class="specimen"><span class="specimen__label">--width-text<br>620px</span><span>A single column of readable prose.</span></div>
+    <div class="specimen"><span class="specimen__label">--section-gap<br>96px</span><span>Breathing room above and below a normal band.</span></div>
+    <div class="specimen"><span class="specimen__label">--section-gap-loose<br>144px</span><span>The airy gaps between the marketing sections.</span></div>
+
+    <p class="section__note" style="margin-top:var(--space-xl)">At <strong>1024px</strong> anything narrower than a half becomes a half. At <strong>640px</strong> every column goes full width, one thing per row.</p>
+  </section>
+
+  <!-- SPACING — the 4px scale every gap is built from -->
+  <section class="section">
+    <h2 class="section__title">Spacing</h2>
+    <p class="section__note">Every gap on the site is a multiple of <strong>4px</strong>. The number in the token name is the multiplier, so <code>--space-6</code> is 6 &times; 4px = 24px. There is no 28, 36 or 56 &mdash; if a design asks for 30, the answer is 32.</p>
+    <div class="ruler">
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-0-5 &nbsp;2px &nbsp;&middot;&nbsp; optical nudge</span><div class="ruler__bar" style="width:2px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-1 &nbsp;4px &nbsp;&middot;&nbsp; icon to label</span><div class="ruler__bar" style="width:4px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-2 &nbsp;8px &nbsp;&middot;&nbsp; label to input</span><div class="ruler__bar" style="width:8px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-3 &nbsp;12px &nbsp;&middot;&nbsp; button padding</span><div class="ruler__bar" style="width:12px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-4 &nbsp;16px &nbsp;&middot;&nbsp; the default inset</span><div class="ruler__bar" style="width:16px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-5 &nbsp;20px &nbsp;&middot;&nbsp; roomier card</span><div class="ruler__bar" style="width:20px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-6 &nbsp;24px &nbsp;&middot;&nbsp; grid gutter</span><div class="ruler__bar" style="width:24px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-8 &nbsp;32px &nbsp;&middot;&nbsp; group to group</span><div class="ruler__bar" style="width:32px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-10 &nbsp;40px &nbsp;&middot;&nbsp; heading to content</span><div class="ruler__bar" style="width:40px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-12 &nbsp;48px &nbsp;&middot;&nbsp; grid row gap</span><div class="ruler__bar" style="width:48px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-16 &nbsp;64px &nbsp;&middot;&nbsp; tight section</span><div class="ruler__bar" style="width:64px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-20 &nbsp;80px &nbsp;&middot;&nbsp; section</span><div class="ruler__bar" style="width:80px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-24 &nbsp;96px &nbsp;&middot;&nbsp; page rhythm</span><div class="ruler__bar" style="width:96px"></div></div>
+      <div class="specimen specimen--middle"><span class="specimen__label">--space-32 &nbsp;128px &nbsp;&middot;&nbsp; the big quiet gap</span><div class="ruler__bar" style="width:128px"></div></div>
+    </div>
+    <p class="section__note" style="margin-top:var(--space-lg)">One scale, used directly &mdash; a card writes <code>padding: var(--space-4)</code>, not a card-padding token that points here. The only distances that change with screen width are the grid gutter, the page gutter and the two section gaps, which live in <code>styles/03-grid.css</code>. Full rules in <code>docs/04-spacing.md</code>.</p>
+  </section>
+
+</div>
+
+</body>
+</html>
