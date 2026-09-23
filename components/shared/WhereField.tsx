@@ -19,18 +19,10 @@ import { rowsFor, type GeoState } from "./destination-rows";
 export default function WhereField({
   value,
   onChange,
-  variant = "bar",
 }: {
   value: string;
   onChange: (value: string) => void;
-  /** "bar" is the hero search bar; "field" is the form on the
-      search page. Only the class names differ. */
-  variant?: "bar" | "field";
 }) {
-  const styles = variant === "bar"
-    ? { label: "search-bar__label", input: "search-bar__input", hint: "Search destinations" }
-    : { label: "field__label",      input: "field__input",      hint: "Anywhere" };
-
   const [open, setOpen] = useState(false);
   /* -1 means nothing is highlighted, so Enter submits the search
      instead of picking a row nobody asked for. */
@@ -85,11 +77,11 @@ export default function WhereField({
 
   return (
     <>
-      <label className={styles.label} htmlFor="where">Where</label>
+      <label className="search-bar__label" htmlFor="where">Where</label>
       <input
         id="where"
-        className={styles.input}
-        placeholder={styles.hint}
+        className="search-bar__input"
+        placeholder="Search destinations"
         autoComplete="off"
         role="combobox"
         aria-expanded={open}

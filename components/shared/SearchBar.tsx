@@ -1,6 +1,12 @@
 /* ============================================================
-   SEARCH BAR — the "Where / When / Who" control on the hero.
+   SEARCH BAR — the "Where / When / Who" control.
    ------------------------------------------------------------
+   THE ONE SEARCH in the product. The hero uses it empty; the
+   results page hands it the search already running, so the bar
+   opens showing what was asked for and can be changed on the
+   spot. There is deliberately no second, different search
+   control anywhere: two of them drift apart within a release.
+
    The dates open our own calendar and the guest count opens
    our own dropdown. Neither uses the browser's built-in
    controls, which render as operating-system panels.
@@ -20,6 +26,7 @@ import { NO_FLEXIBLE, type Flexible } from "@/components/shared/FlexibleDates";
 import Dropdown from "@/components/shared/Dropdown";
 import WhereField from "@/components/shared/WhereField";
 import { monthLabel, nextRange } from "@/lib/calendar";
+import type { SearchQuery } from "@/lib/search";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
 /* Edit this list to change the guest counts offered. */
@@ -31,14 +38,25 @@ const GUEST_OPTIONS = [
   { value: "6", label: "6 guests", note: "Larger places only" },
 ];
 
-export default function SearchBar() {
+export default function SearchBar({ query }: {
+  /** The search already running, when there is one. The bar
+      opens showing it, and searching again keeps the filters
+      it does not own — type, price, amenity, sort. */
+  query?: SearchQuery;
+}) {
   const router = useRouter();
-  const [where, setWhere] = useState("");
-  const [range, setRange] = useState<Range>({});
-  const [guests, setGuests] = useState("");
+  const [where, setWhere] = useState(query?.where ?? "");
+  const [range, setRange] = useState<Range>({
+    from: query?.checkIn,
+    to: query?.checkOut,
+  });
+  const [guests, setGuests] = useState(query?.guests ?? "");
   const [datesOpen, setDatesOpen] = useState(false);
-  const [nudge, setNudge] = useState(0);
-  const [flexible, setFlexible] = useState<Flexible>(NO_FLEXIBLE);
+  const [nudge, setNudge] = useState(Number(query?.nudge ?? 0) || 0);
+  const [flexible, setFlexible] = useState<Flexible>({
+    nights: Number(query?.nights ?? 0) || 0,
+    month: query?.month ?? "",
+  });
 
   function handleSearch() {
     const params = new URLSearchParams();
@@ -49,6 +67,11 @@ export default function SearchBar() {
     if (flexible.nights) params.set("nights", String(flexible.nights));
     if (flexible.month) params.set("month", flexible.month);
     if (guests) params.set("guests", guests);
+
+    /* The filter bar's choices are not ours to throw away. */
+    for (const key of ["type", "maxPrice", "amenity", "sort"] as const) {
+      if (query?.[key]) params.set(key, query[key]!);
+    }
     router.push(`/search?${params.toString()}`);
   }
 

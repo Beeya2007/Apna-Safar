@@ -6,7 +6,7 @@
 
 import type { SearchQuery } from "@/lib/search";
 import { describeSearch } from "@/lib/search";
-import EditSearchForm from "./EditSearchForm";
+import SearchBar from "@/components/shared/SearchBar";
 
 export default function SearchSummarySection({
   query,
@@ -19,7 +19,7 @@ export default function SearchSummarySection({
     <section className="search-summary">
       <div className="page-container">
         <p className="search-summary__count">{describeSearch(query, resultCount)}</p>
-        <EditSearchForm query={query} />
+        <SearchBar query={query} />
       </div>
     </section>
   );

@@ -29,27 +29,11 @@
   margin-bottom: var(--space-md);
 }
 
-/* Where, dates, guests and a button on one line. The dates
-   take double width because they are two boxes, not one. */
-.search-summary__form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: var(--space-md);
-}
-
-/* position: relative so the destination panel can anchor to it,
-   the same way the hero search bar's field does. */
-.search-summary__where  { flex: 1 1 180px; position: relative; }
-.search-summary__dates  { flex: 2 1 300px; }
-.search-summary__guests { flex: 1 1 160px; }
-
-@media (max-width: 768px) {
-  .search-summary__where,
-  .search-summary__dates,
-  .search-summary__guests { flex-basis: 100%; }
-  .search-summary__form .button { width: 100%; }
-}
+/* The search itself is the same <SearchBar /> as the hero, so
+   there is nothing to lay out here: see
+   styles/components/search-bar.css. It only needs to sit left
+   rather than centred, because the count above it does. */
+.search-summary .search-bar { margin-inline: 0; }
 
 
 /* ------------------------------------------------------------

@@ -4,7 +4,7 @@
    Styles live in: styles/pages/home.css  (section 1)
    ============================================================ */
 
-import SearchBar from "./SearchBar";
+import SearchBar from "@/components/shared/SearchBar";
 
 export default function HeroSection() {
   return (
