@@ -33,6 +33,7 @@ import "@/styles/components/dates-panel.css";
 import "@/styles/components/datefield.css";
 import "@/styles/components/popover.css";
 import "@/styles/components/dropdown.css";
+import "@/styles/components/guest-picker.css";
 import "@/styles/components/modal.css";
 import "@/styles/components/page-heading.css";
 import "@/styles/components/panel.css";

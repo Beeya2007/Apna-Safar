@@ -47,6 +47,12 @@ export function experienceById(id: string): Experience | undefined {
 }
 
 export const HELP_ARTICLES: HelpArticle[] = [
+  { slug: "service-animals", category: "Bookings", title: "Bringing a service animal",
+    body: [
+      "A service animal is not a pet. You do not need to add one under Pets when you search, and a host cannot turn you down or charge a pet fee because you are bringing one.",
+      "Because of that, listings that say no pets are still open to you. Leave the Pets count at zero and search as you normally would.",
+      "It is worth messaging your host before you arrive so they know to expect you — not for permission, but so nothing about the arrival is a surprise.",
+    ] },
   { slug: "cancel-a-booking", category: "Bookings", title: "How do I cancel a booking?",
     body: [
       "Open My trips, pick the booking, and choose Cancel booking. Before you confirm, the page shows exactly what you would get back — that number is the refund, not an estimate.",

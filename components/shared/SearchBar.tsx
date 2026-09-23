@@ -23,20 +23,12 @@ import { shortDate } from "@/lib/format";
 import Popover from "@/components/shared/Popover";
 import DatesPanel from "@/components/shared/DatesPanel";
 import { NO_FLEXIBLE, type Flexible } from "@/components/shared/FlexibleDates";
-import Dropdown from "@/components/shared/Dropdown";
+import GuestPicker from "@/components/shared/GuestPicker";
 import WhereField from "@/components/shared/WhereField";
 import { monthLabel, nextRange } from "@/lib/calendar";
 import type { SearchQuery } from "@/lib/search";
+import { guestSummary, guestsFromQuery, type Guests } from "@/lib/guests";
 import { MagnifyingGlass } from "@phosphor-icons/react";
-
-/* Edit this list to change the guest counts offered. */
-const GUEST_OPTIONS = [
-  { value: "",  label: "Any number" },
-  { value: "1", label: "1 guest" },
-  { value: "2", label: "2 guests" },
-  { value: "4", label: "4 guests" },
-  { value: "6", label: "6 guests", note: "Larger places only" },
-];
 
 export default function SearchBar({ query }: {
   /** The search already running, when there is one. The bar
@@ -50,8 +42,9 @@ export default function SearchBar({ query }: {
     from: query?.checkIn,
     to: query?.checkOut,
   });
-  const [guests, setGuests] = useState(query?.guests ?? "");
+  const [guests, setGuests] = useState<Guests>(guestsFromQuery(query ?? {}));
   const [datesOpen, setDatesOpen] = useState(false);
+  const [whoOpen, setWhoOpen] = useState(false);
   const [nudge, setNudge] = useState(Number(query?.nudge ?? 0) || 0);
   const [flexible, setFlexible] = useState<Flexible>({
     nights: Number(query?.nights ?? 0) || 0,
@@ -66,7 +59,11 @@ export default function SearchBar({ query }: {
     if (range.from && nudge) params.set("nudge", String(nudge));
     if (flexible.nights) params.set("nights", String(flexible.nights));
     if (flexible.month) params.set("month", flexible.month);
-    if (guests) params.set("guests", guests);
+    /* Each kind is kept separately: "two adults and a baby" is
+       not the same search as "three guests". */
+    for (const kind of ["adults", "children", "infants", "pets"] as const) {
+      if (guests[kind]) params.set(kind, String(guests[kind]));
+    }
 
     /* The filter bar's choices are not ours to throw away. */
     for (const key of ["type", "maxPrice", "amenity", "sort"] as const) {
@@ -130,9 +127,17 @@ export default function SearchBar({ query }: {
 
       <div className="search-bar__divider" />
 
-      {/* FIELD — guests, opening our own dropdown */}
+      {/* FIELD — who is coming, counted one at a time */}
       <div className="search-bar__field search-bar__field--popover">
-        <Dropdown label="Who" options={GUEST_OPTIONS} value={guests} onChange={setGuests} />
+        <span className="search-bar__label">Who</span>
+        <button type="button" className="search-bar__trigger"
+          onClick={() => setWhoOpen(!whoOpen)} aria-expanded={whoOpen}>
+          {guestSummary(guests)}
+        </button>
+
+        <Popover open={whoOpen} onClose={() => setWhoOpen(false)} align="right">
+          <GuestPicker value={guests} onChange={setGuests} />
+        </Popover>
       </div>
 
       {/* SUBMIT — round search button */}

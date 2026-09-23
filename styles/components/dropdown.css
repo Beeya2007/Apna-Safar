@@ -47,14 +47,6 @@
   overflow-y: auto;
 }
 
-/* Inside the search bar the panel is a fixed height shared with
-   Where and When, so the list fills it instead of stopping at
-   280px. Everywhere else the cap above still applies. */
-.search-bar__field--popover .dropdown__list {
-  max-height: none;
-  height: 100%;
-}
-
 .dropdown__option {
   display: grid;
   gap: 2px;

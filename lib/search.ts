@@ -3,7 +3,7 @@
    ------------------------------------------------------------
    Everything the visitor picks lives in the address bar:
 
-     /search?where=goa&guests=4&type=Beachfront&maxPrice=5000
+     /search?where=goa&adults=2&children=2&type=Beachfront
 
    That means a filtered search can be bookmarked, shared, and
    opened again a week later. Nothing is held in memory.
@@ -15,6 +15,7 @@
 import type { Listing, PropertyType } from "./types";
 import { LISTINGS } from "./data/listings";
 import { nightsBetween } from "./format";
+import { guestsFromQuery, sleeps } from "./guests";
 
 /** Move an ISO date by a number of days.
     All in UTC on purpose: building the date at local midnight
@@ -37,7 +38,13 @@ export type SearchQuery = {
   where?: string;
   checkIn?: string;
   checkOut?: string;
-  guests?: string;
+  /** Kept as its own count each, not one total: a place must
+      sleep the adults and children, a baby needs no bed, and a
+      pet needs a host who allows them. */
+  adults?: string;
+  children?: string;
+  infants?: string;
+  pets?: string;
   type?: string;
   maxPrice?: string;
   amenity?: string;
@@ -75,10 +82,17 @@ export function searchListings(query: SearchQuery): Listing[] {
     );
   }
 
-  /* GUESTS — a place must sleep at least this many. */
-  if (query.guests) {
-    const wanted = parseInt(query.guests, 10);
-    if (!Number.isNaN(wanted)) results = results.filter((l) => l.guests >= wanted);
+  /* GUESTS — a place must sleep the adults and the children.
+     Infants are not counted: a cot is not a bed, and a place
+     for four does not become a place for three because someone
+     brought a baby. */
+  const party = guestsFromQuery(query);
+  const mustSleep = sleeps(party);
+  if (mustSleep > 0) results = results.filter((l) => l.guests >= mustSleep);
+
+  /* PETS — only hosts who allow them. */
+  if (party.pets > 0) {
+    results = results.filter((l) => l.amenities.includes("Pets allowed"));
   }
 
   /* PROPERTY TYPE — the category row on the home page. */
@@ -166,6 +180,8 @@ export function withParam(
 export function describeSearch(query: SearchQuery, resultCount: number): string {
   const parts: string[] = [`${resultCount} ${resultCount === 1 ? "stay" : "stays"}`];
   if (query.where) parts.push(`in ${query.where}`);
-  if (query.guests) parts.push(`for ${query.guests} guests`);
+  const party = guestsFromQuery(query);
+  if (sleeps(party)) parts.push(`for ${sleeps(party)} guests`);
+  if (party.pets) parts.push(`with ${party.pets === 1 ? "a pet" : "pets"}`);
   return parts.join(" ");
 }

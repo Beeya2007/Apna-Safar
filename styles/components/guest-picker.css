@@ -1,0 +1,97 @@
+/* ============================================================
+   GUEST PICKER — the "Who" panel.
+   ------------------------------------------------------------
+   One row per kind of traveller: what it is on the left, the
+   count and its two buttons on the right, a rule between.
+
+   Used by <GuestPicker /> in components/shared/GuestPicker.tsx.
+   ============================================================ */
+
+/* Wide enough that "Ages 13 or above" stays on one line: the
+   Who field is the narrowest in the bar, and the panel would
+   otherwise inherit that width and wrap every caption. */
+.guest-picker {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  max-width: 100%;
+}
+
+.guest-picker__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* No rule under the last one — it would sit above nothing. */
+.guest-picker__row:last-child { border-bottom: 0; }
+
+.guest-picker__what {
+  display: grid;
+  gap: 2px;
+}
+
+.guest-picker__label {
+  font-weight: var(--weight-bold);
+}
+
+.guest-picker__note {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.guest-picker__link {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+}
+
+.guest-picker__link:hover { color: var(--color-text); }
+
+/* ---- THE COUNT AND ITS TWO BUTTONS ------------------------- */
+
+.guest-picker__count {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.guest-picker__step {
+  display: grid;
+  place-items: center;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.guest-picker__step:hover:not(:disabled) {
+  border-color: var(--color-text);
+}
+
+.guest-picker__step:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* A button at its limit stays in place and goes quiet, rather
+   than disappearing and shifting the number sideways. */
+.guest-picker__step:disabled {
+  color: var(--color-disabled-text);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+}
+
+/* Fixed width so the row does not jog when 9 becomes 10. */
+.guest-picker__number {
+  min-width: var(--space-xl);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
