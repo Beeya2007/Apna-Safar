@@ -61,10 +61,15 @@
 
 .search-bar__input::placeholder { color: var(--color-text-muted); }
 
-/* Round pink search button on the far right */
+/* Round terracotta search button on the far right.
+   It stretches to whatever height the fields end up being, and
+   its width follows that height, so it stays a true circle
+   however the fields are padded. */
 .search-bar__submit {
-  width: 48px;
-  height: 48px;
+  align-self: stretch;
+  height: auto;
+  width: auto;
+  aspect-ratio: 1;
   border-radius: var(--radius-full);
   background: var(--color-brand);
   color: var(--color-text-inverse);
@@ -81,7 +86,15 @@
   .search-bar { flex-direction: column; border-radius: var(--radius-lg); padding: var(--space-md); gap: var(--space-xs); }
   .search-bar__field { width: 100%; border-radius: var(--radius-sm); background: var(--color-bg-alt); }
   .search-bar__divider { display: none; }
-  .search-bar__submit { width: 100%; border-radius: var(--radius-sm); }
+  /* Stacked, it becomes a full-width bar, so it is no longer
+     a circle and must give the aspect ratio back. */
+  .search-bar__submit {
+    align-self: auto;
+    width: 100%;
+    aspect-ratio: auto;
+    height: var(--control-height-lg);
+    border-radius: var(--radius-sm);
+  }
 }
 
 /* ---- POPOVER FIELDS — dates and guests --------------------
