@@ -27,6 +27,7 @@ import "@/styles/components/input.css";
 import "@/styles/components/chip.css";
 import "@/styles/components/listing-card.css";
 import "@/styles/components/search-bar.css";
+import "@/styles/components/destination-suggest.css";
 import "@/styles/components/calendar.css";
 import "@/styles/components/datefield.css";
 import "@/styles/components/popover.css";

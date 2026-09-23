@@ -1,0 +1,97 @@
+/* ============================================================
+   DESTINATION SUGGEST — the panel under the "Where" field.
+   ------------------------------------------------------------
+   A heading, then one row per place: a tinted tile with a mark
+   in it, the name, and the line that says why you would go.
+
+   Used by <DestinationSuggest /> in
+   components/shared/DestinationSuggest.tsx.
+   ============================================================ */
+
+.destination-suggest {
+  width: 380px;
+  max-width: 100%;
+}
+
+.destination-suggest__heading {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+/* Eight places is taller than the panel should ever be, so the
+   list scrolls inside it rather than running off the screen. */
+.destination-suggest__list {
+  display: grid;
+  gap: 2px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* ---- ONE ROW ---------------------------------------------- */
+
+.destination-suggest__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-sm);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Hover and the arrow-key highlight are deliberately the same:
+   two different highlights on one list reads as a bug. */
+.destination-suggest__item:hover,
+.destination-suggest__item--active {
+  background: var(--color-bg-alt);
+}
+
+.destination-suggest__item:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+/* The rounded square behind the mark. */
+.destination-suggest__tile {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--size-12);
+  height: var(--size-12);
+  border-radius: var(--radius-md);
+  background: var(--color-brand-wash);
+  color: var(--color-brand);
+}
+
+.destination-suggest__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;            /* lets a long tagline wrap, not overflow */
+}
+
+.destination-suggest__name {
+  font-weight: var(--weight-bold);
+}
+
+.destination-suggest__reason {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.destination-suggest__none {
+  padding: var(--space-sm);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 560px) {
+  /* The popover goes full-screen on a phone, so the panel should
+     stop insisting on its own width. */
+  .destination-suggest { width: 100%; }
+}

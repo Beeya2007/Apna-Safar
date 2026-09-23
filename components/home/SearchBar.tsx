@@ -17,6 +17,7 @@ import { shortDate } from "@/lib/format";
 import Popover from "@/components/shared/Popover";
 import Calendar from "@/components/shared/Calendar";
 import Dropdown from "@/components/shared/Dropdown";
+import WhereField from "@/components/shared/WhereField";
 import { nextRange } from "@/lib/calendar";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
@@ -58,16 +59,9 @@ export default function SearchBar() {
   return (
     <div className="search-bar">
 
-      {/* FIELD — destination */}
-      <div className="search-bar__field">
-        <label className="search-bar__label" htmlFor="where">Where</label>
-        <input
-          id="where"
-          className="search-bar__input"
-          placeholder="Search destinations"
-          value={where}
-          onChange={(e) => setWhere(e.target.value)}
-        />
+      {/* FIELD — destination, offering the places we know about */}
+      <div className="search-bar__field search-bar__field--popover">
+        <WhereField value={where} onChange={setWhere} />
       </div>
 
       <div className="search-bar__divider" />

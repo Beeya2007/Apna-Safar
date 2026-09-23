@@ -14,6 +14,7 @@ import type { SearchQuery } from "@/lib/search";
 import type { Range } from "@/lib/calendar";
 import DateRangeField from "@/components/shared/DateRangeField";
 import Dropdown from "@/components/shared/Dropdown";
+import WhereField from "@/components/shared/WhereField";
 
 /* Edit this list to change the guest counts offered. */
 const GUEST_OPTIONS = [
@@ -50,11 +51,9 @@ export default function EditSearchForm({ query }: { query: SearchQuery }) {
 
   return (
     <form className="search-summary__form" onSubmit={submit}>
-      <label className="field search-summary__where">
-        <span className="field__label">Where</span>
-        <input className="field__input" value={where} placeholder="Anywhere"
-          onChange={(e) => setWhere(e.target.value)} />
-      </label>
+      <div className="field search-summary__where">
+        <WhereField value={where} onChange={setWhere} variant="field" />
+      </div>
 
       <div className="search-summary__dates">
         <DateRangeField range={range} onChange={setRange} />
