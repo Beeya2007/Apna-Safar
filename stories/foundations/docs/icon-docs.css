@@ -1,0 +1,144 @@
+/* ============================================================
+   ICONOGRAPHY DOCS CHROME
+   ------------------------------------------------------------
+   The icon browser's own styling. Every colour, gap, corner and
+   size below is a foundation token — the browser is the first
+   real consumer of all five foundations at once, so if one of
+   them is wrong this page shows it.
+   ============================================================ */
+
+.ico-browser {
+  border: 1px solid var(--color-border-weak);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  overflow: hidden;
+  margin: var(--space-4) 0 var(--space-8);
+}
+
+/* ---- SEARCH ------------------------------------------------- */
+.ico-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border-weak);
+}
+.ico-search__input {
+  flex: 1;
+  height: var(--control-height-md);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-default);
+  color: var(--color-content-primary);
+  font: inherit;
+  font-size: 13px;
+}
+.ico-search__input:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+.ico-search__count { font-size: 11px; color: var(--color-content-tertiary); white-space: nowrap; }
+
+.ico-alias {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border-weak);
+  background: var(--color-status-info-surface);
+  color: var(--color-status-info-content);
+  font-size: 11px;
+}
+.ico-alias code { margin: 0 var(--space-1); }
+
+/* ---- CATEGORIES + GRID -------------------------------------- */
+.ico-main { display: grid; grid-template-columns: 172px minmax(0, 1fr); }
+
+.ico-cats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2);
+  border-right: 1px solid var(--color-border-weak);
+  background: var(--color-surface-subtle);
+  max-height: 420px;
+  overflow-y: auto;
+}
+.ico-cats__item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-content-secondary);
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.ico-cats__item:hover { background: var(--color-state-hover); }
+.ico-cats__item.is-on {
+  background: var(--color-primary-600);
+  color: var(--color-content-inverse);
+}
+.ico-cats__n { opacity: .7; }
+
+.ico-grid-wrap { padding: var(--space-3); max-height: 420px; overflow-y: auto; }
+.ico-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ico-cell {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  width: 100%;
+  padding: var(--space-2) var(--space-1);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-content-primary);
+  font: inherit;
+  cursor: pointer;
+}
+.ico-cell:hover { background: var(--color-state-hover); }
+.ico-cell:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+.ico-cell.is-on {
+  border-color: var(--color-border-selected);
+  background: var(--color-state-selected);
+}
+.ico-cell__name {
+  max-width: 100%;
+  font-size: 9px;
+  line-height: 1.2;
+  color: var(--color-content-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ico-empty { margin: var(--space-6) 0; font-size: 12px; color: var(--color-content-secondary); }
+.ico-empty code { margin: 0 2px; }
+.ico-more {
+  display: block;
+  margin: var(--space-3) auto 0;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-default);
+  color: var(--color-content-primary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .ico-main { grid-template-columns: minmax(0, 1fr); }
+  .ico-cats { flex-direction: row; flex-wrap: wrap; max-height: none; border-right: none;
+              border-bottom: 1px solid var(--color-border-weak); }
+}

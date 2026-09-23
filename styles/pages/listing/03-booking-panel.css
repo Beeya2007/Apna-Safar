@@ -1,0 +1,57 @@
+/* ============================================================
+   LISTING PAGE — section 4, the sticky price box
+   ------------------------------------------------------------
+   Part of the listing page. The files in this folder are numbered
+   in SCREEN ORDER — 01 is at the top of the page, 05 at the
+   bottom. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   4. BOOKING PANEL
+   Stays in view while the page scrolls past it.
+   ------------------------------------------------------------ */
+
+.booking-panel {
+  position: sticky;
+  top: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--color-bg);
+  padding: var(--space-lg);
+}
+
+.booking-panel__price {
+  font-size: var(--text-title);
+  margin-bottom: var(--space-md);
+}
+
+.booking-panel__price strong { font-weight: var(--weight-bold); }
+
+.booking-panel__dates { margin-bottom: var(--space-md); }
+
+.booking-panel__guests { margin-bottom: var(--space-md); }
+
+.booking-panel__note,
+.booking-panel__policy {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: var(--space-md);
+}
+
+.booking-panel__policy {
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.booking-panel__warning {
+  font-size: var(--text-small);
+  color: var(--color-error);
+}
+
+@media (max-width: 1024px) {
+  .booking-panel { position: static; }
+}
+
+

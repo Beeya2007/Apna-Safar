@@ -1,0 +1,161 @@
+/* ============================================================
+   ICON INSPECTOR CHROME
+   ------------------------------------------------------------
+   The panel under the grid: preview, weight/size/colour/surface
+   controls, and the generated code. Split from icon-docs.css so
+   neither file runs past the length anyone will read.
+   ============================================================ */
+
+/* ---- INSPECTOR ---------------------------------------------- */
+.ico-inspect { border-top: 1px solid var(--color-border-weak); background: var(--color-surface-default); }
+.ico-inspect__head {
+  display: flex; align-items: baseline; gap: var(--space-3);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border-weak);
+}
+.ico-inspect__name { font-size: 13px; font-weight: 600; color: var(--color-content-primary); }
+.ico-inspect__meta { font-size: 11px; color: var(--color-content-tertiary); text-transform: capitalize; }
+
+.ico-inspect__body { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--space-4); padding: var(--space-3); }
+
+.ico-inspect__stage {
+  display: grid; place-items: center; gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  border: 1px solid var(--color-border-weak);
+  border-radius: var(--radius-md);
+}
+.ico-inspect__actual { display: grid; justify-items: center; gap: var(--space-1); }
+.ico-inspect__actual-lbl { font-size: 10px; color: var(--color-content-tertiary); }
+
+.ico-inspect__controls { display: grid; gap: var(--space-3); align-content: start; }
+
+.ico-group { display: grid; gap: var(--space-1); }
+.ico-group__label,
+.ico-field__label {
+  font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--color-content-tertiary);
+}
+.ico-group__chips { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+
+.ico-chip {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-raised);
+  color: var(--color-content-secondary);
+  font: inherit; font-size: 11px; text-transform: capitalize; cursor: pointer;
+}
+.ico-chip:hover { background: var(--color-state-hover); }
+.ico-chip:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+.ico-chip.is-on {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-600);
+  color: var(--color-content-inverse);
+}
+
+.ico-field { display: grid; gap: var(--space-1); }
+.ico-field__warn {
+  margin-left: var(--space-1);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  background: var(--color-status-warning-surface);
+  color: var(--color-status-warning-content);
+  font-size: 9px; letter-spacing: 0; text-transform: none;
+}
+.ico-field__select,
+.ico-field__input {
+  height: var(--control-height-sm);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-content-primary);
+  font: inherit; font-size: 12px;
+}
+.ico-field__select:focus-visible,
+.ico-field__input:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+.ico-field__resolved { display: flex; align-items: center; gap: var(--space-1); font-size: 10px; color: var(--color-content-tertiary); }
+.ico-field__dot {
+  width: 12px; height: 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-weak);
+}
+
+/* ---- CODE --------------------------------------------------- */
+.ico-code { border-top: 1px solid var(--color-border-weak); padding: var(--space-3); }
+.ico-code__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-2); }
+.ico-code__label { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--color-content-tertiary); }
+.ico-code__actions { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.ico-copy {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-content-primary);
+  font: inherit; font-size: 11px; cursor: pointer;
+}
+.ico-copy:hover { background: var(--color-state-hover); }
+.ico-copy:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+.ico-copy.is-ok   { border-color: var(--color-status-success-border); background: var(--color-status-success-surface); color: var(--color-status-success-content); }
+.ico-copy.is-fail { border-color: var(--color-status-warning-border); background: var(--color-status-warning-surface); color: var(--color-status-warning-content); }
+
+.ico-code__pre {
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  color: var(--color-content-primary);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+.ico-code__note,
+.ico-code__warn { margin: var(--space-2) 0 0; font-size: 11px; line-height: 1.5; }
+.ico-code__note { color: var(--color-content-secondary); }
+.ico-code__warn { color: var(--color-status-warning-content); }
+
+@media (max-width: 800px) {
+  .ico-inspect__body { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- DEMOS --------------------------------------------------
+   The alignment, container and icon-button examples on the
+   Iconography page. */
+.ico-demo { margin: var(--space-4) 0 var(--space-6); }
+.ico-demo__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6); font-size: 14px; }
+.ico-demo__row--wide { gap: var(--space-4); align-items: flex-start; }
+.ico-demo__prose {
+  max-width: 62ch;
+  margin: var(--space-4) 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-content-secondary);
+}
+
+.ico-sample { display: grid; justify-items: center; gap: var(--space-1); width: 132px; }
+.ico-sample__stage {
+  display: grid; place-items: center;
+  width: 100%; height: 64px;
+  border: 1px solid var(--color-border-weak);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  color: var(--color-content-primary);
+}
+.ico-sample__label { font-size: 11px; }
+.ico-sample__note { font-size: 10px; line-height: 1.35; text-align: center; color: var(--color-content-tertiary); }
+
+.ico-mark {
+  display: inline-grid; place-items: center;
+  width: var(--control-height-sm); height: var(--control-height-sm);
+  border-radius: var(--radius-full);
+  background: var(--color-status-success-surface);
+  color: var(--color-status-success-icon);
+}
+.ico-avatar {
+  display: inline-grid; place-items: center;
+  width: var(--avatar-size-sm); height: var(--avatar-size-sm);
+  border-radius: var(--radius-full);
+  background: var(--color-primary-200);
+  color: var(--color-primary-800);
+  font-size: 12px;
+}

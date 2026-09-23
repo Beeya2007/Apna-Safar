@@ -1,0 +1,174 @@
+/* ============================================================
+   MESSAGE PAGES  —  styles for /messages and /messages/c1
+   ------------------------------------------------------------
+     1. CONVERSATION LIST   every thread
+     2. THREAD              one conversation, with the list beside it
+   ============================================================ */
+
+.messages { padding-block: var(--space-xl); }
+
+
+/* ------------------------------------------------------------
+   1. CONVERSATION LIST
+   ------------------------------------------------------------ */
+
+.conversations {
+  display: grid;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.conversation {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg);
+}
+
+.conversation + .conversation { border-top: 1px solid var(--color-border); }
+
+.conversation:hover { background: var(--color-bg-alt); }
+
+/* The thread you are reading */
+.conversation--active { background: var(--color-brand-wash); }
+
+.conversation__avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+}
+
+.conversation__body { display: grid; gap: 2px; min-width: 0; }
+
+.conversation__name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: var(--weight-medium);
+}
+
+/* The unread marker beside a name */
+.conversation__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand);
+}
+
+.conversation__place {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* One line only — long messages end in "..." */
+.conversation__preview {
+  font-size: var(--text-small);
+  color: var(--color-text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ------------------------------------------------------------
+   2. THREAD
+   ------------------------------------------------------------ */
+
+.thread { padding-block: var(--space-xl); }
+
+.thread__layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.thread__panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
+
+.thread__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+}
+
+.thread__avatar {
+  display: grid;
+  place-items: center;
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  font-size: var(--text-heading);
+}
+
+.thread__name {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+}
+
+.thread__place {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+}
+
+.thread__messages {
+  display: grid;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+/* One message. Yours sit right and tinted, theirs sit left. */
+.bubble {
+  max-width: 68%;
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  line-height: var(--leading-body);
+}
+
+.bubble--mine {
+  justify-self: end;
+  background: var(--color-brand-wash);
+  border: 1px solid var(--color-brand-tint);
+}
+
+.bubble--theirs {
+  justify-self: start;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+}
+
+.bubble__time {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.thread__reply {
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
+  padding: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.thread__reply .field { width: 100%; }
+
+@media (max-width: 900px) {
+  .thread__layout { grid-template-columns: 1fr; }
+  .thread__sidebar { display: none; }
+  .bubble { max-width: 85%; }
+}

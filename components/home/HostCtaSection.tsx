@@ -4,7 +4,7 @@
    Styles live in: styles/pages/home.css  (section 4)
    ============================================================ */
 
-import Button from "@/components/shared/Button";
+import Link from "next/link";
 
 export default function HostCtaSection() {
   return (
@@ -18,7 +18,9 @@ export default function HostCtaSection() {
             Share your space with travellers and earn extra income.
             You set the price, the dates, and the house rules.
           </p>
-          <Button variant="primary" size="large">Become a host</Button>
+          <Link href="/host" className="button button--primary button--large">
+            Become a host
+          </Link>
         </div>
 
         {/* PHOTO */}

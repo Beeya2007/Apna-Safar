@@ -1,0 +1,100 @@
+/* ============================================================
+   LISTING PAGE — section 3, host, description and amenities
+   ------------------------------------------------------------
+   Part of the listing page. The files in this folder are numbered
+   in SCREEN ORDER — 01 is at the top of the page, 05 at the
+   bottom. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   3. BODY
+   Content on the left, booking panel on the right.
+   ------------------------------------------------------------ */
+
+.listing-body { padding-block: var(--space-xl); }
+
+.listing-body__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+/* One block of copy: heading plus text, with a rule above */
+.listing-block {
+  padding-top: var(--space-lg);
+  margin-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.listing-block__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-md);
+}
+
+.listing-block__text {
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+  max-width: var(--width-text);
+}
+
+/* --- host summary ------------------------------------------ */
+
+.host-summary__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.host-summary__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-xs);
+}
+
+.host-summary__facts,
+.host-summary__credentials {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.host-summary__credentials { margin-top: var(--space-md); }
+
+.host-summary__avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--avatar-size-lg);
+  height: var(--avatar-size-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+  font-size: var(--text-title);
+}
+
+.host-summary__about {
+  margin-top: var(--space-md);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+  max-width: var(--width-text);
+}
+
+/* --- amenities --------------------------------------------- */
+
+.amenities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-sm) var(--space-lg);
+}
+
+.amenities__item {
+  padding-block: var(--space-xs);
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 1024px) {
+  .listing-body__layout { grid-template-columns: 1fr; gap: var(--space-xl); }
+}
+
+

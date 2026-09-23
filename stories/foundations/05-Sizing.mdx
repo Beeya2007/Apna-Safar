@@ -1,0 +1,159 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { SizeScale, ControlSizes, IconSizes, AvatarSizes,
+         TouchTargets, RatioGrid, ContainerBars } from './docs/Size';
+import { TokenTable } from './docs/Tables';
+
+<Meta title="Foundations/Sizing" />
+
+# Sizing
+
+<div className="lede">
+How big things are, on the same 4px grid as spacing — <code>--size-10</code>
+is 40px exactly as <code>--space-10</code> is 40px. Control heights are
+floors, applied as <code>min-height</code>, so a control can always grow when
+its label wraps or its text is scaled up.
+</div>
+
+---
+
+## 1. The Scale
+
+<SizeScale />
+
+**36px and 72px were dropped** from the scale this started as. Each sat
+between two neighbours with no job: a control is either compact (32) or
+default (40), never 36. Every step that survived is used by at least one
+semantic token — a step nothing points at is a step somebody will misuse.
+
+---
+
+## 2. Controls
+
+Five heights. Buttons, inputs, selects and icon buttons all read the same
+token, so they line up when placed side by side.
+
+<ControlSizes kind="button" />
+<ControlSizes kind="input" />
+<ControlSizes kind="icon" />
+
+<TokenTable rows={[
+  ['control-height-xs', 'size-6 · 24px',  'Dense data tables. Pointer only.'],
+  ['control-height-sm', 'size-8 · 32px',  'Compact toolbars. Pointer only.'],
+  ['control-height-md', 'size-10 · 40px', 'THE DEFAULT.'],
+  ['control-height-lg', 'size-12 · 48px', 'Primary CTAs, mobile forms.'],
+  ['control-height-xl', 'size-14 · 56px', 'The hero search bar.'],
+]} />
+
+**`min-height`, never `height`.** A fixed height clips a wrapped label and
+clips text that someone has scaled up. The floor sets the rhythm; content is
+allowed to win.
+
+---
+
+## 3. Icons & Avatars
+
+Icons run about half their control's height. Bigger and the icon fights the
+label; smaller and it reads as a smudge.
+
+<IconSizes />
+
+<TokenTable rows={[
+  ['icon-size-xs', 'size-3 · 12px', 'Inside a 24px control.'],
+  ['icon-size-sm', 'size-4 · 16px', 'Inside a 32px control.'],
+  ['icon-size-md', 'size-5 · 20px', 'Inside a 40px control. The default.'],
+  ['icon-size-lg', 'size-6 · 24px', 'Inside a 48px control.'],
+  ['icon-size-xl', 'size-8 · 32px', 'Standalone, not inside a control.'],
+]} />
+
+<AvatarSizes />
+
+---
+
+## 4. Touch Targets
+
+<TouchTargets />
+
+WCAG 2.2 **SC 2.5.8 (AA) requires 24×24 CSS px**; SC 2.5.5 (AAA) asks for
+44×44. This is a product people book trips on from a phone, so **44px is the
+working minimum** and 24px is the floor nothing may go below.
+
+The visible control and its hit area are different things. A 24px icon can
+carry a 44px target by growing its padding — that is nearly always the right
+fix, and it is why `--control-height-md` grows from 40 to 44 below 640px.
+
+---
+
+## 5. Containers & Layout
+
+<ContainerBars />
+
+<TokenTable rows={[
+  ['container-xl',   '1200px', 'The default page width. Matches --width-page.'],
+  ['container-2xl',  '1440px', 'Full-bleed bands. Matches --width-wide.'],
+  ['header-height',  '64px → 56px on mobile', 'Fixed.'],
+  ['sidebar-width',  '280px / 64px collapsed', 'Fixed.'],
+  ['drawer-width-max','400px → 100% on mobile', 'Flexible — a ceiling, not a size.'],
+  ['modal-width-md', '560px → 100% on mobile',  'Flexible.'],
+  ['modal-height-max','90vh',                   'Never taller than the screen.'],
+]} />
+
+**Fixed, flexible, content-driven** are three different things. Headers and
+sidebars are fixed. Modals and drawers are flexible — the token is a ceiling
+and the panel is as small as its content allows. Cards and list rows are
+content-driven and get no height token at all.
+
+---
+
+## 6. Aspect Ratios
+
+<RatioGrid />
+
+Ratio boxes crop with `object-fit: cover`, never distort. Use one whenever
+images sit in a grid, so a portrait photo cannot make its card taller than
+its neighbours.
+
+---
+
+## 7. Width & Limits
+
+<TokenTable rows={[
+  ['w-auto / w-full', 'auto · 100%',     'The two you will use almost always.'],
+  ['w-fit',           'fit-content',     'As wide as its content — chips, badges.'],
+  ['w-min / w-max',   'min · max-content','Narrowest wrap / no wrap at all.'],
+  ['button-width-min','64px',            'So a two-letter label is not a dot.'],
+  ['input-width-max', '480px',           'Wider is harder to scan, not easier.'],
+  ['content-width-max','65ch',           'From typography. Caps prose.'],
+  ['card-width-min',  '260px',           'Below this a card stops being one.'],
+]} />
+
+**Do not create a fixed width where `fit-content` or a max would do.** Fixed
+widths are the first thing to break when a label is translated — German runs
+roughly 35% longer than English, and Hindi sets taller.
+
+---
+
+## 8. Responsive
+
+| | Mobile ≤640 | Tablet ≤1024 | Desktop |
+|---|---|---|---|
+| Control md | **44px** | 40px | 40px |
+| Control sm | **40px** | 32px | 32px |
+| Header | 56px | 64px | 64px |
+| Drawer / modal | full width | fixed | fixed |
+| Sidebar | drawer | collapsed 64px | 280px |
+| Icons, avatars | unchanged | unchanged | unchanged |
+
+**Controls grow on small screens, they do not shrink.** The finger is the
+same size whatever the screen is. Icons and avatars stay put — they are
+already sized against text, which does not shrink either.
+
+---
+
+## 9. Files
+
+```text
+styles/design-system/
+├── 09-size-primitives.css   the 14-step 4px scale
+└── 10-size-semantic.css     controls, icons, avatars, containers,
+                             layout, ratios, widths, responsive
+```

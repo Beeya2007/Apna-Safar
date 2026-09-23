@@ -1,0 +1,135 @@
+/* ============================================================
+   ACCOUNT PAGES  —  styles for /account and its sub-pages
+   ------------------------------------------------------------
+     1. ACCOUNT HUB     the tiles
+     2. PROFILE         name, photo, about
+     3. PAYMENTS        cards and receipts
+     4. NOTIFICATIONS   the on/off rows
+   ============================================================ */
+
+.account,
+.account-page { padding-block: var(--space-xl); }
+
+/* Inner account pages are forms — a full-width column reads
+   badly, so they are held to a comfortable measure. */
+.account-page { max-width: 720px; }
+
+.account-page .panel + .panel { margin-top: var(--space-lg); }
+
+.account-page__save { margin-top: var(--space-lg); }
+
+
+/* ------------------------------------------------------------
+   1. ACCOUNT HUB
+   ------------------------------------------------------------ */
+
+.account__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-md);
+}
+
+.account-tile {
+  display: block;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  transition: box-shadow 0.2s ease;
+}
+
+.account-tile:hover { box-shadow: var(--shadow-md); }
+
+.account-tile__icon {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.account-tile__title {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-xs);
+}
+
+.account-tile__body {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}
+
+.account__signout {
+  margin-top: var(--space-xl);
+  font-size: var(--text-small);
+}
+
+.account__signout a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   2. PROFILE
+   ------------------------------------------------------------ */
+
+.profile__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.profile__avatar {
+  display: grid;
+  place-items: center;
+  width: var(--avatar-size-xl);
+  height: var(--avatar-size-xl);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+  font-size: var(--text-title);
+}
+
+.profile__about { margin-top: var(--space-md); }
+
+
+/* ------------------------------------------------------------
+   4. NOTIFICATIONS
+   (3. PAYMENTS uses the shared panel and data-row styles.)
+   ------------------------------------------------------------ */
+
+.notify-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-block: var(--space-md);
+}
+
+.notify-row + .notify-row { border-top: 1px solid var(--color-border); }
+
+.notify-row__label { font-weight: var(--weight-medium); }
+
+.notify-row__note {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* A checkbox scaled up to a comfortable target */
+.notify-row__toggle {
+  flex-shrink: 0;
+  width: var(--size-6);
+  height: var(--size-6);
+  accent-color: var(--color-brand);
+}
+
+.notify-row__toggle:disabled { opacity: 0.5; }
+
+/* A saved card: when it expires, and the button to remove it */
+.payments__card {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+}

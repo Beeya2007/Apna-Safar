@@ -24,13 +24,26 @@ Everything else in the project root is configuration you can ignore.
 
 The folder name **is** the web address.
 
-| Folder                  | Web address        | What it is                     |
-|-------------------------|--------------------|--------------------------------|
-| `app/page.tsx`          | `/`                | Home page                      |
-| `app/search/page.tsx`   | `/search`          | Search results                 |
-| `app/listing/[id]/page.tsx` | `/listing/7`   | One property's page            |
-| `app/trips/page.tsx`    | `/trips`           | The guest's bookings           |
-| `app/layout.tsx`        | *(every page)*     | Header + footer wrapper        |
+| Folder                        | Web address          | What it is                   |
+|-------------------------------|----------------------|------------------------------|
+| `app/page.tsx`                | `/`                  | Home page                    |
+| `app/search/`                 | `/search`            | Search results and map       |
+| `app/listing/[id]/`           | `/listing/7`         | One property's page          |
+| `app/book/[listingId]/`       | `/book/7`            | Review and pay               |
+| `app/trips/`                  | `/trips`             | The guest's bookings         |
+| `app/wishlists/`              | `/wishlists`         | Saved places                 |
+| `app/messages/`               | `/messages`          | Conversations with hosts     |
+| `app/account/`                | `/account`           | Profile, payments, alerts    |
+| `app/host/`                   | `/host`              | Everything for hosts         |
+| `app/experiences/`            | `/experiences`       | Things to do                 |
+| `app/destinations/[slug]/`    | `/destinations/goa`  | One city                     |
+| `app/help/`, `app/legal/`     | `/help`, `/legal/…`  | Help centre and policies     |
+| `app/signin/`, `app/signup/`  | `/signin`            | Getting an account           |
+| `app/not-found.tsx`           | *(any dead link)*    | The "page is not here" screen |
+| `app/layout.tsx`              | *(every page)*       | Header + footer wrapper      |
+
+The full picture — every screen, what is on it, and what is still pretend —
+is in [08-information-architecture.md](08-information-architecture.md).
 
 Square brackets like `[id]` mean "anything can go here". `/listing/7` and
 `/listing/abc` both open the same file.
@@ -43,9 +56,18 @@ Square brackets like `[id]` mean "anything can go here". `/listing/7` and
 
 ```
 components/
-├── home/       sections that only appear on the home page
-├── search/     sections that only appear on the search page
-├── listing/    sections that only appear on a property page
+├── home/       sections on the home page
+├── search/     sections on the search results page
+├── listing/    sections on a property page
+├── book/       sections in the review-and-pay flow
+├── trips/      sections on the guest's bookings
+├── saved/      sections on the wishlist pages
+├── messages/   sections on the conversation pages
+├── account/    sections on the account pages
+├── host/       sections on the host pages
+├── browse/     sections on experiences and destinations
+├── support/    sections on help and legal pages
+├── auth/       the sign-in and sign-up card
 └── shared/     things used on more than one page
 ```
 
@@ -82,7 +104,11 @@ styles/
 │   ├── 04-type-primitives.css       the raw type scale
 │   ├── 05-type-semantic.css         type styles named by job
 │   ├── 06-type-behavior.css         truncation, clamping, wrapping
-│   └── 07-spacing-primitives.css    the 4px spacing scale
+│   ├── 07-spacing-primitives.css    the 4px spacing scale
+│   ├── 08-radius.css                the five corner values
+│   ├── 09-size-primitives.css       the raw size scale
+│   ├── 10-size-semantic.css         control heights, icon sizes
+│   └── 11-icon.css                  icon alignment + icon button
 ├── components/               one file per reusable component
 │   ├── button.css
 │   ├── header.css
@@ -103,6 +129,8 @@ Finding the right file:
 - *"I want buttons rounder"* → `components/button.css`
 - *"There is too much air between sections"* → `03-grid.css`, `--section-gap`
 - *"Cards feel cramped"* → the card's own `.css` file, bump it one step
+- *"Corners are too round"* → `design-system/08-radius.css`
+- *"I need an icon"* → Storybook → Foundations → Iconography, and copy the code
 
 Spacing has its own two pages: [04-spacing.md](04-spacing.md) for the rules and
 [05-spacing-in-practice.md](05-spacing-in-practice.md) for the recipes.

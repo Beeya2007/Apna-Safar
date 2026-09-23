@@ -70,3 +70,27 @@
   .site-header__nav { display: none; }
   .site-header__inner { height: 64px; }
 }
+
+/* ---- RIGHT SIDE — hosting link beside the account menu ----- */
+
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.site-header__host {
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.site-header__host:hover { background: var(--color-brand-wash); }
+
+/* On phones the nav is already hidden; hide this too so the
+   logo and the account menu have room. */
+@media (max-width: 768px) {
+  .site-header__host { display: none; }
+}

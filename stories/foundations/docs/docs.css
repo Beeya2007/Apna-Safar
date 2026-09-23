@@ -8,6 +8,97 @@
 
 .ds-doc { color: var(--color-content-primary); }
 
+/* ---- ON THIS PAGE — the jump index ------------------------
+   A rail parked to the right of the docs column, on every docs
+   page, built by PageNav.tsx from the page's own headings.
+
+   Storybook centres the docs column and leaves only ~150px of
+   margin either side, which is not enough to park a rail in.
+   So the wrapper reserves a strip on the right and the column
+   shifts left into what is left. Below 1000px there is no
+   strip to spare, and the rail hides rather than sitting on
+   top of the text.                                           */
+
+@media (min-width: 1000px) {
+  /* Two classes, because Storybook's own wrapper style is
+     injected at runtime and would otherwise win on order. */
+  .sbdocs.sbdocs-wrapper { padding-right: 248px; }
+}
+
+.pagenav {
+  position: fixed;
+  top: var(--space-16);
+  right: var(--space-6);
+  width: 190px;
+  z-index: 2;
+  /* Colour and Typography run long once sub-sections are in —
+     the rail scrolls on its own rather than running off the
+     bottom of the screen. */
+  max-height: calc(100vh - var(--space-24));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* A div, not a p: Storybook restyles paragraphs inside the
+   docs body and its dark theme would repaint this one. */
+.pagenav__title {
+  margin: 0 0 var(--space-3);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-content-tertiary);
+}
+
+/* The hairline the whole index hangs off. The active item
+   paints a thicker segment over it, which is what makes your
+   place on the page findable at a glance. */
+.pagenav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--color-border-weak);
+}
+
+/* A section title starts a new group, so it gets air above it.
+   The first one does not — nothing to separate it from. */
+.pagenav__item--h2 + .pagenav__item--h2,
+.pagenav__item--h3 + .pagenav__item--h2 { margin-top: var(--space-3); }
+
+.pagenav__link {
+  display: block;
+  margin-left: -1px;                 /* sit the marker on the hairline */
+  padding: var(--space-1) 0 var(--space-1) var(--space-3);
+  border-left: 2px solid transparent;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+/* TWO LEVELS, the same hierarchy the page has: a section
+   title reads as a heading, its parts read as a list under it. */
+.pagenav__link--h2 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-content-primary);
+}
+.pagenav__link--h3 {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-content-secondary);
+}
+
+.pagenav__link:hover { color: var(--color-content-link); }
+.pagenav__link.is-active {
+  color: var(--color-content-link);
+  border-left-color: var(--color-content-link);
+}
+.pagenav__link:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+@media (max-width: 999px) { .pagenav { display: none; } }
+
 /* ---- SWATCHES ---------------------------------------------- */
 .sw-grid {
   display: grid;

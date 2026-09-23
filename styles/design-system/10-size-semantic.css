@@ -1,0 +1,123 @@
+/* ============================================================
+   SEMANTIC SIZING  —  what components actually ask for
+   ------------------------------------------------------------
+        primitive        semantic              component
+        --size-10   →   --control-height-md  →  button, input,
+                                                 select, all of
+                                                 them at once
+   ============================================================ */
+
+:root {
+
+  /* --- CONTROL HEIGHTS -------------------------------------
+     These are FLOORS, applied as min-height, never height. A
+     control whose label wraps or whose text has been scaled up
+     must be allowed to grow; a fixed height would clip it.    */
+  --control-height-xs: var(--size-6);   /* 24px dense tables only  */
+  --control-height-sm: var(--size-8);   /* 32px compact toolbars   */
+  --control-height-md: var(--size-10);  /* 40px THE DEFAULT        */
+  --control-height-lg: var(--size-12);  /* 48px primary CTAs       */
+  --control-height-xl: var(--size-14);  /* 56px the hero search    */
+
+  /* Horizontal padding that goes with each height. Roughly half
+     the height, which keeps a label optically centred. */
+  --control-padding-xs: var(--space-2);   /*  8px */
+  --control-padding-sm: var(--space-3);   /* 12px */
+  --control-padding-md: var(--space-4);   /* 16px */
+  --control-padding-lg: var(--space-5);   /* 20px */
+  --control-padding-xl: var(--space-6);   /* 24px */
+
+  /* --- ICONS -----------------------------------------------
+     Roughly half the control height they sit in. Bigger and the
+     icon fights the label; smaller and it reads as a smudge.  */
+  --icon-size-xs: var(--size-3);   /* 12px in a 24px control  */
+  --icon-size-sm: var(--size-4);   /* 16px in a 32px control  */
+  --icon-size-md: var(--size-5);   /* 20px in a 40px control  */
+  --icon-size-lg: var(--size-6);   /* 24px in a 48px control  */
+  --icon-size-xl: var(--size-8);   /* 32px standalone         */
+
+  /* --- AVATARS --------------------------------------------- */
+  --avatar-size-xs: var(--size-6);   /* 24px inline beside a name */
+  --avatar-size-sm: var(--size-8);   /* 32px list rows            */
+  --avatar-size-md: var(--size-10);  /* 40px THE DEFAULT          */
+  --avatar-size-lg: var(--size-16);  /* 64px profile cards        */
+  --avatar-size-xl: var(--size-20);  /* 80px profile header       */
+
+  /* --- TOUCH TARGETS ---------------------------------------
+     WCAG 2.2 SC 2.5.8 (AA) requires 24x24 CSS px. SC 2.5.5
+     (AAA) asks for 44x44. This is a travel product people book
+     on a phone, so 44 is the working minimum and 24 is treated
+     as the floor below which nothing may go.                  */
+  --touch-target-min:  var(--size-6);   /* 24px — the AA floor    */
+  --touch-target:      var(--size-11);  /* 44px — use this        */
+  --touch-target-lg:   var(--size-12);  /* 48px — primary actions */
+
+  /* --- CONTAINERS ------------------------------------------
+     Content widths. These match the breakpoints so a container
+     never sits awkwardly between two of them.                 */
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;   /* = --width-page, the default     */
+  --container-2xl:1440px;   /* = --width-wide, full-bleed bands */
+
+  /* --- LAYOUT ----------------------------------------------
+     FIXED: the value is the value.                            */
+  --header-height:        var(--size-16);  /* 64px desktop       */
+  --header-height-mobile: var(--size-14);  /* 56px              */
+  --toolbar-height:       var(--size-12);  /* 48px              */
+  --sidebar-width:        280px;           /* fits a nav label   */
+  --sidebar-width-collapsed: var(--size-16); /* 64px icons only  */
+
+  /* FLEXIBLE: a ceiling, not a size. The thing is as small as
+     its content allows, up to this.                            */
+  --drawer-width-max: 400px;
+  --modal-width-sm:   400px;
+  --modal-width-md:   560px;
+  --modal-width-lg:   720px;
+  --modal-height-max: 90vh;     /* never taller than the screen */
+
+  /* --- MIN / MAX -------------------------------------------- */
+  --button-width-min: var(--size-16);  /* 64px so "OK" is not a dot */
+  --input-width-max:  480px;   /* wider is harder to scan, not easier */
+  --content-width-max: var(--measure);      /* 65ch, from typography */
+  --card-width-min:   260px;   /* below this a card stops being one  */
+}
+
+/* ---- ASPECT RATIOS -----------------------------------------
+   Applied as a class because aspect-ratio is a property, not a
+   value a component composes from.                            */
+.ratio-1-1   { aspect-ratio: 1 / 1; }    /* avatars, map tiles, thumbs */
+.ratio-4-3   { aspect-ratio: 4 / 3; }    /* property photography       */
+.ratio-3-2   { aspect-ratio: 3 / 2; }    /* destination cards          */
+.ratio-16-9  { aspect-ratio: 16 / 9; }   /* video, hero banners        */
+.ratio-2-1   { aspect-ratio: 2 / 1; }    /* wide promo strips          */
+
+/* Every ratio box crops rather than distorts. */
+.ratio-1-1 > img, .ratio-4-3 > img, .ratio-3-2 > img,
+.ratio-16-9 > img, .ratio-2-1 > img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* ---- WIDTH SYSTEM ------------------------------------------ */
+.w-auto  { width: auto; }
+.w-full  { width: 100%; }
+.w-fit   { width: fit-content; }   /* as wide as its content     */
+.w-min   { width: min-content; }   /* as narrow as it can wrap   */
+.w-max   { width: max-content; }   /* no wrapping at all         */
+
+/* ---- RESPONSIVE --------------------------------------------
+   On a phone, controls grow rather than shrink — the finger is
+   the same size whatever the screen is. Panels that were fixed
+   become full width. */
+@media (max-width: 640px) {
+  :root {
+    --control-height-sm: var(--size-10);  /* 32 -> 40 */
+    --control-height-md: var(--size-11);  /* 40 -> 44, a real target */
+    --header-height:     var(--header-height-mobile);
+    --drawer-width-max:  100%;
+    --modal-width-sm:    100%;
+    --modal-width-md:    100%;
+    --modal-width-lg:    100%;
+  }
+}

@@ -1,0 +1,92 @@
+/* ============================================================
+   BROWSE PAGES  —  styles for /experiences and /destinations
+   ------------------------------------------------------------
+     1. EXPERIENCES        the grid of things to do
+     2. ONE EXPERIENCE     what it is and what it costs
+     3. DESTINATION        the banner and the stays
+   ============================================================ */
+
+.browse { padding-block: var(--space-xl); }
+
+.browse__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-xl) var(--space-lg);
+}
+
+.browse__listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg) var(--space-md);
+}
+
+.browse__more {
+  margin-top: var(--space-xl);
+  font-size: var(--text-small);
+}
+
+.browse__more a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   2. ONE EXPERIENCE
+   ------------------------------------------------------------ */
+
+.experience { padding-block: var(--space-xl); }
+
+.experience__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* The big emoji square standing in for a photo */
+.experience__tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 2;
+  font-size: 4rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.experience__book { margin-top: var(--space-lg); }
+
+@media (max-width: 900px) {
+  .experience__layout { grid-template-columns: 1fr; }
+}
+
+
+/* ------------------------------------------------------------
+   3. DESTINATION
+   ------------------------------------------------------------ */
+
+.destination-banner {
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-2xl);
+  text-align: center;
+}
+
+.destination-banner__emoji {
+  display: block;
+  font-size: 3rem;
+  margin-bottom: var(--space-sm);
+}
+
+.destination-banner__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--leading-tight);
+}
+
+.destination-banner__tagline {
+  margin-top: var(--space-sm);
+  color: var(--color-text-muted);
+  font-size: var(--text-heading);
+}

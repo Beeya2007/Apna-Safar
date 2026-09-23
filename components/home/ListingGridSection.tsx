@@ -3,8 +3,9 @@
    Styles live in: styles/pages/home.css  (section 3)
    ============================================================ */
 
+import Link from "next/link";
 import ListingCard from "@/components/shared/ListingCard";
-import { SAMPLE_LISTINGS } from "@/lib/sample-data";
+import { LISTINGS } from "@/lib/data/listings";
 
 export default function ListingGridSection() {
   return (
@@ -16,10 +17,15 @@ export default function ListingGridSection() {
 
         {/* CARD GRID — column count adapts to screen width */}
         <div className="listing-grid__cards">
-          {SAMPLE_LISTINGS.map((listing) => (
+          {LISTINGS.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />
           ))}
         </div>
+
+        {/* THE WAY ON — into full search */}
+        <p className="listing-grid__more">
+          <Link href="/search">See everywhere →</Link>
+        </p>
 
       </div>
     </section>

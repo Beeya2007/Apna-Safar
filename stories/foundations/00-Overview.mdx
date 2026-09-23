@@ -17,28 +17,18 @@ for this codebase, and for anyone joining either.
 | 1 | **Color** | Complete |
 | 2 | **Typography** | Complete |
 | 3 | **Spacing** | Complete |
-| 4 | Elevation &amp; Shadow | Not started |
-| 5 | Motion | Not started |
-| 6 | Iconography | Not started |
+| 4 | **Radius** | Complete |
+| 5 | **Sizing** | Complete |
+| 6 | Elevation &amp; Shadow | Not started |
+| 7 | Motion | Not started |
+| 8 | Iconography | Not started |
 
-## Every foundation page follows this shape
+## How the pages are written
 
-So that finding something on the Typography page takes the same moves as
-finding it on Color:
-
-```text
- 1. Architecture      how the layers relate
- 2. Primitives        the raw generated scale
- 3. Semantic tokens   named by job, not by value
- 4. Modifiers         alpha / weight / ratio — whatever varies
- 5. States            how it behaves when interacted with
- 6. Light theme       resolved values
- 7. Dark theme        resolved values, and where they deliberately differ
- 8. Accessibility     a computed table, never hand-typed claims
- 9. Usage guidelines  Do / Don't, then a per-category rule table
-10. Naming            the Figma ↔ CSS mapping
-11. Files             what is on disk and what generates it
-```
+Each page leads with the thing you came for — the swatches, the specimens,
+the scale. Reference detail sits below that, and only where it changes a
+decision. Pages are not all the same length: Color carries more rules because
+more can go wrong with it.
 
 ## The rule that holds it together
 

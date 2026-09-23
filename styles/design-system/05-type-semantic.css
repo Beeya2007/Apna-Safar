@@ -8,6 +8,9 @@
         primitive        semantic         component
         font-size-xs  →  .type-body-m  →  button label
 
+   .type-display-xl tops out at 56px and belongs to the page
+   hero and nothing else. Every other style stops at 48px.
+
    Only the DISPLAY range is fluid. Body text stays fixed,
    because a paragraph that grows with the viewport is harder
    to read, not easier — and the person may already have set a
@@ -24,9 +27,9 @@
   line-height: var(--line-height-tight);
   letter-spacing: var(--letter-spacing-tighter);
 }
-.type-display-xl { font-size: clamp(2.5rem, 1.2rem + 6.5vw, 4.5rem); }  /* 40 -> 72 */
-.type-display-l  { font-size: clamp(2.0rem, 1.1rem + 4.5vw, 3.75rem); } /* 32 -> 60 */
-.type-display-m  { font-size: clamp(1.75rem, 1.1rem + 3.2vw, 3rem); }   /* 28 -> 48 */
+.type-display-xl { font-size: clamp(2rem, 0.9rem + 5.5vw, 3.5rem); }   /* 32 -> 56  HERO ONLY */
+.type-display-l  { font-size: clamp(1.75rem, 1.1rem + 3.2vw, 2.5rem); } /* 28 -> 40 */
+.type-display-m  { font-size: clamp(1.5rem, 1.0rem + 2.5vw, 2rem); }    /* 24 -> 32 */
 
 /* ---- HEADING — section titles -------------------------------
    Serif. Regular weight, because the display face is already

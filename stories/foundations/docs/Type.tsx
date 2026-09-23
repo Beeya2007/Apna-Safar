@@ -52,8 +52,8 @@ const SIZES: [string, number, string][] = [
   ['xs', 16, 'BASE — body medium'], ['sm', 18, 'body large'],
   ['md', 20, 'title, heading small'], ['lg', 24, 'heading medium'],
   ['xl', 32, 'heading large'], ['2xl', 40, 'heading xl'],
-  ['3xl', 48, 'display medium'], ['4xl', 60, 'display large'],
-  ['5xl', 72, 'display xl'],
+  ['3xl', 48, 'display large — the cap'],
+  ['4xl', 56, 'hero only'],
 ];
 
 export function ScaleBars() {
@@ -64,7 +64,7 @@ export function ScaleBars() {
           <code className="scale__name">--font-size-{name}</code>
           <code className="scale__px">{px}px</code>
           <code className="scale__rem">{(px / 16).toFixed(3)}rem</code>
-          <div className="scale__bar" style={{ width: `${(px / 72) * 100}%` }} />
+          <div className="scale__bar" style={{ width: `${(px / 56) * 100}%` }} />
           <span className="scale__use">{use}</span>
         </div>
       ))}

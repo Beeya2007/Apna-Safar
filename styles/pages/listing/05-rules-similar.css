@@ -1,0 +1,50 @@
+/* ============================================================
+   LISTING PAGE — sections 7-8, rules and more places
+   ------------------------------------------------------------
+   Part of the listing page. The files in this folder are numbered
+   in SCREEN ORDER — 01 is at the top of the page, 05 at the
+   bottom. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   7. HOUSE RULES
+   ------------------------------------------------------------ */
+
+.house-rules {
+  padding-block: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.house-rules__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-xl);
+}
+
+.house-rules__list {
+  display: grid;
+  gap: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+
+/* ------------------------------------------------------------
+   8. SIMILAR STAYS
+   ------------------------------------------------------------ */
+
+.similar-stays {
+  padding-block: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.similar-stays__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-lg);
+}
+
+.similar-stays__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg) var(--space-md);
+}

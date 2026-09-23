@@ -1,0 +1,49 @@
+/* ============================================================
+   SIZE PRIMITIVES  —  --size-<n>, where n x 4px = the value
+   ------------------------------------------------------------
+   The same 4px grid as spacing, so there is ONE number to hold
+   in your head: the token number times four is the pixel value.
+   --size-10 is 40px, exactly as --space-10 is 40px.
+
+   Two namespaces because they answer different questions.
+   Spacing is the gap BETWEEN things. Size is how big a thing IS.
+   A control height and a section gap that happen to share a
+   value are still unrelated decisions, and renaming one should
+   never move the other.
+
+   >> DO NOT USE THESE IN COMPONENTS. <<
+   Components use a semantic token — --control-height-md,
+   --icon-size-md, --avatar-size-lg. See 09-size-semantic.css.
+   ============================================================ */
+
+:root {
+  --size-3:   12px;   /* smallest icon — dense tables only     */
+  --size-4:   16px;   /* icon inside a compact control         */
+  --size-5:   20px;   /* THE DEFAULT ICON                      */
+  --size-6:   24px;   /* large icon, xs control, xs avatar     */
+  --size-7:   28px;   /* nothing yet — kept for a dense control */
+  --size-8:   32px;   /* small control, small avatar           */
+  --size-10:  40px;   /* THE DEFAULT CONTROL. Medium avatar    */
+  --size-11:  44px;   /* the comfortable touch target          */
+  --size-12:  48px;   /* large control, toolbar height         */
+  --size-14:  56px;   /* extra-large control, header on mobile */
+  --size-16:  64px;   /* header on desktop, large avatar       */
+  --size-20:  80px;   /* extra-large avatar                    */
+  --size-24:  96px;   /* thumbnail                             */
+  --size-32: 128px;   /* collapsed sidebar, large thumbnail    */
+}
+
+/* ------------------------------------------------------------
+   WHAT WAS LEFT OUT, AND WHY
+
+   36px (--size-9) and 72px (--size-18) were both dropped from
+   the scale this started as. Each sat between two neighbours
+   with no job of its own: a control is either compact (32) or
+   default (40), never 36, and a header is either 64 or 80.
+   Every step that survived is used by at least one semantic
+   token. A step nothing points at is a step somebody will
+   eventually misuse.
+
+   12px and 128px were added — 12 for icons in dense tables,
+   128 for the collapsed sidebar and large thumbnails.
+   ------------------------------------------------------------ */

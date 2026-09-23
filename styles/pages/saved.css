@@ -1,0 +1,59 @@
+/* ============================================================
+   WISHLIST PAGES  —  styles for /wishlists and /wishlists/w1
+   ------------------------------------------------------------
+     1. WISHLISTS   every list, as a four-photo tile
+     2. ONE LIST    the places saved into it
+   ============================================================ */
+
+.saved { padding-block: var(--space-xl); }
+
+
+/* ------------------------------------------------------------
+   1. WISHLISTS
+   ------------------------------------------------------------ */
+
+.saved__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-xl) var(--space-lg);
+}
+
+/* Four photos in a square, as a preview of the list */
+.wishlist-tile__mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg-alt);
+  margin-bottom: var(--space-sm);
+}
+
+.wishlist-tile__mosaic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wishlist-tile__name {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+}
+
+.wishlist-tile__count {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+
+/* ------------------------------------------------------------
+   2. ONE LIST
+   ------------------------------------------------------------ */
+
+.saved__listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg) var(--space-md);
+}

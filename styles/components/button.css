@@ -64,3 +64,15 @@
 
 /* Makes the button fill the width of its container */
 .button--full { width: 100%; }
+
+/* ---- DANGER — the confirm button on a destructive popup ----
+   Only ever appears inside a confirmation dialog, never loose
+   on a page, so nothing irreversible is one stray click away. */
+
+.button--danger {
+  background: var(--color-error);
+  border: 1px solid var(--color-error);
+  color: var(--color-text-inverse);
+}
+
+.button--danger:hover { background: var(--color-brand-active); border-color: var(--color-brand-active); }

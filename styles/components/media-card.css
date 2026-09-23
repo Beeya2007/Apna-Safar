@@ -1,0 +1,39 @@
+/* ============================================================
+   MEDIA CARD COMPONENT
+   ------------------------------------------------------------
+   A tile for browsing lists of things: destinations,
+   experiences, help topics.
+   Used by <MediaCard /> in components/shared/MediaCard.tsx.
+   ============================================================ */
+
+.media-card { display: block; }
+
+/* Coloured square with a single large emoji in the middle */
+.media-card__tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 2;
+  font-size: 2.5rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  transition: background 0.2s ease;
+}
+
+.media-card:hover .media-card__tile { background: var(--color-brand-wash); }
+
+.media-card__title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+}
+
+.media-card__meta {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.media-card__note {
+  font-size: var(--text-small);
+  margin-top: var(--space-xs);
+}

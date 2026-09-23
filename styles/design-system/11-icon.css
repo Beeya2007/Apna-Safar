@@ -1,0 +1,107 @@
+/* ============================================================
+   ICONOGRAPHY  —  the alignment contract
+   ------------------------------------------------------------
+   There is no icon scale, no icon palette and no icon state
+   system in this file, because iconography owns none of those.
+
+       Colour     ->  an icon takes a CONTENT colour
+       Sizing     ->  --icon-size-xs .. xl, already defined
+       Radius     ->  an icon button takes --radius-sm or -full
+       Spacing    ->  icon-to-label gaps are --space-1 / -2
+
+   What is left is the part nothing else covers: how an icon
+   sits next to text, and how an icon button is built. That is
+   all this file does.
+
+   THE LIBRARY IS PHOSPHOR. Icons are not drawn in this repo
+   and not copied into it — the React package is the source of
+   truth, and the browser in Storybook reads Phosphor's own
+   metadata so the list cannot go stale.
+
+   THE DEFAULT WEIGHT IS LIGHT, and it is not set here: weight
+   is a React prop, not CSS. It is set once on IconContext in
+   components/shared/IconDefaults.tsx, so every lined icon in
+   the app is light without a prop anywhere.
+   ============================================================ */
+
+/* ---- THE ICON ITSELF ----------------------------------------
+   Phosphor renders currentColor by default, which is the
+   behaviour we want: an icon inside a button should change with
+   the button's text, not argue with it. Set a colour only when
+   the icon carries meaning the text does not.               */
+.icon {
+  flex: none;                  /* never squash in a flex row   */
+  display: inline-block;
+  /* Text sits on a baseline; an icon box does not. This nudge
+     is what stops an icon appearing to float above the words
+     next to it. It is optical, and 0.125em holds at every
+     size because it scales with the text.                    */
+  vertical-align: -0.125em;
+}
+
+/* ---- ICON BESIDE TEXT ---------------------------------------
+   One class for both orders. Leading or trailing is decided by
+   where the icon sits in the markup, not by a second class —
+   and the gap is the same either way, because an asymmetric
+   gap is visible and nobody can say why.                     */
+.icon-text {
+  display: inline-flex;
+  align-items: center;         /* centre on the LINE BOX, not the baseline */
+  gap: var(--space-2);         /* 8px at 20px and 24px icons   */
+}
+.icon-text--sm { gap: var(--space-1); }   /* 4px at 12px and 16px icons */
+
+/* ---- ICON SIZE FOLLOWS TEXT SIZE ---------------------------
+   An icon matched to the text's cap height reads as part of the
+   sentence; one matched to its line height reads as a bullet.
+   These three cover every pairing in the product.           */
+.icon-text .icon          { width: var(--icon-size-md); height: var(--icon-size-md); }  /* 20px body */
+.icon-text--sm .icon      { width: var(--icon-size-sm); height: var(--icon-size-sm); }  /* 16px small */
+.icon-text--lg .icon      { width: var(--icon-size-lg); height: var(--icon-size-lg); }  /* 24px title */
+
+/* ---- ICON BUTTON --------------------------------------------
+   A square control with one icon in it. The size comes from the
+   Sizing foundation, the corner from Radius, the colours from
+   Colour. Nothing here is new — this is composition.        */
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width:  var(--control-height-md);   /* 40px, square by definition */
+  height: var(--control-height-md);
+  padding: 0;                         /* the size IS the padding    */
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-content-secondary);
+  cursor: pointer;
+}
+.icon-button--sm { width: var(--control-height-sm); height: var(--control-height-sm); }
+.icon-button--lg { width: var(--control-height-lg); height: var(--control-height-lg); }
+.icon-button--round { border-radius: var(--radius-full); }
+
+.icon-button:hover   { background: var(--color-state-hover);   color: var(--color-content-primary); }
+.icon-button:active  { background: var(--color-state-pressed); }
+.icon-button[aria-pressed="true"] {
+  background: var(--color-state-selected);
+  color: var(--color-content-primary);
+}
+.icon-button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+.icon-button:disabled {
+  color: var(--color-content-disabled);
+  cursor: not-allowed;
+}
+
+/* A 32px button is under the 44px touch target, so on a touch
+   screen it grows its HIT AREA without growing on screen. The
+   pseudo-element is invisible; it just gives the finger room. */
+@media (pointer: coarse) {
+  .icon-button--sm { position: relative; }
+  .icon-button--sm::after {
+    content: '';
+    position: absolute;
+    inset: calc((var(--control-height-sm) - var(--touch-target)) / 2);
+  }
+}

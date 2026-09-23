@@ -1,0 +1,23 @@
+/* ============================================================
+   HOST PAGES — section 7, the availability grid
+   ------------------------------------------------------------
+   The grid itself is the shared <Calendar />, styled in
+   styles/components/calendar.css. Only the layout around it
+   belongs here.
+   ============================================================ */
+
+.host-calendar__picker {
+  max-width: 320px;
+  margin-bottom: var(--space-lg);
+}
+
+/* The calendar is squarer than a page column, so it is held to
+   a sensible width rather than stretched across the panel. */
+.host-calendar__grid {
+  max-width: 520px;
+}
+
+.host-calendar__grid .calendar__day {
+  aspect-ratio: auto;
+  min-height: var(--size-14);
+}

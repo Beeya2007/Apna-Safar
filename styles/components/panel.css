@@ -1,0 +1,58 @@
+/* ============================================================
+   PANEL COMPONENT  (+ DATA ROW)
+   ------------------------------------------------------------
+   The bordered box that account, host and booking screens are
+   built from, and the label/value row that goes inside it.
+   Used by <Panel /> and <DataRow /> in components/shared/.
+   ============================================================ */
+
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.panel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+}
+
+.panel__title {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+}
+
+.panel__body { padding: var(--space-lg); }
+
+/* ---- DATA ROW — label left, value right -------------------- */
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-lg);
+  padding-block: var(--space-sm);
+}
+
+.data-row + .data-row { border-top: 1px solid var(--color-border); }
+
+.data-row__label { color: var(--color-text-muted); }
+
+.data-row__value { text-align: right; }
+
+.data-row--strong .data-row__value {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-heading);
+}
+
+/* On a phone the two halves stack rather than squeeze */
+@media (max-width: 480px) {
+  .data-row { flex-direction: column; gap: var(--space-xs); }
+  .data-row__value { text-align: left; }
+}

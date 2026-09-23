@@ -1,0 +1,88 @@
+/* ============================================================
+   DROPDOWN COMPONENT
+   ------------------------------------------------------------
+   Our own select box. The browser's own renders as an
+   operating-system menu that cannot be styled and cannot hold
+   a second line of explanation.
+
+   Used by <Dropdown /> in components/shared/Dropdown.tsx.
+   ============================================================ */
+
+.dropdown { position: relative; }
+
+/* The closed state looks exactly like a text field, so a form
+   of mixed controls still lines up. */
+.dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+  height: var(--control-height-lg);
+  padding: 0 var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  font-size: var(--text-body);
+  text-align: left;
+}
+
+.dropdown__trigger:hover { border-color: var(--color-text); }
+
+.dropdown__trigger[aria-expanded="true"] {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--color-brand);
+}
+
+.dropdown__chevron {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.dropdown__list {
+  display: grid;
+  gap: 2px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.dropdown__option {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: var(--text-body);
+}
+
+.dropdown__option:hover { background: var(--color-bg-alt); }
+
+/* The one currently chosen */
+.dropdown__option--picked {
+  background: var(--color-brand-wash);
+  font-weight: var(--weight-medium);
+}
+
+.dropdown__note {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* ---- ACCOUNT MENU — the dropdown behind the avatar --------- */
+
+.account-menu { position: relative; }
+
+.account-menu .popover { min-width: 200px; }
+
+.account-menu__divider {
+  height: 1px;
+  margin: var(--space-sm) 0;
+  background: var(--color-border);
+}
+
+/* Sign out is the only thing here that ends a session, so it
+   is set apart from the navigation above it. */
+.account-menu__signout { color: var(--color-error); }

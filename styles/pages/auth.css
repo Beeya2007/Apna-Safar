@@ -1,0 +1,67 @@
+/* ============================================================
+   SIGN IN AND SIGN UP  —  styles for /signin and /signup
+   ------------------------------------------------------------
+   One narrow card, centred. Nothing else on the screen, because
+   there is nothing else to do here.
+   ============================================================ */
+
+.auth {
+  padding-block: var(--space-3xl);
+  display: grid;
+  justify-items: center;
+}
+
+.auth__card {
+  width: 100%;
+  max-width: var(--modal-width-sm);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-md);
+}
+
+.auth__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-sm);
+}
+
+.auth__lede {
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-lg);
+}
+
+.auth__field { margin-bottom: var(--space-md); }
+
+.auth__resend {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-md);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+}
+
+.auth__switch {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-small);
+}
+
+.auth__switch a,
+.auth__legal a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+.auth__legal {
+  margin-top: var(--space-md);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}

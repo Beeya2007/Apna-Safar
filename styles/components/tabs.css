@@ -1,0 +1,42 @@
+/* ============================================================
+   TABS COMPONENT
+   ------------------------------------------------------------
+   A row of links that filters the page beneath. Scrolls
+   sideways on phones rather than wrapping onto two lines.
+   Used by <Tabs /> in components/shared/Tabs.tsx.
+   ============================================================ */
+
+.tabs {
+  display: flex;
+  gap: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-xl);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tabs__tab {
+  flex-shrink: 0;
+  padding-block: var(--space-md);
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.tabs__tab:hover { color: var(--color-text); }
+
+/* The tab you are currently on */
+.tabs__tab--active {
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+  border-bottom-color: var(--color-brand);
+}
+
+/* The small number beside a tab label */
+.tabs__count {
+  margin-left: var(--space-xs);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}

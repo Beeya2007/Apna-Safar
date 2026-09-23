@@ -1,0 +1,159 @@
+/* ============================================================
+   SEARCH RESULTS PAGE  —  styles for /search
+   ------------------------------------------------------------
+   Sections appear here in the SAME ORDER they appear on screen,
+   with each section's phone styles directly beneath it.
+
+     1. SEARCH SUMMARY   what was searched for, editable
+     2. FILTER BAR       type, price, amenity, sort
+     3. RESULTS GRID     the matches
+     4. MAP PANEL        pins beside the results
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. SEARCH SUMMARY
+   A banded strip under the header repeating the search, with
+   the four fields available to change it on the spot.
+   ------------------------------------------------------------ */
+
+.search-summary {
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-lg);
+}
+
+.search-summary__count {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-md);
+}
+
+/* Where, dates, guests and a button on one line. The dates
+   take double width because they are two boxes, not one. */
+.search-summary__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-md);
+}
+
+.search-summary__where  { flex: 1 1 180px; }
+.search-summary__dates  { flex: 2 1 300px; }
+.search-summary__guests { flex: 1 1 160px; }
+
+@media (max-width: 768px) {
+  .search-summary__where,
+  .search-summary__dates,
+  .search-summary__guests { flex-basis: 100%; }
+  .search-summary__form .button { width: 100%; }
+}
+
+
+/* ------------------------------------------------------------
+   2. FILTER BAR
+   Rows of chips, one row per thing being filtered on.
+   ------------------------------------------------------------ */
+
+.filter-bar {
+  padding-block: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filter-bar__group {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+/* The grey word on the left of each row */
+.filter-bar__legend {
+  flex: 0 0 96px;
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.filter-bar__clear {
+  font-size: var(--text-small);
+  color: var(--color-brand);
+}
+
+@media (max-width: 640px) {
+  .filter-bar__group { flex-direction: column; gap: var(--space-sm); }
+  .filter-bar__legend { flex-basis: auto; }
+}
+
+
+/* ------------------------------------------------------------
+   3. RESULTS GRID
+   Cards on the left, map on the right. On phones the map moves
+   above the cards and stops being sticky.
+   ------------------------------------------------------------ */
+
+.search-results { padding-block: var(--space-xl); }
+
+.search-results__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.search-results__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg) var(--space-md);
+}
+
+@media (max-width: 1024px) {
+  .search-results__layout { grid-template-columns: 1fr; }
+}
+
+
+/* ------------------------------------------------------------
+   4. MAP PANEL
+   A placeholder map. Pins are positioned from the card order
+   until a real mapping service is wired in.
+   ------------------------------------------------------------ */
+
+.map-panel {
+  position: sticky;
+  top: var(--space-lg);
+}
+
+.map-panel__canvas {
+  position: relative;
+  height: 560px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+  overflow: hidden;
+}
+
+.map-panel__note {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+/* One price pin per result */
+.map-panel__pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .map-panel { position: static; order: -1; }
+  .map-panel__canvas { height: 280px; }
+}

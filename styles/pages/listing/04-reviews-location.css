@@ -1,0 +1,90 @@
+/* ============================================================
+   LISTING PAGE — sections 5-6, reviews and the map
+   ------------------------------------------------------------
+   Part of the listing page. The files in this folder are numbered
+   in SCREEN ORDER — 01 is at the top of the page, 05 at the
+   bottom. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   5. REVIEWS
+   ------------------------------------------------------------ */
+
+.reviews {
+  padding-block: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.reviews__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-lg);
+}
+
+.reviews__scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-sm) var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.reviews__score {
+  display: grid;
+  grid-template-columns: 1fr 120px 32px;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-small);
+}
+
+/* The thin track, with a filled span inside it */
+.reviews__bar {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-neutral-200);
+  overflow: hidden;
+}
+
+.reviews__bar span {
+  display: block;
+  height: 100%;
+  background: var(--color-text);
+}
+
+.reviews__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-xl);
+}
+
+
+/* ------------------------------------------------------------
+   6. LOCATION
+   ------------------------------------------------------------ */
+
+.listing-location {
+  padding-block: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.listing-location__map {
+  display: grid;
+  place-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  height: 320px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+}
+
+.listing-location__pin {
+  font-size: 2rem;
+  color: var(--color-brand);
+}
+
+.listing-location__note {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+

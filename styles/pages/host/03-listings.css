@@ -1,0 +1,76 @@
+/* ============================================================
+   HOST PAGES — sections 2-3, dashboard and your places
+   ------------------------------------------------------------
+   Part of the host pages. The files in this folder are numbered in
+   the order a host meets them — the pitch first, the day-to-day
+   screens after. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   2. DASHBOARD
+   ------------------------------------------------------------ */
+
+/* One row in the "Needs you" panel */
+.host-task {
+  display: flex;
+  gap: var(--space-sm);
+  padding-block: var(--space-sm);
+  color: var(--color-text);
+}
+
+.host-task + .host-task { border-top: 1px solid var(--color-border); }
+
+.host-task:hover { color: var(--color-brand); }
+
+
+/* ------------------------------------------------------------
+   3. YOUR PLACES
+   ------------------------------------------------------------ */
+
+.host-listings { display: grid; gap: var(--space-md); }
+
+.host-listing {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
+
+.host-listing__photo {
+  width: 140px;
+  height: 104px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+}
+
+.host-listing__body { flex: 1; }
+
+.host-listing__title {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+}
+
+.host-listing__meta,
+.host-listing__stats {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.host-listing__stats { margin-top: var(--space-xs); }
+
+.host-listing__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .host-listing { flex-direction: column; align-items: stretch; }
+  .host-listing__photo { width: 100%; height: 160px; }
+}

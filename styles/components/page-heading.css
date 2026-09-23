@@ -1,0 +1,29 @@
+/* ============================================================
+   PAGE HEADING COMPONENT
+   ------------------------------------------------------------
+   The title block that opens every inner page.
+   Used by <PageHeading /> in components/shared/PageHeading.tsx.
+   ============================================================ */
+
+.page-heading { margin-bottom: var(--space-xl); }
+
+.page-heading__eyebrow {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.page-heading__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--leading-tight);
+}
+
+.page-heading__lede {
+  margin-top: var(--space-sm);
+  max-width: var(--width-text);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}

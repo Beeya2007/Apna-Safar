@@ -4,6 +4,15 @@
    ============================================================ */
 
 import Link from "next/link";
+import AccountMenu from "./AccountMenu";
+
+/* Edit this list to change the main navigation. */
+const NAV = [
+  { label: "Stays",       href: "/search" },
+  { label: "Experiences", href: "/experiences" },
+  { label: "My trips",    href: "/trips" },
+  { label: "Messages",    href: "/messages" },
+];
 
 export default function SiteHeader() {
   return (
@@ -18,16 +27,17 @@ export default function SiteHeader() {
 
         {/* NAV LINKS — hidden on small screens (see header.css) */}
         <nav className="site-header__nav">
-          <Link href="/search">Stays</Link>
-          <Link href="/search?type=experience">Experiences</Link>
-          <Link href="/trips">My trips</Link>
+          {NAV.map((item) => (
+            <Link key={item.href} href={item.href}>{item.label}</Link>
+          ))}
         </nav>
 
-        {/* ACCOUNT MENU — placeholder until login is built */}
-        <button className="site-header__account">
-          <span aria-hidden>☰</span>
-          <span className="site-header__avatar" aria-hidden>👤</span>
-        </button>
+        {/* RIGHT SIDE — hosting, then the account menu.
+            Signing out from that menu asks before it acts. */}
+        <div className="site-header__right">
+          <Link href="/host" className="site-header__host">Become a host</Link>
+          <AccountMenu />
+        </div>
 
       </div>
     </header>

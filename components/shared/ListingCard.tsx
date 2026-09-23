@@ -5,6 +5,7 @@
 
 import Link from "next/link";
 import type { Listing } from "@/lib/types";
+import { dateRange, distance, rupees } from "@/lib/format";
 
 export default function ListingCard({ listing }: { listing: Listing }) {
   return (
@@ -12,7 +13,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
 
       {/* PHOTO — cover image with a favourite heart on top */}
       <div className="listing-card__photo">
-        <img src={listing.photo} alt={listing.location} loading="lazy" />
+        <img src={listing.photos[0]} alt={listing.title} loading="lazy" />
         <span className="listing-card__favourite" aria-hidden>♡</span>
       </div>
 
@@ -23,12 +24,14 @@ export default function ListingCard({ listing }: { listing: Listing }) {
       </div>
 
       {/* META — supporting grey lines */}
-      <p className="listing-card__meta">{listing.distance}</p>
-      <p className="listing-card__meta">{listing.dates}</p>
+      <p className="listing-card__meta">{distance(listing.distanceKm)}</p>
+      <p className="listing-card__meta">
+        {dateRange(listing.availableFrom, listing.availableTo)}
+      </p>
 
       {/* PRICE — per night */}
       <p className="listing-card__price">
-        <strong>₹{listing.pricePerNight.toLocaleString("en-IN")}</strong> night
+        <strong>{rupees(listing.pricePerNight)}</strong> night
       </p>
     </Link>
   );

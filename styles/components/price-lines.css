@@ -1,0 +1,26 @@
+/* ============================================================
+   PRICE LINES COMPONENT
+   ------------------------------------------------------------
+   The itemised cost of a stay. The same block appears on the
+   listing page, the payment page and the receipt.
+   Used by <PriceLines /> in components/shared/PriceLines.tsx.
+   ============================================================ */
+
+.price-lines__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+/* The total is the one line people actually read. It gets the
+   full-strength text colour and a rule above it. */
+.price-lines__row--total {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-heading);
+}

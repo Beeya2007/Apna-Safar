@@ -1,0 +1,41 @@
+/* ============================================================
+   REVIEW COMPONENT
+   ------------------------------------------------------------
+   One guest review: who, when, how many stars, what they said.
+   Used by <ReviewCard /> in components/shared/ReviewCard.tsx.
+   ============================================================ */
+
+.review__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.review__avatar {
+  display: grid;
+  place-items: center;
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+  font-size: var(--text-heading);
+}
+
+.review__author { font-weight: var(--weight-medium); }
+
+.review__date {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* Star rating pushed to the far right of the header row */
+.review__rating {
+  margin-left: auto;
+  font-size: var(--text-small);
+}
+
+.review__text {
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}

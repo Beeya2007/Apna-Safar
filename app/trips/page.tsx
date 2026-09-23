@@ -1,17 +1,23 @@
 /* ============================================================
    MY TRIPS PAGE  —  shown at  /trips
    ------------------------------------------------------------
-   Not built yet. Will list the signed-in guest's bookings:
-   upcoming, past, and cancelled.
+   Which set of bookings is shown comes from the web address
+   (/trips?show=past), so a view can be bookmarked.
+
+   Styles: styles/pages/trips.css
    ============================================================ */
 
-export default function TripsPage() {
+import TripsListSection from "@/components/trips/TripsListSection";
+
+export default async function TripsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ show?: string }>;
+}) {
+  const { show } = await searchParams;
+
   return (
-    <div className="page-container" style={{ paddingBlock: "var(--space-2xl)" }}>
-      <h1 className="listing-grid__title">My trips</h1>
-      <p style={{ color: "var(--color-text-muted)" }}>
-        This page is not built yet.
-      </p>
-    </div>
+    /* TRIPS LIST — tabs, then the bookings they select */
+    <TripsListSection show={show} />
   );
 }

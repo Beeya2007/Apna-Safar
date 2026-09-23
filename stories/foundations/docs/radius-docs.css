@@ -1,0 +1,174 @@
+/* ============================================================
+   RADIUS DOCS CHROME
+   ------------------------------------------------------------
+   Styles for the Radius foundation page only. Shared docs
+   chrome is in docs.css.
+
+   Every corner below comes from the scale and every gap from
+   the spacing scale — the docs are the first consumer, so a
+   wrong value shows up here rather than hiding.
+   ============================================================ */
+
+/* ---- THE SCALE ---------------------------------------------- */
+.rad-scale { display: grid; gap: var(--space-2); margin: var(--space-4) 0 var(--space-8); }
+.rad-scale__row {
+  display: grid;
+  grid-template-columns: 56px 120px 52px 72px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+}
+.rad-scale__chip {
+  height: 40px;
+  background: var(--color-primary-600);
+}
+.rad-scale__name  { font-size: 11px; font-weight: 600; }
+.rad-scale__val   { font-size: 11px; color: var(--color-content-primary); }
+.rad-scale__shape { font-size: 11px; font-weight: 600; color: var(--color-content-primary); }
+.rad-scale__use   { font-size: 11px; color: var(--color-content-secondary); }
+
+@media (max-width: 800px) {
+  .rad-scale__row { grid-template-columns: 48px 110px 48px minmax(0, 1fr); }
+  .rad-scale__shape { display: none; }
+}
+
+/* ---- SHAPE LADDER — each step at the size it is meant for --- */
+.rad-ladder { display: grid; gap: var(--space-4); margin: var(--space-4) 0 var(--space-8); }
+.rad-ladder__row {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6);
+}
+.rad-ladder__meta  { display: grid; gap: var(--space-0-5); }
+.rad-ladder__name  { font-size: 13px; }
+.rad-ladder__token { font-size: 11px; color: var(--color-content-tertiary); }
+.rad-ladder__note  { font-size: 11px; color: var(--color-content-secondary); }
+.rad-ladder__box {
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-medium);
+}
+
+@media (max-width: 800px) {
+  .rad-ladder__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+}
+
+/* ---- NESTED CORNERS ----------------------------------------- */
+/* The card is deliberately tinted, not white. The whole point
+   of the demo is the sliver of CARD showing through the corner
+   when the inner radius is too big, and on a white card against
+   a white page there is nothing to see. */
+.rad-card {
+  width: 260px;
+  padding: var(--space-2);                 /* 8px */
+  border-radius: var(--radius-lg);         /* 16px outer */
+  background: var(--color-neutral-800);
+  border: 1px solid var(--color-border-medium);
+  color: var(--color-content-inverse);
+}
+.rad-card__media {
+  height: 96px;
+  border-radius: var(--radius-md);         /* 16 − 8 = 8px inner */
+  background: var(--color-primary-300);
+}
+.rad-card__media--wrong { border-radius: var(--radius-lg); }
+.rad-card__text { padding: var(--space-2) var(--space-1) var(--space-1); font-size: 13px; }
+
+/* ---- PILLS, AVATARS, ICON BUTTONS --------------------------- */
+.rad-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.rad-pill {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-surface-raised);
+  font-size: 12px;
+}
+.rad-pill--status {
+  border-color: var(--color-status-success-border);
+  background: var(--color-status-success-surface);
+  color: var(--color-status-success-content);
+}
+.rad-avatar, .rad-iconbtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;               /* square box — a circle needs one */
+  border-radius: var(--radius-full);
+  font-size: 12px;
+}
+.rad-avatar  { background: var(--color-primary-200); color: var(--color-primary-800); }
+.rad-iconbtn {
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-surface-raised);
+  color: var(--color-primary-600);
+  cursor: pointer;
+}
+.rad-btn {
+  padding: 0.75em 1em;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-600);
+  color: var(--color-content-inverse);
+  font: inherit; font-size: 13px; cursor: pointer;
+}
+.rad-btn--lozenge { border-radius: var(--radius-full); }
+.rad-minicard {
+  width: 180px;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-weak);
+  background: var(--color-surface-raised);
+  font-size: 12px;
+}
+.rad-minicard--lozenge { border-radius: var(--radius-full); }
+
+/* ---- CLIPPING ----------------------------------------------- */
+.rad-clip {
+  width: 220px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-weak);
+  overflow: hidden;                        /* the whole point */
+}
+.rad-clip--leak { overflow: visible; }
+.rad-clip__img {
+  height: 88px;
+  background: linear-gradient(135deg, var(--color-secondary-400), var(--color-secondary-700));
+}
+
+/* ---- FOCUS RINGS -------------------------------------------- */
+.is-focus, .is-focus-square {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+/* An outline always follows the element's own corner, so the
+   broken version has to be drawn deliberately: a square box
+   shadow around a pill leaves daylight at all four corners. */
+.is-focus-square {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface-default), 0 0 0 4px var(--color-border-focus);
+  border-radius: var(--radius-full);
+  position: relative;
+}
+.is-focus-square::after {
+  content: '';
+  position: absolute; inset: -4px;
+  border: 2px solid var(--color-border-error);
+  border-radius: var(--radius-none);
+}
+
+/* ---- SURFACE HIERARCHY -------------------------------------- */
+.rad-surfaces {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-4) 0 var(--space-6);
+}
+.rad-surfaces__item { display: grid; gap: var(--space-1); }
+.rad-surfaces__box {
+  display: grid; place-items: center;
+  height: 72px;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-medium);
+  font-size: 10px;
+  color: var(--color-content-tertiary);
+}
+.rad-surfaces__name { font-size: 12px; }
+.rad-surfaces__note { font-size: 11px; color: var(--color-content-secondary); }

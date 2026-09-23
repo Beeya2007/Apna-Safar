@@ -1,0 +1,253 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { RadiusRuler, ShapeLadder } from './docs/Radius';
+import { Nested, PillUse, Clipping, FocusRing, Surfaces } from './docs/RadiusDemos';
+import { DoDont, Do, Dont } from './docs/Guidance';
+
+<Meta title="Foundations/Radius" />
+
+# Radius
+
+<div className="lede">
+Five corners, and that is the whole system. Three real values — 4, 8 and 16 —
+each double the one before it, plus square and pill. ApnaSafar is
+printed-postcard warmth, not a rounded phone app, so corners here are
+restrained on purpose: the softest thing on a page should be the photography,
+not the boxes around it.
+</div>
+
+---
+
+## 1. The Scale
+
+<RadiusRuler />
+
+Values are read from the browser at render time, so this table cannot drift
+from the CSS.
+
+### Why only five
+
+Radius is not a place where more choice buys anything. Two corners differing by
+2px do not read as a decision, they read as a mistake — and a 6px button beside
+a 4px input in the same search bar is the most common way an interface looks
+slightly broken without anyone being able to say why.
+
+Because each step **doubles**, the difference is always visible and the choice
+is always obvious. There is no 2px (indistinguishable from square), no 6px (it
+only ever means "4, but for buttons"), and no 12px (a surface that wants 12 is
+either a container or a big surface, and deciding which is the useful question).
+
+### How it relates to spacing
+
+The three real values are 4, 8 and 16 — the same steps as `--space-1`,
+`--space-2` and `--space-4`. That is deliberate, and it is what makes the
+nested-corner rule in §6 come out to whole numbers.
+
+---
+
+## 2. Shape Hierarchy
+
+Each step shown at the size it is actually meant for. A 16px corner on a 40px
+box is the mistake this picture exists to prevent.
+
+<ShapeLadder />
+
+**Radius is a proxy for size, not for importance.** A bigger surface can carry
+a bigger corner; a more important one cannot. Reaching for the next step up to
+make something feel friendlier is how a system ends up with five different
+cards.
+
+---
+
+## 3. Surfaces
+
+Not everything on a page should look equally rounded. The order below is the
+order a page stacks them in.
+
+<Surfaces />
+
+| Surface | Radius | Why |
+|---|---|---|
+| Page, section, band | `--radius-none` | It touches the viewport. A corner there has nothing to curve away from. |
+| Table row, list row | `--radius-none` | Rows are separated by rules, not by shape. |
+| Card, image, banner | `--radius-md` | It sits *on* the page and needs an edge of its own. |
+| Elevated card, popover, dropdown | `--radius-md` | Elevation is the shadow's job. Radius does not repeat it. |
+| Modal, drawer, sheet | `--radius-lg` | Big enough to carry 16px, and floating clear of everything. |
+| Button, input, select | `--radius-sm` | Small, and usually sitting inside something already rounded. |
+
+The rule underneath all of it: **the bigger and more detached the surface, the
+larger its corner.** Anything touching an edge is square.
+
+---
+
+## 4. Component Map
+
+One radius per job, not per component. If two components want different corners
+at the same size, one of them is wrong.
+
+### Controls — `--radius-sm`
+
+Button · input · select · search field · textarea · checkbox · segmented
+control (outer `--radius-sm`, the cells square with only the end cells rounded)
+
+Two exceptions, both because the shape carries meaning rather than decorating
+it: **radio** and **toggle** use `--radius-full`, because a circle says
+"exactly one" and a capsule says "on or off". A square toggle reads as a
+checkbox at a glance.
+
+### Containers — `--radius-md`
+
+Card · listing card · image · thumbnail · dropdown · popover · tooltip ·
+banner · alert · accordion panel · code block
+
+### Big surfaces — `--radius-lg`
+
+Modal · dialog · drawer · bottom sheet · full-width feature panel
+
+Only above about 400px wide. On a small box, 16px eats the corner and the
+content starts colliding with the curve.
+
+### Pills — `--radius-full`
+
+Chip · tag · status badge · count badge · avatar · icon button · toggle track ·
+progress bar · skeleton line
+
+---
+
+## 5. Pill and Circle
+
+`--radius-full` is not a size, it is a **shape**. 999px is simply larger than
+half of anything it will be applied to, so the browser clamps it and one value
+covers a 24px chip and a 56px floating button.
+
+<PillUse />
+
+Use it when the shape means something. A pill says *"this is a small
+self-contained token"*; a circle says *"this is one thing"*.
+
+**Do not use it to soften a rectangle.** A pill-shaped card is a lozenge, and a
+pill-shaped button reads as a chip — which matters, because a chip is something
+you select, and a button is something you press.
+
+### Circles need a square box
+
+A circle is `--radius-full` **plus equal width and height**. Without that you
+get a lozenge, which is why avatars and icon buttons set an explicit size
+rather than letting content decide. Use `--radius-full` rather than `50%` so
+that a box which is accidentally not square degrades to a pill instead of an
+ellipse.
+
+---
+
+## 6. Nested Corners
+
+The rule is arithmetic:
+
+```text
+inner radius = outer radius − padding
+```
+
+A 16px card with 8px of padding wants an 8px image inside it. Matching the
+parent's radius leaves a widening sliver of background in each corner; the eye
+reads it as a wobble long before anyone works out what it is.
+
+<Nested />
+
+Three consequences worth knowing:
+
+- **Padding larger than the outer radius means the inner corner is square.** A
+  card with 16px padding and a 16px radius holds a square-cornered image, and
+  that is correct, not lazy.
+- **A control keeps its own radius regardless of what holds it.** A button is
+  `--radius-sm` inside a card, a modal or a page. Only *surfaces* participate
+  in the nesting arithmetic.
+- **Flush children inherit the parent's corner**, not a smaller one — an image
+  running edge to edge at the top of a card takes the card's radius on its top
+  two corners and none on the bottom.
+
+---
+
+## 7. Borders, Shadows and Clipping
+
+**Borders.** A border sits *on* the radius, so both follow the same curve
+automatically. The one thing to watch is that a border makes a small radius
+read larger — a 1px border around a 4px corner looks closer to 5px — which is
+one more reason not to have a 6px step trying to be different from 4.
+
+**Shadows.** A box-shadow follows the element's radius on its own. Never fake a
+shadow with a square pseudo-element behind a rounded box.
+
+**Focus rings.** `outline` follows the element's radius too, so the ring fits
+whatever shape the element has, including a pill. This only works if the radius
+is on the element the browser is actually focusing — put it on the `<button>`,
+not on a wrapper `<div>`.
+
+<FocusRing />
+
+**Clipping.** A rounded parent does **not** round its children. Anything that
+runs to the parent's edge — a photo, a map, a video — needs `overflow: hidden`
+on the parent, or its square corners punch straight through the curve.
+
+<Clipping />
+
+`overflow: hidden` also clips shadows and popovers escaping the box, so put it
+on the smallest wrapper that needs it rather than on the whole card.
+
+---
+
+## 8. Responsive
+
+**Radius does not change with screen width.** 8px is 8px on a phone.
+
+A corner is a property of the *shape*, and the shape is the same object on
+every device. Scaling it down with the viewport makes cards look progressively
+cheaper for no gain in fit.
+
+The one exception is a component whose **size** changes materially between
+breakpoints — a modal that becomes a full-height bottom sheet on a phone drops
+to `--radius-lg` on its top two corners and `--radius-none` on the bottom two,
+because those two now touch the edge of the screen. That is the square-at-the-
+edge rule doing its job, not radius being responsive.
+
+---
+
+## 9. Accessibility
+
+| Concern | What the scale does about it |
+|---|---|
+| Focus visibility | `outline` + `outline-offset` follow the corner, so the ring never crosses the shape. Offset keeps it clear of a border. |
+| Touch targets | Radius does not shrink a hit area — the corners stay clickable — but a 44px circular button is 44px wide, not 44px of visible circle inside a 32px box. |
+| Small controls | A checkbox at 16px keeps `--radius-sm`. Anything larger rounds away the corner a person aims at. |
+| High contrast | Corners are drawn from `background` and `border`, both of which forced-colours mode keeps. Nothing here depends on a shadow being visible. |
+| Selected state | Never signal selection by changing radius alone — a shape change is invisible to a screen reader and ambiguous to everyone else. Change fill or border and say it in the markup. |
+| Disabled state | Radius stays identical. Only colour and cursor change. |
+
+---
+
+## 10. Usage
+
+<DoDont>
+  <Do title="Use a step from the scale. border-radius: var(--radius-md)." />
+  <Dont title="Don't type a pixel value. border-radius: 10px is off the scale and nobody knows why it is 10." />
+  <Do title="Give every control the same corner. A button and the input beside it are both --radius-sm." />
+  <Dont title="Don't give a component its own radius because it looked better alone. It never sits alone." />
+  <Do title="Subtract the padding for a nested corner. 16px card, 8px padding, 8px image." />
+  <Dont title="Don't match the parent's radius on an inset child — it leaves a sliver of background in each corner." />
+  <Do title="Add overflow: hidden when a child runs to a rounded edge." />
+  <Dont title="Don't let a photo's square corners punch through the card's curve." />
+  <Do title="Use --radius-full when the shape means something: chip, avatar, toggle." />
+  <Dont title="Don't use --radius-full to soften a rectangle. A pill-shaped card is a lozenge." />
+  <Do title="Keep corners square where a surface touches the viewport." />
+  <Dont title="Don't round a full-bleed section. There is nothing for the corner to curve away from." />
+</DoDont>
+
+---
+
+## 11. Files
+
+| File | What is in it |
+|---|---|
+| `styles/design-system/08-radius.css` | The scale. Five values, nothing else. |
+| `styles/01-design-tokens.css` | `--radius-xs`, kept as an alias so older CSS keeps working. |
+| `docs/06-radius.md` | The same rules, written for someone reading the repo. |
+
+Figma variables use the same path with a slash: `radius/md` ↔ `--radius-md`.

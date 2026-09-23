@@ -1,0 +1,153 @@
+/* ============================================================
+   BOOKING PAGES  —  styles for /book/7 and /book/7/confirmed
+   ------------------------------------------------------------
+   Sections in the SAME ORDER they appear on screen, phone
+   styles directly beneath each one.
+
+     1. TRIP SUMMARY   what is being booked
+     2. CANCELLATION   the policy, before paying
+     3. PAY FORM       guest details, card, confirm
+     4. PRICE          the breakdown, sticky on desktop
+     5. CONFIRMED      the receipt screen
+   ============================================================ */
+
+.book { padding-block: var(--space-xl); }
+
+/* Form on the left, price beside it */
+.book__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Every panel in the left column gets the same gap beneath it */
+.book__main > * + * { margin-top: var(--space-lg); }
+.book__main .panel + .panel,
+.book__main form .panel + .panel { margin-top: var(--space-lg); }
+
+.book__aside { position: sticky; top: var(--space-lg); }
+
+@media (max-width: 1024px) {
+  .book__layout { grid-template-columns: 1fr; }
+  .book__aside { position: static; order: -1; }
+}
+
+
+/* ------------------------------------------------------------
+   1. TRIP SUMMARY
+   ------------------------------------------------------------ */
+
+.trip-summary {
+  display: flex;
+  gap: var(--space-md);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trip-summary__photo {
+  width: 104px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  flex-shrink: 0;
+}
+
+.trip-summary__title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-xs);
+}
+
+.trip-summary__meta {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* The "Change" link in a panel heading */
+.panel__link {
+  font-size: var(--text-small);
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   2. CANCELLATION  +  3. PAY FORM
+   Shared small print, used by both.
+   ------------------------------------------------------------ */
+
+.book__policy {
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-sm);
+}
+
+.book__fineprint {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+  margin-top: var(--space-md);
+  max-width: var(--width-text);
+}
+
+.book__card-row { margin-top: var(--space-md); }
+
+.book__confirm {
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+
+
+/* ------------------------------------------------------------
+   5. CONFIRMED
+   ------------------------------------------------------------ */
+
+.confirmed {
+  padding-block: var(--space-xl);
+  max-width: 720px;
+}
+
+.confirmed > .panel + .panel { margin-top: var(--space-lg); }
+
+.confirmed__banner {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+/* The green tick in a circle */
+.confirmed__tick {
+  display: grid;
+  place-items: center;
+  width: var(--size-16);
+  height: var(--size-16);
+  margin: 0 auto var(--space-md);
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+  font-size: var(--text-title);
+}
+
+.confirmed__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  margin-bottom: var(--space-sm);
+}
+
+.confirmed__lede {
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+  max-width: 52ch;
+  margin: 0 auto;
+}
+
+.confirmed__actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+@media (max-width: 560px) {
+  .confirmed__actions { flex-direction: column; }
+}

@@ -1,0 +1,80 @@
+/* ============================================================
+   SUPPORT PAGES  —  styles for /help and /legal
+   ------------------------------------------------------------
+     1. HELP CENTRE   every article, grouped
+     2. ARTICLE       one article or legal page
+   ============================================================ */
+
+.support,
+.article { padding-block: var(--space-xl); }
+
+
+/* ------------------------------------------------------------
+   1. HELP CENTRE
+   ------------------------------------------------------------ */
+
+.support__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-xl);
+}
+
+.support__category {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-md);
+}
+
+.support__links {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.support__links a {
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}
+
+.support__links a:hover {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+.support__contact {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.support__contact a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   2. ARTICLE
+   Held to a readable measure — a full-width paragraph is hard
+   to track back from at the end of a line.
+   ------------------------------------------------------------ */
+
+.article { max-width: 720px; }
+
+.article__body {
+  display: grid;
+  gap: var(--space-md);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed, 1.7);
+  max-width: var(--width-text);
+}
+
+.article__back {
+  margin-top: var(--space-2xl);
+  font-size: var(--text-small);
+}
+
+.article__back a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}

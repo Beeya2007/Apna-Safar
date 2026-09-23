@@ -78,3 +78,42 @@
   .search-bar__divider { display: none; }
   .search-bar__submit { width: 100%; border-radius: var(--radius-sm); }
 }
+
+/* ---- POPOVER FIELDS — dates and guests --------------------
+   These two open our own calendar and dropdown rather than
+   the browser's controls, so the field is a button and needs
+   a positioning context for the panel it opens. */
+
+.search-bar__field--popover { position: relative; }
+
+.search-bar__trigger {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text);
+}
+
+/* Inside the search bar the dropdown has no box of its own —
+   the bar already is the box. */
+.search-bar__field--popover .dropdown__trigger {
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--text-small);
+}
+
+.search-bar__field--popover .dropdown__trigger[aria-expanded="true"] {
+  box-shadow: none;
+}
+
+.search-bar__field--popover .field__label {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  margin-bottom: 2px;
+}

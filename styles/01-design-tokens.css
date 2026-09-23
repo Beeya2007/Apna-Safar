@@ -80,8 +80,8 @@
   /* --- TEXT SIZES -----------------------------------------
      Named by job, not by number, so you pick by meaning.
      The clamp() ones shrink by themselves on small screens.  */
-  --text-hero:    clamp(3rem, 9vw, 7rem);      /* "{ Coming Soon }"      */
-  --text-display: clamp(2rem, 5vw, 3.25rem);   /* "{ Your Journey. }"    */
+  --text-hero:    clamp(2rem, 6vw, 3.5rem);    /* 32 -> 56, HERO ONLY    */
+  --text-display: clamp(1.75rem, 5vw, 3rem);   /* 28 -> 48, the cap      */
   --text-title:   1.5rem;                      /* "Tell the place..."    */
   --text-heading: 1.125rem;                    /* "Verified Stays"       */
   --text-body:    1rem;                        /* normal paragraphs      */
@@ -127,12 +127,20 @@
 
   /* --- CORNERS --------------------------------------------
      This brand is mostly square-ish. Only the mood chips are
-     fully rounded.                                           */
-  --radius-xs:   4px;    /* inputs, small boxes    */
-  --radius-sm:   6px;    /* buttons                */
-  --radius-md:   10px;   /* cards, photos          */
-  --radius-lg:   16px;   /* large panels           */
-  --radius-full: 999px;  /* mood chips             */
+     fully rounded.
+
+     These five names now point at the radius scale in
+     styles/design-system/08-radius.css. Two values moved so
+     that the whole system runs on one doubling scale:
+
+       --radius-sm  was  6px, now 4px  (buttons)
+       --radius-md  was 10px, now 8px  (cards, photos)
+
+     >> FOR NEW WORK, USE THE SCALE DIRECTLY: <<
+        var(--radius-sm)  controls
+        var(--radius-md)  containers
+        var(--radius-lg)  big surfaces                        */
+  --radius-xs:   var(--radius-sm);  /* 4px — same value, kept working */
 
   /* --- SHADOWS --------------------------------------------
      Tinted brown, never grey, so they look like paper resting

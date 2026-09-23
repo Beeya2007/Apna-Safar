@@ -1,0 +1,100 @@
+/* ============================================================
+   LISTING PAGE — sections 1-2, the title and the photos
+   ------------------------------------------------------------
+   Part of the listing page. The files in this folder are numbered
+   in SCREEN ORDER — 01 is at the top of the page, 05 at the
+   bottom. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. TITLE
+   ------------------------------------------------------------ */
+
+.listing-title { padding-top: var(--space-xl); }
+
+.listing-title__name {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-sm);
+}
+
+.listing-title__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.listing-title__meta {
+  display: flex;
+  gap: var(--space-xs);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.listing-title__meta a { text-decoration: underline; }
+
+.listing-title__actions { display: flex; gap: var(--space-sm); }
+
+
+/* ------------------------------------------------------------
+   2. PHOTO GALLERY
+   Cover on the left at double width, thumbnails filling the
+   right. On phones only the cover is shown.
+   ------------------------------------------------------------ */
+
+.gallery { padding-block: var(--space-lg); }
+
+.gallery__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--space-sm);
+  aspect-ratio: 2 / 1;
+}
+
+.gallery__cover {
+  grid-row: span 2;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg-alt);
+}
+
+.gallery__thumb {
+  overflow: hidden;
+  background: var(--color-bg-alt);
+}
+
+/* Round only the two outer corners of the block */
+.gallery__thumb:nth-of-type(3) { border-top-right-radius: var(--radius-lg); }
+.gallery__thumb:last-of-type   { border-bottom-right-radius: var(--radius-lg); }
+
+.gallery__cover img,
+.gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery__all {
+  position: absolute;
+  right: var(--space-md);
+  bottom: var(--space-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+}
+
+@media (max-width: 768px) {
+  .gallery__grid { grid-template-columns: 1fr; grid-template-rows: 1fr; aspect-ratio: 3 / 2; }
+  .gallery__cover { border-radius: var(--radius-lg); }
+  .gallery__thumb { display: none; }
+}
+
+

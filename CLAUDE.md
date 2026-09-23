@@ -29,4 +29,5 @@ It is the rulebook and it is not optional.
 - Where files live: `docs/01-where-things-live.md`
 - Style editing: `docs/02-how-to-edit-styles.md`
 - Terminology: `docs/03-glossary.md`
+- Every screen and the order to build them: `docs/08-information-architecture.md`
 - The home page is the worked example — follow its shape for new screens.

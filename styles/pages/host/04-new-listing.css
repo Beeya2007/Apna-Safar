@@ -1,0 +1,64 @@
+/* ============================================================
+   HOST PAGES — section 5, the add-a-place flow
+   ------------------------------------------------------------
+   Part of the host pages. The files in this folder are numbered in
+   the order a host meets them — the pitch first, the day-to-day
+   screens after. Each one's phone styles sit directly beneath it.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   5. ADD A PLACE
+   ------------------------------------------------------------ */
+
+.host-progress {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.host-progress__step {
+  flex: 1 1 120px;
+  padding-top: var(--space-sm);
+  border-top: 3px solid var(--color-border);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+/* Steps you have reached */
+.host-progress__step--done {
+  border-top-color: var(--color-brand);
+  color: var(--color-text);
+}
+
+.host-progress__nav {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* Two large buttons do not fit side by side on a phone */
+@media (max-width: 480px) {
+  .host-progress__nav { flex-direction: column; }
+  .host-progress__nav .button { width: 100%; }
+}
+
+/* The drop-photos-here box */
+.host-upload {
+  display: grid;
+  place-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-md);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.host-upload p { font-size: var(--text-body); }
+
+.host-upload__note {
+  font-size: var(--text-small) !important;
+  color: var(--color-text-muted);
+}

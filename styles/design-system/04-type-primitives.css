@@ -39,7 +39,12 @@
      small sizes 14 vs 16 is a real decision; the display range
      steps by 1.25 because a hero has to dominate, not nudge.
      Shipped values are rounded to whole pixels — the largest
-     drift from the pure ratio is 5.6%.                        */
+     drift from the pure ratio is 5.6%.
+
+     48px is the largest size anything may use, with exactly one
+     exception: the page hero, which gets the 56px step. The
+     scale stops at 56 on purpose — there is no token above it,
+     so nothing bigger can be reached for by accident.         */
   --font-size-3xs: 0.750rem;  /* 12px  caption, overline       */
   --font-size-2xs: 0.875rem;  /* 14px  body small, labels      */
   --font-size-xs:  1.000rem;  /* 16px  BASE — body medium      */
@@ -48,15 +53,14 @@
   --font-size-lg:  1.500rem;  /* 24px  heading medium          */
   --font-size-xl:  2.000rem;  /* 32px  heading large           */
   --font-size-2xl: 2.500rem;  /* 40px  heading xl              */
-  --font-size-3xl: 3.000rem;  /* 48px  display medium          */
-  --font-size-4xl: 3.750rem;  /* 60px  display large           */
-  --font-size-5xl: 4.500rem;  /* 72px  display xl              */
+  --font-size-3xl: 3.000rem;  /* 48px  display large — the cap */
+  --font-size-4xl: 3.500rem;  /* 56px  hero ONLY — nothing else */
 
   /* --- LINE HEIGHTS ----------------------------------------
      Unitless, so they scale with whatever size inherits them.
      Big text needs proportionally LESS leading than small text
      — that is why one value for everything always looks wrong. */
-  --line-height-tight:   1.05;  /* 48px and above              */
+  --line-height-tight:   1.05;  /* display — 48/56px           */
   --line-height-snug:    1.20;  /* headings 24-40px            */
   --line-height-normal:  1.50;  /* body — the WCAG 1.4.12 floor */
   --line-height-relaxed: 1.70;  /* long-form reading           */
@@ -64,7 +68,7 @@
   /* --- LETTER SPACING --------------------------------------
      Large text looks loose at 0 and wants pulling in; small and
      uppercase text looks cramped and wants opening up.        */
-  --letter-spacing-tighter: -0.03em;  /* 48px and above        */
+  --letter-spacing-tighter: -0.03em;  /* display — 48/56px     */
   --letter-spacing-tight:   -0.015em; /* 24-40px               */
   --letter-spacing-normal:  0;        /* all body copy         */
   --letter-spacing-wide:    0.02em;   /* small labels          */

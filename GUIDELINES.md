@@ -103,6 +103,9 @@ margin-bottom: 24px;            /* ❌ — the parent's gap decides */
 The rules are in [docs/04-spacing.md](docs/04-spacing.md), the per-component
 numbers in [docs/05-spacing-in-practice.md](docs/05-spacing-in-practice.md).
 
+Corners work the same way — five values, and controls, containers and big
+surfaces each get one of them. See [docs/06-radius.md](docs/06-radius.md).
+
 ---
 
 ## Rule 5 — Every section gets a one-line comment

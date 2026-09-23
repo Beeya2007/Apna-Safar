@@ -1,0 +1,119 @@
+/* ============================================================
+   CALENDAR COMPONENT
+   ------------------------------------------------------------
+   Our own month grid, used by the date picker and by the host
+   calendar screen. Replaces the browser's date picker, which
+   renders as an operating-system panel we cannot style.
+
+   Used by <Calendar /> in components/shared/Calendar.tsx.
+   The boxes that open it are in datefield.css.
+   ============================================================ */
+
+.calendar { min-width: 300px; }
+
+/* ---- MONTH BAR — back, the month, forward ----------------- */
+
+.calendar__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.calendar__month {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+}
+
+.calendar__arrow {
+  display: grid;
+  place-items: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  font-size: var(--text-heading);
+  line-height: 1;
+}
+
+.calendar__arrow:hover {
+  border-color: var(--color-text);
+  background: var(--color-bg-alt);
+}
+
+/* ---- THE GRID --------------------------------------------- */
+
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar__weekday {
+  padding-bottom: var(--space-sm);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  text-align: center;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* One date. Square, so a month reads as a block rather than
+   as a list of numbers. */
+.calendar__day {
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  aspect-ratio: 1;
+  min-height: var(--touch-target);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-size: var(--text-small);
+}
+
+.calendar__day:hover:not(:disabled) {
+  border-color: var(--color-text);
+}
+
+/* The two ends of the chosen range */
+.calendar__day--picked {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-inverse);
+  font-weight: var(--weight-bold);
+}
+
+/* The nights in between the two ends */
+.calendar__day--between {
+  background: var(--color-brand-wash);
+  border-radius: var(--radius-none);
+}
+
+/* A night someone has already booked. Tinted rather than
+   struck through — it is taken, not invalid. */
+.calendar__day--taken {
+  background: var(--color-brand-tint);
+  color: var(--color-text);
+  cursor: not-allowed;
+}
+
+/* Dates in the past, or outside what the host has opened */
+.calendar__day--off {
+  color: var(--color-disabled-text);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.calendar__date { line-height: 1.1; }
+
+/* The optional second line — a price, or "Booked" */
+.calendar__note {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  line-height: 1.1;
+}
+
+.calendar__day--picked .calendar__note { color: var(--color-text-inverse); }
+

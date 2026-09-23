@@ -103,7 +103,7 @@
 .categories__item:hover { color: var(--color-text); }
 
 /* The currently selected category */
-.categories__item--active {
+.categories__item:hover {
   color: var(--color-text);
   font-weight: var(--weight-medium);
   border-bottom-color: var(--color-text);
@@ -164,7 +164,7 @@
 .host-cta__text { flex: 1; }
 
 .host-cta__title {
-  font-size: var(--text-hero);
+  font-size: var(--text-display);   /* not the hero — capped at 48 */
   font-weight: var(--weight-bold);
   line-height: 1.15;
   margin-bottom: var(--space-md);
@@ -187,4 +187,15 @@
   /* Stack text above photo once there isn't room side by side */
   .host-cta__inner { flex-direction: column; text-align: center; }
   .host-cta__body  { margin-inline: auto; }
+}
+
+/* The link into full search under the card grid */
+.listing-grid__more {
+  margin-top: var(--space-lg);
+  font-size: var(--text-small);
+}
+
+.listing-grid__more a {
+  color: var(--color-brand);
+  text-decoration: underline;
 }

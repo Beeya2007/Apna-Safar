@@ -1,46 +1,13 @@
 /* ============================================================
    SPACING DOCS CHROME
    ------------------------------------------------------------
-   Styles for the Spacing foundation page. Every gap below is a
-   step from the scale — the docs are its first consumer, so if
-   a value is wrong this page shows it rather than hiding it.
+   Styles for the Spacing foundation page only. The shared docs
+   chrome — including the "On this page" index — is in docs.css.
+
+   Every gap below is a step from the scale: the docs are its
+   first consumer, so if a value is wrong this page shows it
+   rather than hiding it.
    ============================================================ */
-
-/* ---- ON THIS PAGE — the jump index ------------------------
-   A rail parked to the right of the docs column. It is hidden
-   below 1400px, where there is no longer room beside the text
-   and a floating panel would sit on top of it. */
-.sp-nav {
-  position: fixed;
-  top: var(--space-16);
-  right: var(--space-6);
-  width: 190px;
-  z-index: 2;
-  padding-left: var(--space-3);
-  border-left: 2px solid var(--color-border-weak);
-}
-.sp-nav__title {
-  margin: 0 0 var(--space-2);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--color-content-tertiary);
-}
-.sp-nav__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-1); }
-.sp-nav__link {
-  display: block;
-  padding: var(--space-0-5) 0;
-  font-size: 12px;
-  line-height: 1.35;
-  text-decoration: none;
-  color: var(--color-content-secondary);
-}
-.sp-nav__link:hover { color: var(--color-content-link); }
-.sp-nav__link.is-active { color: var(--color-content-primary); font-weight: 600; }
-.sp-nav__link:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
-
-@media (max-width: 1400px) { .sp-nav { display: none; } }
 
 /* ---- THE SCALE, AS BARS ------------------------------------- */
 .sp-scale { display: grid; gap: var(--space-2); margin: var(--space-4) 0 var(--space-8); }
@@ -53,11 +20,11 @@
 .sp-scale__name { font-size: 11px; font-weight: 600; }
 .sp-scale__px   { font-size: 11px; color: var(--color-content-primary); }
 .sp-scale__mult { font-size: 10px; color: var(--color-content-tertiary); }
-.sp-scale__track { background: var(--color-surface-sunken); border-radius: 2px; height: 12px; }
+.sp-scale__track { background: var(--color-surface-sunken); border-radius: var(--radius-sm); height: 12px; }
 .sp-scale__bar {
   height: 12px;
   background: var(--color-primary-600);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   min-width: 1px;
 }
 .sp-scale__use { font-size: 11px; color: var(--color-content-secondary); }
@@ -105,7 +72,7 @@
     var(--color-primary-200) 0 4px,
     var(--color-primary-100) 4px 8px
   );
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
 }
 .sp-hier__use { font-size: 11px; color: var(--color-content-secondary); }
 

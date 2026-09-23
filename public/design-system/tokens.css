@@ -80,8 +80,8 @@
   /* --- TEXT SIZES -----------------------------------------
      Named by job, not by number, so you pick by meaning.
      The clamp() ones shrink by themselves on small screens.  */
-  --text-hero:    clamp(3rem, 9vw, 7rem);      /* "{ Coming Soon }"      */
-  --text-display: clamp(2rem, 5vw, 3.25rem);   /* "{ Your Journey. }"    */
+  --text-hero:    clamp(2rem, 6vw, 3.5rem);    /* 32 -> 56, HERO ONLY    */
+  --text-display: clamp(1.75rem, 5vw, 3rem);   /* 28 -> 48, the cap      */
   --text-title:   1.5rem;                      /* "Tell the place..."    */
   --text-heading: 1.125rem;                    /* "Verified Stays"       */
   --text-body:    1rem;                        /* normal paragraphs      */

@@ -1,0 +1,65 @@
+/* ============================================================
+   DATE RANGE FIELD COMPONENT
+   ------------------------------------------------------------
+   The two boxes that open the calendar. They look like fields
+   and behave like buttons, because there is nothing to type —
+   dates are chosen from the grid in calendar.css.
+
+   Used by <DateRangeField /> in components/shared/.
+   ============================================================ */
+
+.datefield { position: relative; }
+
+
+.datefield__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+/* Looks like a field, behaves like a button */
+.datefield__box {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  min-height: var(--control-height-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.datefield__box:hover { border-color: var(--color-text); }
+
+.datefield__box[aria-expanded="true"] {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--color-brand);
+}
+
+.datefield__label {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-wide);
+}
+
+.datefield__value { font-size: var(--text-small); }
+
+.datefield__value--empty { color: var(--color-text-faint); }
+
+.datefield__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.datefield__clear {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+}

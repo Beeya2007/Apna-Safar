@@ -1,0 +1,91 @@
+/* ============================================================
+   RADIUS SCALE  —  --radius-<step>
+   ------------------------------------------------------------
+   Every rounded corner in the product comes from this file.
+   Five values, and that is the whole system.
+
+   WHY ONLY FIVE
+   Radius is not a place where more choice buys anything. Two
+   corners that differ by 2px do not read as a decision, they
+   read as a mistake — and a 6px button beside a 4px input in
+   the same search bar is the most common way an interface
+   looks slightly broken without anyone being able to say why.
+   Each step here is DOUBLE the one before it, so the
+   difference is always visible and the choice is always
+   obvious.
+
+   HOW IT RELATES TO SPACING
+   The three real values are 4, 8 and 16 — the same steps as
+   --space-1, --space-2 and --space-4. That is deliberate. It
+   is what makes the nested-corner rule in docs/06-radius.md
+   work out to whole numbers: an image inset by --space-2
+   inside a --radius-lg card wants exactly --radius-md.
+
+   THE BRAND IS SQUARE-ISH
+   ApnaSafar is printed-postcard warmth, not a rounded phone
+   app. Corners here are restrained on purpose: the softest
+   thing on the page should be the photography, not the boxes
+   around it. Reach for the next step up only when the surface
+   is genuinely larger, never to make something look friendly.
+
+   RADIUS DOES NOT CHANGE AT A BREAKPOINT. 8px is 8px on a
+   phone — see docs/06-radius.md for the one exception.
+   ============================================================ */
+
+:root {
+
+  /* --- NONE — 0 --------------------------------------------
+     Not the absence of a decision. Square corners say "this
+     runs to the edge": banded page sections, table rows,
+     full-bleed photography, anything touching the viewport.  */
+  --radius-none: 0;
+
+  /* --- SMALL — 4px -----------------------------------------
+     CONTROLS. Anything a person clicks or types into, at its
+     ordinary size: button, input, select, checkbox, one cell
+     of a segmented control. Small enough to stay crisp on a
+     32px-tall control, big enough to not read as square.     */
+  --radius-sm: 4px;
+
+  /* --- MEDIUM — 8px ----------------------------------------
+     CONTAINERS. Things that hold other things: cards, images,
+     dropdowns, popovers, tooltips, banners. Twice the control
+     radius, which is what keeps a button sitting inside a
+     card from looking like it is fighting the card.          */
+  --radius-md: 8px;
+
+  /* --- LARGE — 16px ----------------------------------------
+     BIG SURFACES. Modals, drawers, sheets, full-width feature
+     panels. Only for surfaces wider than about 400px: on a
+     small box, 16px eats the corner and the content starts
+     colliding with the curve.                                */
+  --radius-lg: 16px;
+
+  /* --- FULL — a pill ---------------------------------------
+     Not a size, a SHAPE. 999px is any number larger than half
+     the tallest thing it will ever be applied to; the browser
+     clamps it, so one value covers a 24px chip and a 56px
+     floating button.
+
+     Use it when the shape carries meaning: a pill says "this
+     is a small self-contained token" (chip, tag, status
+     badge) and a circle says "this is one thing" (avatar,
+     icon button, dot). Never use it to soften a rectangle —
+     a pill-shaped card is a lozenge, and a pill-shaped input
+     is a search box whether you meant that or not.           */
+  --radius-full: 999px;
+
+  /* --- WHAT IS NOT HERE, AND WHY --------------------------
+     No 2px. It is indistinguishable from square at any size
+     the eye meets it, so it is a value that costs a decision
+     and returns nothing.
+
+     No 6px. It only ever exists as "4, but for buttons", and
+     buttons have no claim to a different shape from the input
+     sitting next to them.
+
+     No 12px, 20px, 24px. The gap between 8 and 16 is the one
+     place the scale could grow, and it has not needed to: a
+     surface that wants 12 is either a container (8) or a big
+     surface (16), and deciding which is the useful question.  */
+}

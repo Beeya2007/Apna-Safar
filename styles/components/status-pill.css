@@ -1,0 +1,23 @@
+/* ============================================================
+   STATUS PILL COMPONENT
+   ------------------------------------------------------------
+   The small badge on a booking. Colour carries meaning, so the
+   word is always shown too — colour alone is never the signal.
+   Used by <StatusPill /> in components/shared/StatusPill.tsx.
+   ============================================================ */
+
+.status-pill {
+  display: inline-block;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  border: 1px solid currentColor;
+}
+
+.status-pill--upcoming  { color: var(--color-success); }
+.status-pill--pending   { color: var(--color-warning); }
+.status-pill--completed { color: var(--color-text-muted); }
+.status-pill--cancelled { color: var(--color-error); }

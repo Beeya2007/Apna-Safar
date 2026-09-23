@@ -1,0 +1,99 @@
+/* ============================================================
+   SIZING PAGE — docs chrome only, never ships with the app
+   ============================================================ */
+
+/* ---- BASE SCALE --------------------------------------------- */
+.szscale { display: grid; gap: 6px; margin: 16px 0 28px; }
+.szscale__row {
+  display: grid; grid-template-columns: 96px 52px 140px 1fr;
+  gap: 12px; align-items: center; font-size: 11px;
+}
+.szscale__name { font-weight: 600; }
+.szscale__px   { color: var(--color-content-tertiary); text-align: right; }
+.szscale__bar  { background: var(--gradient-brand); border-radius: 3px; }
+.szscale__use  { color: var(--color-content-secondary); }
+@media (max-width: 700px) {
+  .szscale__row { grid-template-columns: 90px 48px 1fr; }
+  .szscale__use { display: none; }
+}
+
+/* ---- CONTROLS ----------------------------------------------- */
+.ctrls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 18px; margin: 16px 0 28px; }
+.ctrls__cell { display: grid; gap: 5px; justify-items: center; }
+.ctrls__lbl { font-size: 11px; font-weight: 600; }
+.ctrls__dim { font-size: 10px; color: var(--color-content-tertiary); }
+
+.szbtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2);
+  background: var(--color-primary-600);
+  color: var(--color-content-inverse);
+  border-radius: var(--radius-sm, 6px);
+  font-size: 13px; font-weight: 500;
+  white-space: nowrap;
+}
+.szinput {
+  display: flex; align-items: center;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm, 6px);
+  color: var(--color-content-secondary);
+  font-size: 13px; min-width: 150px;
+}
+.szicon {
+  display: inline-block; border-radius: 3px;
+  background: currentColor; opacity: .85; flex: none;
+}
+.szicon--solo { background: var(--color-primary-600); opacity: 1; }
+
+/* ---- ICONS / AVATARS ---------------------------------------- */
+.icons { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 22px; margin: 16px 0 28px; }
+.icons__cell { display: grid; gap: 6px; justify-items: center; }
+.icons__lbl { font-size: 11px; color: var(--color-content-tertiary); }
+.szavatar {
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--color-primary-200);
+  color: var(--color-primary-800);
+  font-size: 12px; font-weight: 600; flex: none;
+}
+
+/* ---- RATIOS -------------------------------------------------- */
+.ratios {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px; margin: 16px 0 28px;
+}
+.ratios__cell { display: grid; gap: 6px; }
+.ratios__box {
+  display: grid; place-items: center;
+  background: var(--color-primary-100);
+  border: 1px solid var(--color-primary-200);
+  border-radius: 8px;
+  color: var(--color-primary-800);
+  font-size: 11px; font-weight: 600;
+}
+.ratios__use { font-size: 11px; color: var(--color-content-secondary); }
+
+/* ---- CONTAINERS ---------------------------------------------- */
+.conts { display: grid; gap: 7px; margin: 16px 0 28px; }
+.conts__row {
+  display: grid; grid-template-columns: 120px 56px 1fr;
+  gap: 12px; align-items: center; font-size: 11px;
+}
+.conts__name { font-weight: 600; }
+.conts__px { color: var(--color-content-tertiary); text-align: right; }
+.conts__bar {
+  height: 14px; border-radius: 3px;
+  background: var(--color-primary-300);
+  border: 1px solid var(--color-primary-400);
+}
+
+/* ---- TOUCH TARGET DEMO --------------------------------------- */
+.touch { display: flex; flex-wrap: wrap; gap: 26px; margin: 16px 0 28px; }
+.touch__cell { display: grid; gap: 6px; justify-items: center; }
+.touch__hit {
+  display: grid; place-items: center;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 6px;
+}
+.touch__dot { background: var(--color-primary-600); border-radius: 4px; }
+.touch__lbl { font-size: 11px; color: var(--color-content-tertiary); }

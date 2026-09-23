@@ -1,0 +1,283 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { IconBrowser } from './docs/IconBrowser';
+import { Alignment, Containers, IconButtons, Meaning } from './docs/IconDemos';
+import { DoDont, Do, Dont } from './docs/Guidance';
+
+<Meta title="Foundations/Iconography" />
+
+# Iconography
+
+<div className="lede">
+The library is <strong>Phosphor</strong>, and it is not copied into this repo.
+The browser below reads Phosphor's own metadata at runtime, so the icon list,
+the categories and the search keywords come from the package and cannot go
+stale when Phosphor ships a release. Pick an icon, set it up with design-system
+tokens, copy the code.
+</div>
+
+---
+
+## 1. Icon Browser
+
+Search by name, by category, or by what the thing *is* — Phosphor tags every
+icon with keywords, which is why **payment** finds `CreditCard` and
+**settings** finds `Gear`.
+
+<IconBrowser />
+
+The colour, size and surface options above are not icon settings. They are the
+Colour and Sizing foundations, read live — change the theme in the toolbar and
+the resolved value under the colour picker changes with it.
+
+---
+
+## 2. What Iconography Owns
+
+Almost nothing, and that is the point.
+
+```text
+Colour foundation   →  an icon takes a CONTENT colour
+Sizing foundation   →  --icon-size-xs … xl, already defined
+Radius foundation   →  an icon button takes --radius-sm or --radius-full
+Spacing foundation  →  icon-to-label gaps are --space-1 / --space-2
+```
+
+There is no icon palette, no icon size scale and no icon state system. A
+duplicate of any of those is a second source of truth that will drift from the
+first one within a release.
+
+What is left — how an icon sits beside text, and how an icon button is built —
+is in `styles/design-system/11-icon.css`, and it is 100 lines.
+
+---
+
+## 3. Sizes
+
+Five sizes, from the Sizing foundation. **20px is the default**, because the
+default control height is 40px.
+
+| Token | Value | Use |
+|---|---|---|
+| `--icon-size-xs` | 12px | inside a 24px dense control |
+| `--icon-size-sm` | 16px | inside a 32px compact control, or beside small text |
+| `--icon-size-md` | 20px | **the default** — inside a 40px control, beside body text |
+| `--icon-size-lg` | 24px | inside a 48px control, or standalone |
+| `--icon-size-xl` | 32px | empty states, feature marks |
+
+**Match the icon to the text's cap height, not its line height.** An icon
+matched to cap height reads as part of the sentence; one matched to line height
+reads as a bullet beside it. That is why 20px pairs with 16px body text rather
+than 24px.
+
+---
+
+## 4. Weights
+
+Phosphor's six, and no renaming. **`light` is the default** — every lined icon
+in the product is light unless it says otherwise.
+
+| Weight | When |
+|---|---|
+| `light` | **Everything lined.** The default, set once on `IconContext`. |
+| `regular` | Where a light stroke thins out: 12px icons, and icons over photography. |
+| `bold` | Rare. Emphasis a heavier text weight already carries beside it. |
+| `fill` | The *selected* state of a navigation item or a toggle — the lined/filled pair is the clearest state change an icon can make. |
+| `thin` | Large decorative marks only. Below 24px it disappears. |
+| `duotone` | Illustration and empty states. Never in a control: it introduces a second colour the colour foundation does not manage. |
+
+### Why light is the default
+
+The rest of the page is a delicate editorial serif on cream. A regular-weight
+icon beside Season Mix reads as a heavier object than the words it belongs to —
+it draws the eye first, which is backwards for something that is usually a
+label's companion rather than its subject.
+
+**It is set once, not passed everywhere.** Phosphor reads the weight from
+`IconContext`, and the app sets it in
+`components/shared/IconDefaults.tsx`. That is why the generated code below has
+no `weight` prop unless you pick something other than light.
+
+**The one place to check it.** At 12px a light stroke is under a pixel on a
+non-retina screen, and against a busy photograph it loses the edge that makes it
+legible. Step up to `regular` in those two cases — and only those two.
+
+**Pick one weight per surface and hold it.** A toolbar with three `light` icons
+and one `bold` reads as a rendering bug, not as emphasis.
+
+---
+
+## 5. Colour
+
+An icon is content, so it takes a content colour. The browser's picker lists
+the real tokens; there is no icon-specific palette.
+
+**The best colour is usually no colour at all.** Phosphor renders
+`currentColor`, so an icon inside a button or a link changes with the text
+beside it for free. Set a colour only where the icon carries meaning the text
+does not — a status tick, an error cross.
+
+<Meaning />
+
+**Never let colour be the only carrier.** A red icon and a green icon are the
+same icon to a colour-blind reader and to a screen reader alike. Change the
+*glyph* as well, and put the meaning in words.
+
+---
+
+## 6. Alignment
+
+<Alignment />
+
+| Rule | Value |
+|---|---|
+| Icon → label, 20px and 24px icons | `--space-2` (8px) |
+| Icon → label, 12px and 16px icons | `--space-1` (4px) |
+| Leading vs trailing gap | **The same.** An asymmetric gap is visible and nobody can say why. |
+| Vertical alignment in a flex row | `align-items: center` — centre on the line box |
+| Vertical alignment in flowing text | `vertical-align: -0.125em` — an optical nudge onto the baseline |
+
+Text sits on a baseline; an icon box does not. Dropping it by `0.125em` is what
+stops an icon appearing to float above the words next to it, and because the
+value is in `em` it holds at every text size.
+
+---
+
+## 7. Containers
+
+Not every icon needs a box. A container is a promise that the thing is
+interactive or that it stands apart from the text around it — put one round an
+inert icon and you have made a button that does nothing.
+
+<Containers />
+
+| Form | When |
+|---|---|
+| Bare icon | Beside text, inside a button that already has a label, in a list row. |
+| Icon button | The icon *is* the control. Needs an accessible name — see §9. |
+| Icon + tinted circle | A status or category mark that must read at a glance in a list. |
+| Avatar | A person or a place, never an action. |
+
+---
+
+## 8. Icon Buttons
+
+An icon button is composition, not a new component: size from Sizing, corner
+from Radius, colours from Colour, focus ring from the same rule every other
+control uses.
+
+<IconButtons />
+
+| Property | Value |
+|---|---|
+| Size | `--control-height-sm` 32px · `--control-height-md` 40px (default) · `--control-height-lg` 48px |
+| Icon inside | 16px · 20px · 24px respectively — half the button, rounded to the scale |
+| Padding | None. The button is square and the size *is* the padding. |
+| Radius | `--radius-sm`, or `--radius-full` for a floating or avatar-adjacent button |
+| Hover / pressed | `--color-state-hover` / `--color-state-pressed` |
+| Selected | `--color-state-selected`, plus `aria-pressed`, plus the `fill` weight |
+| Focus | `outline` + 2px offset, following the corner |
+| Disabled | `--color-content-disabled`, and the control stays the same size |
+
+**A 32px button is smaller than the 44px touch target.** It does not grow on
+screen — it grows its *hit area*, with an invisible inset pseudo-element. See
+the bottom of `11-icon.css`.
+
+---
+
+## 9. Accessibility
+
+The whole of it comes down to one question: **does this icon carry meaning that
+is not already in the text next to it?**
+
+| Kind | Markup | Why |
+|---|---|---|
+| Decorative — text says it too | `aria-hidden="true"` | A screen reader announcing "envelope, Email" is noise. |
+| Informative — no text beside it | `role="img"` + `aria-label` | The icon is the content. |
+| Interactive — icon-only button | `<button aria-label="Delete booking">` | Without a name the control is announced as "button", which is useless. |
+
+Phosphor renders `<svg>` with no accessible name by default, which is the
+correct default: it means an icon is silent until you decide it should speak.
+
+- **Contrast** — an icon is a graphic, so it needs **3:1** against its
+  background, not 4.5:1. `--color-content-tertiary` passes on the default
+  surface; check it before using it on a tinted one.
+- **Focus** — the ring goes on the `<button>`, not on the `<svg>`.
+- **Touch** — 44px, whatever the icon size, on a coarse pointer.
+- **Never state by colour or glyph alone.** Say it in words too.
+
+---
+
+## 10. Naming
+
+**The Phosphor name is the name.** `MagnifyingGlass`, not `Search`. It is what
+you type into the browser above, what appears in the generated import, and what
+a designer sees in the Figma library — one name across all three.
+
+The browser accepts a handful of aliases at the search box only, because they
+are what people actually type:
+
+```text
+search   → magnifying-glass      close    → x
+settings → gear                  delete   → trash
+edit     → pencil                menu     → list
+```
+
+These are a **search convenience, not an alternate name.** They never appear in
+code, and no new ones should be added without a good reason: a private
+vocabulary is exactly what makes a shared library stop being shared.
+
+---
+
+## 11. Figma
+
+The same library, so an icon is one object across both tools:
+
+- Install the **Phosphor Icons** Figma plugin or the community library — do not
+  redraw or import icons by hand.
+- Keep Phosphor's names. A layer renamed `Search` cannot be matched to
+  `MagnifyingGlass` in code by anyone, ever.
+- Size with the frame, not by scaling the vector: 12 / 16 / 20 / 24 / 32, the
+  same five values as `--icon-size-*`.
+- Colour with **Colour foundation variables**, never a picked hex, so light and
+  dark resolve the same way they do in the browser above.
+- Weight is a variant property, matching Phosphor's six.
+
+---
+
+## 12. Usage
+
+<DoDont>
+  <Do title="Let the icon inherit currentColor inside a button or a link." />
+  <Dont title="Don't set a colour on an icon whose parent already sets one — they will disagree on hover." />
+  <Do title="Use the Phosphor name everywhere: code, Figma, conversation." />
+  <Dont title="Don't invent an internal name. Search → MagnifyingGlass is a search alias, not a rename." />
+  <Do title="Give every icon-only button an aria-label." />
+  <Dont title="Don't ship a button whose accessible name is 'button'." />
+  <Do title="Mark a decorative icon aria-hidden when the text beside it says the same thing." />
+  <Dont title="Don't make a screen reader announce 'envelope, Email'." />
+  <Do title="Let lined icons inherit the light default from IconContext." />
+  <Dont title="Don't write weight='light' on every icon — it is already the default." />
+  <Do title="Use fill weight for a selected navigation item, and regular at 12px." />
+  <Dont title="Don't mix weights on one surface — it reads as a rendering bug, not emphasis." />
+  <Do title="Use 20px beside 16px body text, matched to cap height." />
+  <Dont title="Don't size an icon to the line height — it reads as a bullet, not as part of the sentence." />
+  <Do title="Pair a status colour with a different glyph and a word." />
+  <Dont title="Don't let red versus green be the whole message." />
+</DoDont>
+
+---
+
+## 13. Files
+
+| File | What is in it |
+|---|---|
+| `components/shared/IconDefaults.tsx` | Sets `weight: light`, `size: 20` on `IconContext` for the whole app. |
+| `styles/design-system/11-icon.css` | Alignment contract and icon button. Nothing else — no scale, no palette. |
+| `stories/foundations/docs/icon-data.ts` | Reads Phosphor's metadata; the token lists the browser offers. |
+| `stories/foundations/docs/IconBrowser.tsx` | Search, categories, grid. |
+| `stories/foundations/docs/IconInspector.tsx` | Preview and the weight / size / colour / surface controls. |
+| `stories/foundations/docs/IconCode.tsx` | Code generation and copy. |
+| `docs/07-iconography.md` | The same rules, written for someone reading the repo. |
+
+Packages: `@phosphor-icons/react` (components) and `@phosphor-icons/core`
+(metadata).

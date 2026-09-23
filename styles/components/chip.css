@@ -21,8 +21,11 @@
 
 .chip:hover { background: var(--color-brand-wash); }
 
-/* The one the visitor has picked */
-.chip[aria-pressed="true"] {
+/* The one the visitor has picked.
+   Buttons say aria-pressed, links say aria-current — both mean
+   "this is the active one", and both look the same. */
+.chip[aria-pressed="true"],
+.chip[aria-current="true"] {
   background: var(--color-brand);
   border-color: var(--color-brand);
   color: var(--color-text-inverse);

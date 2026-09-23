@@ -1,0 +1,83 @@
+/* ============================================================
+   MODAL COMPONENT
+   ------------------------------------------------------------
+   A panel over the page that has to be answered. Used for
+   every action that cannot simply be undone: signing out,
+   cancelling a booking, paying, taking a listing down.
+
+   Used by <Modal /> and <ConfirmButton /> in components/shared/.
+   ============================================================ */
+
+/* The dimmed sheet over the page */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--space-md);
+  background: var(--color-overlay);
+}
+
+.modal__panel {
+  width: 100%;
+  max-width: var(--modal-width-sm);
+  max-height: var(--modal-height-max);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal__panel:focus-visible { outline: none; }
+
+.modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  line-height: var(--leading-snug);
+}
+
+.modal__close {
+  flex-shrink: 0;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border-radius: var(--radius-full);
+  border: 0;
+  background: transparent;
+  font-size: var(--text-title);
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+.modal__close:hover { background: var(--color-bg-alt); }
+
+.modal__body {
+  padding: 0 var(--space-lg) var(--space-lg);
+  overflow-y: auto;
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}
+
+/* Buttons sit right, the safe one first so the reflex press
+   is the one that changes nothing. */
+.modal__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 480px) {
+  .modal__foot { flex-direction: column-reverse; }
+  .modal__foot .button { width: 100%; }
+}
