@@ -14,7 +14,8 @@
   z-index: var(--layer-popover);
   min-width: 100%;
   padding: var(--space-md);
-  border: 1px solid var(--color-border);
+  /* No hairline: the shadow already lifts the panel off the
+     page, and an outline as well makes it look pasted on. */
   border-radius: var(--radius-lg);
   background: var(--color-bg);
   /* Same reason as the search bar: a panel that paints its own
