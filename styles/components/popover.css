@@ -17,6 +17,10 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-bg);
+  /* Same reason as the search bar: a panel that paints its own
+     cream background must also state its own dark text colour,
+     because it can open on top of a dark section. */
+  color: var(--color-text);
   box-shadow: var(--shadow-lg);
 }
 

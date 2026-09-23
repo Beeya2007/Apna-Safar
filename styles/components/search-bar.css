@@ -9,6 +9,11 @@
   display: flex;
   align-items: center;
   background: var(--color-bg);
+  /* The hero sets cream text for the dark photo behind it. This
+     bar is cream itself, so it must ask for dark text back —
+     otherwise anything inside it that does not name a colour of
+     its own comes out cream on cream, i.e. invisible. */
+  color: var(--color-text);
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-lg);
   padding: var(--space-xs);
