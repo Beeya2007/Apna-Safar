@@ -3,6 +3,9 @@
    Styles live in: styles/pages/host.css  (section 6)
    ============================================================ */
 
+
+"use client";
+
 import { myBookings } from "@/lib/data/host";
 import { listingById } from "@/lib/data/listings";
 import { count, dateRange, longDate, rupees } from "@/lib/format";
@@ -11,6 +14,7 @@ import Panel from "@/components/shared/Panel";
 import DataRow from "@/components/shared/DataRow";
 import StatusPill from "@/components/shared/StatusPill";
 import EmptyState from "@/components/shared/EmptyState";
+import { BookOpen } from "@phosphor-icons/react";
 
 export default function HostBookingsSection() {
   const bookings = myBookings();
@@ -21,7 +25,7 @@ export default function HostBookingsSection() {
 
       {bookings.length === 0 ? (
         <EmptyState
-          icon="📖"
+          icon={<BookOpen size={32} />}
           title="No bookings yet"
           body="Once a guest books one of your places it will show up here, with their dates and what you will be paid."
           actionLabel="Check your listings"

@@ -18,6 +18,7 @@ import Popover from "@/components/shared/Popover";
 import Calendar from "@/components/shared/Calendar";
 import Dropdown from "@/components/shared/Dropdown";
 import { nextRange } from "@/lib/calendar";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 
 /* Edit this list to change the guest counts offered. */
 const GUEST_OPTIONS = [
@@ -99,7 +100,7 @@ export default function SearchBar() {
 
       {/* SUBMIT — round search button */}
       <button className="search-bar__submit" onClick={handleSearch} aria-label="Search">
-        🔍
+        <MagnifyingGlass size={24} />
       </button>
 
     </div>

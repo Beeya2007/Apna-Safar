@@ -109,7 +109,8 @@
   border-bottom-color: var(--color-text);
 }
 
-.categories__icon { font-size: 1.5rem; }
+/* Sized by the icon's own `size` prop — 24px. */
+.categories__icon { display: block; }
 
 
 /* ------------------------------------------------------------

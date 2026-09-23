@@ -4,7 +4,11 @@
    Styles live in: styles/pages/support.css  (section 2)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
+import { ArrowLeft } from "@phosphor-icons/react";
 import PageHeading from "@/components/shared/PageHeading";
 
 export default function ArticleSection({
@@ -31,7 +35,9 @@ export default function ArticleSection({
       </div>
 
       <p className="article__back">
-        <Link href={backHref}>← {backLabel}</Link>
+        <Link href={backHref} className="icon-text icon-text--sm">
+          <ArrowLeft className="icon" /> {backLabel}
+        </Link>
       </p>
     </section>
   );

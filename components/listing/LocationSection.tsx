@@ -5,7 +5,11 @@
    Styles live in: styles/pages/listing.css  (section 6)
    ============================================================ */
 
+
+"use client";
+
 import type { Listing } from "@/lib/types";
+import { MapPin } from "@phosphor-icons/react";
 
 export default function LocationSection({ listing }: { listing: Listing }) {
   return (
@@ -15,7 +19,7 @@ export default function LocationSection({ listing }: { listing: Listing }) {
         <p className="listing-block__text">{listing.neighbourhood}</p>
 
         <div className="listing-location__map">
-          <span className="listing-location__pin" aria-hidden>◎</span>
+          <MapPin className="listing-location__pin icon" size={24} />
           <p className="listing-location__note">
             {listing.location} — the exact address is shared once you book.
           </p>

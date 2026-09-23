@@ -3,8 +3,12 @@
    Styles live in: styles/components/header.css
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
 import AccountMenu from "./AccountMenu";
+import { House } from "@phosphor-icons/react";
 
 /* Edit this list to change the main navigation. */
 const NAV = [
@@ -21,7 +25,7 @@ export default function SiteHeader() {
 
         {/* LOGO — links back to the home page */}
         <Link href="/" className="site-header__logo">
-          <span aria-hidden>🏡</span>
+          <House className="icon" size={24} />
           <span>ApnaSafar</span>
         </Link>
 

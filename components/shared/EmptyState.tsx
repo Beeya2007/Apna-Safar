@@ -4,6 +4,7 @@
    Styles live in: styles/components/empty-state.css
    ============================================================ */
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 export default function EmptyState({
@@ -13,7 +14,8 @@ export default function EmptyState({
   actionLabel,
   actionHref,
 }: {
-  icon: string;
+  /** A Phosphor icon element, e.g. <Heart size={32} />. */
+  icon: ReactNode;
   title: string;
   body: string;
   actionLabel?: string;

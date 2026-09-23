@@ -6,9 +6,13 @@
    Styles live in: styles/pages/host.css  (section 5)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
 import PageHeading from "@/components/shared/PageHeading";
 import Panel from "@/components/shared/Panel";
+import { Camera } from "@phosphor-icons/react";
 
 /* Edit this list to change the steps in the flow. */
 const STEPS = [
@@ -79,7 +83,7 @@ export default function NewListingSection({ step = 1 }: { step?: number }) {
       {current.n === 3 && (
         <Panel title="Photos">
           <div className="host-upload">
-            <span aria-hidden>📷</span>
+            <Camera size={32} />
             <p>Drop photos here, or choose files.</p>
             <p className="host-upload__note">
               Five or more works best. The first one becomes the cover.

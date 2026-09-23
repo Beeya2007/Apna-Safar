@@ -12,6 +12,7 @@
 
 import { useState } from "react";
 import Popover from "./Popover";
+import { CaretDown } from "@phosphor-icons/react";
 
 export type Option = { value: string; label: string; note?: string };
 
@@ -44,7 +45,7 @@ export default function Dropdown({
         aria-labelledby={`dd-${label}`}
       >
         <span>{picked?.label ?? "Choose"}</span>
-        <span className="dropdown__chevron" aria-hidden>▾</span>
+        <CaretDown className="dropdown__chevron icon" size={16} />
       </button>
 
       <Popover open={open} onClose={() => setOpen(false)} align={align}>

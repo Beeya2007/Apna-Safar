@@ -3,11 +3,15 @@
    Styles live in: styles/pages/trips.css  (sections 1 and 2)
    ============================================================ */
 
+
+"use client";
+
 import type { Booking, BookingStatus } from "@/lib/types";
 import { BOOKINGS } from "@/lib/data/bookings";
 import PageHeading from "@/components/shared/PageHeading";
 import Tabs from "@/components/shared/Tabs";
 import EmptyState from "@/components/shared/EmptyState";
+import { Suitcase } from "@phosphor-icons/react";
 import TripCard from "./TripCard";
 
 /* The three views, and which booking states each one shows. */
@@ -38,7 +42,7 @@ export default function TripsListSection({ show }: { show?: string }) {
       {/* 2. THE BOOKINGS */}
       {bookings.length === 0 ? (
         <EmptyState
-          icon="🧳"
+          icon={<Suitcase size={32} />}
           title={`No ${view.label.toLowerCase()} trips`}
           body="When you book somewhere it will appear here, with the address, the check-in time and a way to reach your host."
           actionLabel="Find somewhere to stay"

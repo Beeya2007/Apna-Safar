@@ -3,11 +3,15 @@
    Styles live in: styles/pages/book.css  (section 1)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
 import type { Listing } from "@/lib/types";
 import { count, dateRange, longDate } from "@/lib/format";
 import DataRow from "@/components/shared/DataRow";
 import Panel from "@/components/shared/Panel";
+import { Star } from "@phosphor-icons/react";
 
 export default function TripSummarySection({
   listing,
@@ -30,7 +34,9 @@ export default function TripSummarySection({
         <div>
           <h3 className="trip-summary__title">{listing.title}</h3>
           <p className="trip-summary__meta">{listing.location}</p>
-          <p className="trip-summary__meta">★ {listing.rating} · {count(listing.reviewCount, "review")}</p>
+          <p className="trip-summary__meta icon-text icon-text--sm">
+            <Star className="icon" weight="fill" /> {listing.rating} · {count(listing.reviewCount, "review")}
+          </p>
         </div>
       </div>
 

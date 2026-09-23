@@ -3,9 +3,13 @@
    Styles live in: styles/pages/messages.css  (section 1)
    ============================================================ */
 
+
+"use client";
+
 import { CONVERSATIONS } from "@/lib/data/bookings";
 import PageHeading from "@/components/shared/PageHeading";
 import EmptyState from "@/components/shared/EmptyState";
+import { Envelope } from "@phosphor-icons/react";
 import ConversationList from "./ConversationList";
 
 export default function MessagesSection() {
@@ -15,7 +19,7 @@ export default function MessagesSection() {
 
       {CONVERSATIONS.length === 0 ? (
         <EmptyState
-          icon="✉️"
+          icon={<Envelope size={32} />}
           title="No messages yet"
           body="Once you book somewhere, or ask a host a question, the conversation lives here."
           actionLabel="Find somewhere to stay"

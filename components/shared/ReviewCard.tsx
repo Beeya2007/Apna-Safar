@@ -3,8 +3,12 @@
    Styles live in: styles/components/review.css
    ============================================================ */
 
+
+"use client";
+
 import type { Review } from "@/lib/types";
 import { longDate } from "@/lib/format";
+import { Star } from "@phosphor-icons/react";
 
 export default function ReviewCard({ review }: { review: Review }) {
   return (
@@ -17,7 +21,9 @@ export default function ReviewCard({ review }: { review: Review }) {
           <p className="review__author">{review.author}</p>
           <p className="review__date">{longDate(review.date)}</p>
         </div>
-        <span className="review__rating">★ {review.rating}</span>
+        <span className="review__rating icon-text icon-text--sm">
+          <Star className="icon" weight="fill" /> {review.rating}
+        </span>
       </header>
 
       <p className="review__text">{review.text}</p>

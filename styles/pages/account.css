@@ -40,9 +40,9 @@
 
 .account-tile:hover { box-shadow: var(--shadow-md); }
 
+/* Sized by the icon's own `size` prop — 24px. */
 .account-tile__icon {
   display: block;
-  font-size: 1.5rem;
   margin-bottom: var(--space-sm);
 }
 
@@ -89,7 +89,7 @@
   height: var(--avatar-size-xl);
   border-radius: var(--radius-full);
   background: var(--color-bg-alt);
-  font-size: var(--text-title);
+  color: var(--color-text-muted);
 }
 
 .profile__about { margin-top: var(--space-md); }

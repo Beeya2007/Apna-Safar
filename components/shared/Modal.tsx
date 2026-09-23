@@ -11,6 +11,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { X } from "@phosphor-icons/react";
 
 export default function Modal({
   open,
@@ -66,7 +67,7 @@ export default function Modal({
         <header className="modal__head">
           <h2 className="modal__title">{title}</h2>
           <button type="button" className="modal__close" onClick={onClose}
-            aria-label="Close">×</button>
+            aria-label="Close"><X size={20} /></button>
         </header>
 
         <div className="modal__body">{children}</div>

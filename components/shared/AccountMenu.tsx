@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Popover from "./Popover";
 import Modal from "./Modal";
+import { List, User } from "@phosphor-icons/react";
 
 /* Edit this list to change what the account menu offers. */
 const LINKS = [
@@ -46,8 +47,10 @@ export default function AccountMenu() {
         aria-haspopup="menu"
         aria-label="Account menu"
       >
-        <span aria-hidden>☰</span>
-        <span className="site-header__avatar" aria-hidden>👤</span>
+        <List className="icon" size={20} />
+        <span className="site-header__avatar" aria-hidden>
+          <User size={18} />
+        </span>
       </button>
 
       <Popover open={open} onClose={() => setOpen(false)} align="right">

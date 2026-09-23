@@ -4,7 +4,11 @@
    Styles live in: styles/pages/book.css  (section 5)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
+import { Check } from "@phosphor-icons/react";
 import type { Host, Listing } from "@/lib/types";
 import { count, dateRange, longDate, priceStay } from "@/lib/format";
 import Panel from "@/components/shared/Panel";
@@ -31,7 +35,9 @@ export default function ConfirmedSection({
 
       {/* THE GOOD NEWS */}
       <div className="confirmed__banner">
-        <span className="confirmed__tick" aria-hidden>✓</span>
+        <span className="confirmed__tick" aria-hidden>
+          <Check size={32} weight="bold" />
+        </span>
         <h1 className="confirmed__title">You are booked</h1>
         <p className="confirmed__lede">
           {listing.location}, {dateRange(checkIn, checkOut)}. We have sent the

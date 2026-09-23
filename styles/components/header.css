@@ -62,7 +62,6 @@
   color: var(--color-text-inverse);
   display: grid;
   place-items: center;
-  font-size: var(--text-small);
 }
 
 @media (max-width: 900px) {

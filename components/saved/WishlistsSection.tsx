@@ -3,12 +3,16 @@
    Styles live in: styles/pages/saved.css  (section 1)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
 import { WISHLISTS } from "@/lib/data/bookings";
 import { listingById } from "@/lib/data/listings";
 import { count } from "@/lib/format";
 import PageHeading from "@/components/shared/PageHeading";
 import EmptyState from "@/components/shared/EmptyState";
+import { Heart } from "@phosphor-icons/react";
 
 export default function WishlistsSection() {
   return (
@@ -17,7 +21,7 @@ export default function WishlistsSection() {
 
       {WISHLISTS.length === 0 ? (
         <EmptyState
-          icon="♡"
+          icon={<Heart size={32} />}
           title="Nothing saved yet"
           body="Tap the heart on any place to keep it here. Lists are private until you share them."
           actionLabel="Start looking"

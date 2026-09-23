@@ -77,8 +77,8 @@
   background: var(--color-bg-alt);
 }
 
+/* Sized by the icon's own `size` prop — 24px. */
 .listing-location__pin {
-  font-size: 2rem;
   color: var(--color-brand);
 }
 

@@ -3,7 +3,11 @@
    Styles live in: styles/pages/home.css  (section 3)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
+import { ArrowRight } from "@phosphor-icons/react";
 import ListingCard from "@/components/shared/ListingCard";
 import { LISTINGS } from "@/lib/data/listings";
 
@@ -24,7 +28,9 @@ export default function ListingGridSection() {
 
         {/* THE WAY ON — into full search */}
         <p className="listing-grid__more">
-          <Link href="/search">See everywhere →</Link>
+          <Link href="/search" className="icon-text icon-text--sm">
+            See everywhere <ArrowRight className="icon" />
+          </Link>
         </p>
 
       </div>

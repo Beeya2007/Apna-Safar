@@ -3,7 +3,11 @@
    Styles live in: styles/pages/listing.css  (section 1)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
+import { Star, Heart, ShareNetwork } from "@phosphor-icons/react";
 import type { Listing } from "@/lib/types";
 import { count } from "@/lib/format";
 
@@ -15,7 +19,9 @@ export default function ListingTitleSection({ listing }: { listing: Listing }) {
 
         <div className="listing-title__row">
           <p className="listing-title__meta">
-            <span>★ {listing.rating}</span>
+            <span className="icon-text icon-text--sm">
+              <Star className="icon" weight="fill" /> {listing.rating}
+            </span>
             <span>·</span>
             <span>{count(listing.reviewCount, "review")}</span>
             <span>·</span>
@@ -23,8 +29,12 @@ export default function ListingTitleSection({ listing }: { listing: Listing }) {
           </p>
 
           <div className="listing-title__actions">
-            <button className="button button--ghost button--small">♡ Save</button>
-            <button className="button button--ghost button--small">↗ Share</button>
+            <button className="button button--ghost button--small icon-text icon-text--sm">
+              <Heart className="icon" /> Save
+            </button>
+            <button className="button button--ghost button--small icon-text icon-text--sm">
+              <ShareNetwork className="icon" /> Share
+            </button>
           </div>
         </div>
       </div>

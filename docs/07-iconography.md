@@ -62,6 +62,21 @@ When the icon does carry its own meaning, use a token, never a hex:
 
 ---
 
+## A file with an icon in it needs `"use client"`
+
+The default weight and size come from `IconContext`, and React context only
+exists in the browser. A file that imports from `@phosphor-icons/react` must
+therefore carry `"use client"` at the top, under its comment block, or the
+build fails with `createContext is not a function`.
+
+Phosphor also ships `@phosphor-icons/react/ssr`, which works without the
+directive. **Do not use it here.** It ignores `IconContext` completely and
+hardcodes `regular` weight, so every icon would quietly come out heavier than
+the page around it and the default in `IconDefaults.tsx` would stop meaning
+anything. One default, in one place, is worth the directive.
+
+---
+
 ## Sizes
 
 | Token | Value | Use |

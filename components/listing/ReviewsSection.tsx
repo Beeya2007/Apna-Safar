@@ -3,8 +3,12 @@
    Styles live in: styles/pages/listing.css  (section 5)
    ============================================================ */
 
+
+"use client";
+
 import type { Listing, Review } from "@/lib/types";
 import { count } from "@/lib/format";
+import { Star } from "@phosphor-icons/react";
 import ReviewCard from "@/components/shared/ReviewCard";
 
 /* The scores shown beside the overall rating. Placeholder
@@ -29,8 +33,8 @@ export default function ReviewsSection({
     <section className="reviews">
       <div className="page-container">
 
-        <h2 className="reviews__title">
-          ★ {listing.rating} · {count(listing.reviewCount, "review")}
+        <h2 className="reviews__title icon-text icon-text--lg">
+          <Star className="icon" weight="fill" /> {listing.rating} · {count(listing.reviewCount, "review")}
         </h2>
 
         {/* SCORE BARS — one per category */}

@@ -3,8 +3,12 @@
    Styles live in: styles/pages/account.css  (section 2)
    ============================================================ */
 
+
+"use client";
+
 import PageHeading from "@/components/shared/PageHeading";
 import Panel from "@/components/shared/Panel";
+import { User } from "@phosphor-icons/react";
 
 export default function ProfileSection() {
   return (
@@ -16,7 +20,9 @@ export default function ProfileSection() {
 
       <Panel title="About you">
         <div className="profile__identity">
-          <span className="profile__avatar" aria-hidden>🙂</span>
+          <span className="profile__avatar" aria-hidden>
+            <User size={32} />
+          </span>
           <button className="button button--secondary button--small">Change photo</button>
         </div>
 

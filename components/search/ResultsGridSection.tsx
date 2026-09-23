@@ -4,9 +4,13 @@
    Styles live in: styles/pages/search.css  (section 3)
    ============================================================ */
 
+
+"use client";
+
 import type { Listing } from "@/lib/types";
 import ListingCard from "@/components/shared/ListingCard";
 import EmptyState from "@/components/shared/EmptyState";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import MapPanel from "./MapPanel";
 
 export default function ResultsGridSection({ results }: { results: Listing[] }) {
@@ -15,7 +19,7 @@ export default function ResultsGridSection({ results }: { results: Listing[] }) 
       <section className="search-results">
         <div className="page-container">
           <EmptyState
-            icon="🔍"
+            icon={<MagnifyingGlass size={32} />}
             title="Nothing matched all of that"
             body="Try widening the dates, raising the price cap, or removing the must-have amenity. Clearing the type filter usually helps most."
             actionLabel="Clear all filters"

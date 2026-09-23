@@ -126,7 +126,6 @@
   border-radius: var(--radius-full);
   background: var(--color-success);
   color: var(--color-text-inverse);
-  font-size: var(--text-title);
 }
 
 .confirmed__title {

@@ -10,15 +10,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ConfirmButton from "@/components/shared/ConfirmButton";
 import PageHeading from "@/components/shared/PageHeading";
+import {
+  IdentificationCard, CreditCard, Bell, Suitcase, Heart, HouseLine,
+} from "@phosphor-icons/react";
 
 /* Edit this list to change what appears on the account hub. */
 const TILES = [
-  { icon: "🪪", title: "Personal details", body: "Name, photo, and what hosts see about you.", href: "/account/profile" },
-  { icon: "💳", title: "Payments",         body: "Cards, refunds and every receipt.",          href: "/account/payments" },
-  { icon: "🔔", title: "Notifications",    body: "What we send you, and how.",                 href: "/account/notifications" },
-  { icon: "🧳", title: "My trips",         body: "Upcoming, past and cancelled bookings.",     href: "/trips" },
-  { icon: "♡",  title: "Wishlists",        body: "Places you saved for later.",                href: "/wishlists" },
-  { icon: "🏠", title: "Hosting",          body: "List a place, or manage the ones you have.", href: "/host" },
+  { Icon: IdentificationCard, title: "Personal details", body: "Name, photo, and what hosts see about you.", href: "/account/profile" },
+  { Icon: CreditCard,         title: "Payments",         body: "Cards, refunds and every receipt.",          href: "/account/payments" },
+  { Icon: Bell,               title: "Notifications",    body: "What we send you, and how.",                 href: "/account/notifications" },
+  { Icon: Suitcase,           title: "My trips",         body: "Upcoming, past and cancelled bookings.",     href: "/trips" },
+  { Icon: Heart,              title: "Wishlists",        body: "Places you saved for later.",                href: "/wishlists" },
+  { Icon: HouseLine,          title: "Hosting",          body: "List a place, or manage the ones you have.", href: "/host" },
 ];
 
 export default function AccountHomeSection() {
@@ -31,7 +34,7 @@ export default function AccountHomeSection() {
       <div className="account__tiles">
         {TILES.map((tile) => (
           <Link key={tile.href} href={tile.href} className="account-tile">
-            <span className="account-tile__icon" aria-hidden>{tile.icon}</span>
+            <tile.Icon className="account-tile__icon icon" size={24} />
             <h2 className="account-tile__title">{tile.title}</h2>
             <p className="account-tile__body">{tile.body}</p>
           </Link>

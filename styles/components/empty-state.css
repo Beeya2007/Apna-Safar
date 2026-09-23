@@ -14,10 +14,13 @@
   background: var(--color-bg-alt);
 }
 
+/* The icon is a Phosphor SVG sized by its `size` prop (32px).
+   Only its placement is set here. */
 .empty-state__icon {
   display: block;
-  font-size: 2rem;
+  margin-inline: auto;
   margin-bottom: var(--space-md);
+  color: var(--color-text-muted);
 }
 
 .empty-state__title {

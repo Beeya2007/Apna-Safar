@@ -3,12 +3,17 @@
    Styles live in: styles/pages/browse.css  (section 3)
    ============================================================ */
 
+
+"use client";
+
 import Link from "next/link";
+import { ArrowRight } from "@phosphor-icons/react";
 import type { Destination } from "@/lib/types";
 import { LISTINGS } from "@/lib/data/listings";
 import PageHeading from "@/components/shared/PageHeading";
 import ListingCard from "@/components/shared/ListingCard";
 import EmptyState from "@/components/shared/EmptyState";
+import { MapTrifold } from "@phosphor-icons/react";
 
 export default function DestinationSection({
   destination,
@@ -34,7 +39,7 @@ export default function DestinationSection({
 
         {listings.length === 0 ? (
           <EmptyState
-            icon="🗺️"
+            icon={<MapTrifold size={32} />}
             title={`Nothing in ${destination.name} yet`}
             body="We are still adding places here. Try a wider search in the meantime."
             actionLabel="Search everywhere"
@@ -49,7 +54,9 @@ export default function DestinationSection({
         )}
 
         <p className="browse__more">
-          <Link href="/search">See everywhere else →</Link>
+          <Link href="/search" className="icon-text icon-text--sm">
+            See everywhere else <ArrowRight className="icon" />
+          </Link>
         </p>
       </section>
     </>
