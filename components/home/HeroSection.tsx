@@ -13,12 +13,9 @@ export default function HeroSection() {
       {/* OVERLAY — dark veil so white text stays readable */}
       <div className="hero__overlay" />
 
-      {/* CONTENT — headline, subtitle, search bar */}
+      {/* CONTENT — headline and search bar */}
       <div className="hero__content">
         <h1 className="hero__title">Find your next stay</h1>
-        <p className="hero__subtitle">
-          Unique homes and experiences, booked in a few taps.
-        </p>
         <SearchBar />
       </div>
 

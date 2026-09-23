@@ -131,3 +131,40 @@
   font-weight: var(--weight-bold);
   margin-bottom: 2px;
 }
+
+/* ---- ALL THREE PANELS ARE ONE HEIGHT -----------------------
+   Where, When and Who hold different amounts, so left alone
+   they open at three different heights and the bar appears to
+   grow and shrink as you move between them. They are all given
+   the height of the tallest — the two-month calendar — and
+   their contents stretch to fill it.
+
+   The value lives on .search-bar so the two panel widths and
+   this height are changed in the same place, and so nothing
+   outside the bar is affected: the same Dropdown and Popover
+   are used in forms elsewhere and must stay their own size. */
+
+.search-bar { --search-panel-height: 631px; }
+
+.search-bar__field--popover .popover {
+  height: var(--search-panel-height);
+  /* Never taller than the window; the panel scrolls instead. */
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+/* The one child of the popover fills it, rather than sitting
+   at the top of an otherwise empty box. */
+.search-bar__field--popover .popover > * { height: 100%; }
+
+@media (max-width: 1100px) {
+  /* One month instead of two: taller, because six week rows
+     stack rather than sitting side by side. */
+  .search-bar { --search-panel-height: 724px; }
+}
+
+@media (max-width: 560px) {
+  /* The popover is full-screen here and sizes itself. */
+  .search-bar { --search-panel-height: auto; }
+  .search-bar__field--popover .popover { height: auto; max-height: none; }
+}

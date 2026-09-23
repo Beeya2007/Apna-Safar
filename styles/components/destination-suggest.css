@@ -21,12 +21,20 @@
   margin-bottom: var(--space-sm);
 }
 
-/* Eight places is taller than the panel should ever be, so the
-   list scrolls inside it rather than running off the screen. */
+/* The panel is a fixed height (see search-bar.css), so the
+   heading stays put and the list takes whatever is left,
+   scrolling inside it when there are more places than fit. */
+.destination-suggest {
+  display: flex;
+  flex-direction: column;
+}
+
 .destination-suggest__list {
   display: grid;
+  align-content: start;
   gap: 2px;
-  max-height: 320px;
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
 }
 

@@ -80,7 +80,7 @@ export default function Calendar({
         ))}
 
         {month.days.map((day, index) => {
-          if (!day) return <span key={`blank${index}`} />;
+          if (!day) return <span className="calendar__blank" key={`blank${index}`} />;
 
           const isTaken = taken?.has(day.iso) ?? false;
           const disabled =

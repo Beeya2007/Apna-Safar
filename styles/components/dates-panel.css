@@ -9,6 +9,8 @@
    ============================================================ */
 
 .dates-panel {
+  display: flex;
+  flex-direction: column;
   width: 680px;
   max-width: 100%;
 }
@@ -100,10 +102,13 @@
   border-top: 1px solid var(--color-border);
 }
 
+/* Pushed to the bottom, so Done is in the same place on both
+   tabs even though the Flexible one holds less. */
 .dates-panel__foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: var(--space-md);
+  margin-top: auto;
+  padding-top: var(--space-md);
 }
 
 /* ---- FLEXIBLE TAB ------------------------------------------ */

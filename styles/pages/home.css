@@ -52,19 +52,13 @@
   font-size: var(--text-hero);
   font-weight: var(--weight-bold);
   line-height: 1.1;
-  margin-bottom: var(--space-md);
-}
-
-.hero__subtitle {
-  font-size: var(--text-title);
-  font-weight: var(--weight-normal);
-  opacity: 0.95;
+  /* The headline sat above a subtitle that has gone, so it
+     carries the space down to the search bar itself. */
   margin-bottom: var(--space-xl);
 }
 
 @media (max-width: 640px) {
   .hero { min-height: 440px; }
-  .hero__subtitle { font-size: var(--text-body); }
 }
 
 

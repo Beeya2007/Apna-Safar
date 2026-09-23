@@ -41,9 +41,18 @@
 
 .dropdown__list {
   display: grid;
+  align-content: start;
   gap: 2px;
   max-height: 280px;
   overflow-y: auto;
+}
+
+/* Inside the search bar the panel is a fixed height shared with
+   Where and When, so the list fills it instead of stopping at
+   280px. Everywhere else the cap above still applies. */
+.search-bar__field--popover .dropdown__list {
+  max-height: none;
+  height: 100%;
 }
 
 .dropdown__option {

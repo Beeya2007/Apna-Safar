@@ -59,6 +59,16 @@
   letter-spacing: var(--tracking-wide);
 }
 
+/* A blank cell — before the 1st, and the padding that takes
+   every month up to six weeks. It keeps a date's footprint so
+   the panel is the same height in a month that needs five rows
+   as in one that needs six, and the buttons below it do not
+   move as you page through. */
+.calendar__blank {
+  aspect-ratio: 1;
+  min-height: var(--touch-target);
+}
+
 /* One date. Square, so a month reads as a block rather than
    as a list of numbers. */
 .calendar__day {
