@@ -19,6 +19,10 @@ import '../styles/design-system/08-radius.css';
 import '../styles/design-system/09-size-primitives.css';
 import '../styles/design-system/10-size-semantic.css';
 import '../styles/design-system/11-icon.css';
+import '../styles/design-system/12-elevation.css';
+import '../styles/design-system/13-layer.css';
+import '../styles/design-system/14-motion.css';
+import '../styles/design-system/15-motion-patterns.css';
 import '../styles/03-grid.css';
 import '../stories/foundations/docs/docs.css';
 import '../stories/foundations/docs/spacing-docs.css';
@@ -26,6 +30,8 @@ import '../stories/foundations/docs/size-docs.css';
 import '../stories/foundations/docs/radius-docs.css';
 import '../stories/foundations/docs/icon-docs.css';
 import '../stories/foundations/docs/icon-inspector.css';
+import '../stories/foundations/docs/elevation-docs.css';
+import '../stories/foundations/docs/motion-docs.css';
 
 /* ---- THEME SWITCHING -------------------------------------------
    This is wired to the preview CHANNEL rather than to a decorator,
@@ -84,7 +90,7 @@ const preview: Preview = {
     options: {
       /* Foundations before components, numbered so the sidebar
          order is the reading order. */
-      storySort: { order: ['Foundations', ['Overview', 'Color', 'Typography', 'Spacing', 'Radius', 'Sizing', 'Iconography'], 'Components'] },
+      storySort: { order: ['Foundations', ['Overview', 'Color', 'Typography', 'Spacing', 'Radius', 'Sizing', 'Iconography', 'Elevation', 'Motion'], 'Components'] },
     },
   },
 

@@ -20,7 +20,6 @@
 
 .hero {
   position: relative;               /* lets the overlay sit on top */
-  min-height: 560px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +40,7 @@
 /* Wrapper that keeps text above the dark veil */
 .hero__content {
   position: relative;
-  z-index: 1;
+  z-index: var(--layer-raised);
   color: var(--color-text-inverse);
   padding: var(--space-xl) var(--space-md);
   width: 100%;
@@ -55,10 +54,6 @@
   /* The headline sat above a subtitle that has gone, so it
      carries the space down to the search bar itself. */
   margin-bottom: var(--space-xl);
-}
-
-@media (max-width: 640px) {
-  .hero { min-height: 440px; }
 }
 
 

@@ -1,0 +1,122 @@
+/* ============================================================
+   ELEVATION  —  --elevation-0 .. 4
+   ------------------------------------------------------------
+   Five levels, and each one means something. Elevation is not
+   decoration: it says "this surface is in front of that one",
+   and if two things are on the same plane they get the same
+   level, however different they look.
+
+   ONE TOKEN, TWO MECHANISMS
+   Every level is a box-shadow whose FIRST layer is a 1px ring:
+
+       0 0 0 1px <ring>,  <contact shadow>,  <ambient shadow>
+
+   The ring is what makes this work in dark mode, where a black
+   shadow on a near-black page is invisible. It costs no layout
+   space, it follows the radius for free, and it means a
+   component asks for one token instead of remembering to add a
+   border in one theme and not the other.
+
+   LIGHT: the shadow does the work, the ring is barely there.
+   DARK:  the ring does the work, the shadow only anchors
+          overlays against the scrim. This follows the rule the
+          colour foundation already set — on dark, surfaces
+          lift by gaining LIGHT, never by gaining shadow.
+
+   THE GEOMETRY
+   Offset and blur roughly double each level, alpha rises
+   slowly. That is what makes a step visible without making the
+   top of the scale look like a drop shadow from 2009.
+   ============================================================ */
+
+:root {
+  /* The shadow is warm brown, never grey — the same reason the
+     neutrals are warm. Grey shadows on cream look like dirt.  */
+  --shadow-rgb: 60 35 20;
+
+  /* Two rings: surfaces that sit on the page barely need one,
+     floating things want a definite edge.
+
+     Each has a FALLBACK, and it is load-bearing. These read a
+     colour token from the colour foundation, and any page that
+     has not loaded that file would otherwise resolve the whole
+     box-shadow to nothing — one missing var() invalidates the
+     entire declaration, so a popover silently loses its shadow
+     rather than failing loudly.                               */
+  --elevation-ring:       transparent;
+  --elevation-ring-float: var(--color-border-weak, rgb(var(--shadow-rgb) / 12%));
+}
+
+[data-theme="dark"] {
+  /* Pure black, because the page is already near-black — a warm
+     shadow would read as a brown smudge.                      */
+  --shadow-rgb: 0 0 0;
+
+  /* Now the ring carries the separation, so both steps up.    */
+  --elevation-ring:       var(--color-border-weak,   rgb(255 255 255 / 8%));
+  --elevation-ring-float: var(--color-border-medium, rgb(255 255 255 / 16%));
+}
+
+:root {
+  /* --- 0 — ON THE PAGE -------------------------------------
+     Sections, table rows, inputs, flat cards in a grid. Not an
+     absence of styling: a deliberate statement that this thing
+     is part of the page, not on top of it.                    */
+  --elevation-0: none;
+
+  /* --- 1 — RESTING ----------------------------------------
+     A card that needs to read as its own object. The shadow is
+     almost subliminal; if you can see it as a shadow rather
+     than as an edge, it is too strong.                        */
+  --elevation-1:
+    0 0 0 1px var(--elevation-ring),
+    0 1px 2px rgb(var(--shadow-rgb) / 8%);
+
+  /* --- 2 — LIFTED ------------------------------------------
+     A sticky header over scrolling content, or a card under the
+     cursor. The first level a person consciously notices.     */
+  --elevation-2:
+    0 0 0 1px var(--elevation-ring),
+    0 1px 2px rgb(var(--shadow-rgb) / 6%),
+    0 2px 6px rgb(var(--shadow-rgb) / 10%);
+
+  /* --- 3 — FLOATING ----------------------------------------
+     Transient things summoned by a click: dropdown, popover,
+     tooltip, menu. They must clear the surface underneath with
+     no ambiguity, because they overlap content they did not
+     push out of the way.                                      */
+  --elevation-3:
+    0 0 0 1px var(--elevation-ring-float),
+    0 2px 4px rgb(var(--shadow-rgb) / 6%),
+    0 6px 16px rgb(var(--shadow-rgb) / 12%);
+
+  /* --- 4 — OVERLAY -----------------------------------------
+     Modal, drawer, toast, floating action button. The top of
+     the scale, and the only level that should feel like it is
+     in front of the whole page. There is no level 5: if you
+     want something above a modal, the modal is the wrong
+     container.                                                */
+  --elevation-4:
+    0 0 0 1px var(--elevation-ring-float),
+    0 4px 8px rgb(var(--shadow-rgb) / 8%),
+    0 16px 40px rgb(var(--shadow-rgb) / 18%);
+}
+
+[data-theme="dark"] {
+  /* Same levels, rebuilt rather than reused. The blurs are
+     tighter and weaker because on a near-black page a large
+     soft shadow does nothing except cost a repaint — the ring
+     and the surface colour are what separate these. Levels 3
+     and 4 keep a real shadow because they sit over a scrim,
+     which is light enough for one to register.                */
+  --elevation-1: 0 0 0 1px var(--elevation-ring);
+  --elevation-2:
+    0 0 0 1px var(--elevation-ring),
+    0 1px 3px rgb(var(--shadow-rgb) / 40%);
+  --elevation-3:
+    0 0 0 1px var(--elevation-ring-float),
+    0 4px 12px rgb(var(--shadow-rgb) / 50%);
+  --elevation-4:
+    0 0 0 1px var(--elevation-ring-float),
+    0 12px 32px rgb(var(--shadow-rgb) / 60%);
+}

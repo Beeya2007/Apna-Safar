@@ -17,10 +17,14 @@ import "@/styles/design-system/08-radius.css";              // 2. the corner sca
 import "@/styles/design-system/09-size-primitives.css";     // 3. the size scale
 import "@/styles/design-system/10-size-semantic.css";       // 4. control heights, icon sizes
 import "@/styles/design-system/11-icon.css";                // 5. icon alignment + icon button
-import "@/styles/01-design-tokens.css";   // 6. names for colours and sizes
-import "@/styles/02-base.css";            // 7. default look of plain HTML
-import "@/styles/03-grid.css";            // 8. container, 12-column grid, section rhythm
-import "@/styles/components/header.css";  // 9. components...
+import "@/styles/design-system/12-elevation.css";           // 6. the five depth levels
+import "@/styles/design-system/13-layer.css";               // 7. the z-index scale
+import "@/styles/design-system/14-motion.css";              // 8. duration, easing, scale
+import "@/styles/design-system/15-motion-patterns.css";     // 9. fade, slide, collapse, loading
+import "@/styles/01-design-tokens.css";   // 10. names for colours and sizes
+import "@/styles/02-base.css";            // 11. default look of plain HTML
+import "@/styles/03-grid.css";            // 12. container, 12-column grid, section rhythm
+import "@/styles/components/header.css";  // 13. components...
 import "@/styles/components/footer.css";
 import "@/styles/components/button.css";
 import "@/styles/components/input.css";
@@ -43,7 +47,7 @@ import "@/styles/components/price-lines.css";
 import "@/styles/components/empty-state.css";
 import "@/styles/components/media-card.css";
 import "@/styles/components/review.css";
-import "@/styles/pages/home.css";         // 10. individual pages
+import "@/styles/pages/home.css";         // 14. individual pages
 import "@/styles/pages/search.css";
 import "@/styles/pages/listing/01-title-gallery.css";
 import "@/styles/pages/listing/02-body.css";

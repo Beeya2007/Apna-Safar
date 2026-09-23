@@ -1,0 +1,69 @@
+/* ============================================================
+   LAYERS  —  --layer-<name>   (the z-index scale)
+   ------------------------------------------------------------
+   Elevation says how far forward something LOOKS. This file
+   says what is actually in front of what. They are different
+   questions and they need different answers: a tooltip has a
+   smaller shadow than a modal but must appear above one.
+
+   >> NO COMPONENT SHOULD EVER WRITE A NUMBER HERE. <<
+   A raw z-index is a guess about every other component in the
+   product, and the guess is wrong the moment someone adds a
+   drawer. Ask for a name instead.
+
+   THE GAPS ARE THE POINT
+   Levels are 100 apart so a new layer can be slotted between
+   two existing ones without renumbering anything downstream.
+   If you need something between dropdown and popover, it is
+   350 — and that is fine, because it is written here where the
+   next person can see it.
+
+   THE ORDER IS THE ORDER OF THE PAGE
+   Reading down this list is reading the page from back to
+   front, which is why it is not alphabetical.
+   ============================================================ */
+
+:root {
+
+  /* --- THE PAGE ------------------------------------------- */
+  --layer-base:     0;    /* normal flow. Almost everything.   */
+  --layer-raised:   1;    /* a card lifted within its own      */
+                          /* stacking context — an image over  */
+                          /* a caption, a badge on a thumbnail */
+
+  /* --- ANCHORED TO THE VIEWPORT ---------------------------
+     These stay put while the page scrolls under them.        */
+  --layer-sticky:   100;  /* a sticky table header, a filter bar */
+  --layer-header:   200;  /* the site header. Above sticky bars, */
+                          /* so a filter bar tucks beneath it.   */
+
+  /* --- SUMMONED BY A CLICK --------------------------------
+     Transient, dismissed by Escape or an outside click. They
+     must clear the header, or a menu opened from it would be
+     cut in half.                                              */
+  --layer-dropdown: 300;  /* a select, an autocomplete list    */
+  --layer-popover:  400;  /* a date picker, a guest picker     */
+
+  /* --- TAKES OVER THE SCREEN ------------------------------
+     Blocks interaction with everything behind it.            */
+  --layer-drawer:   500;  /* a panel sliding in from an edge   */
+  --layer-modal:    600;  /* a dialog and its scrim            */
+
+  /* --- ABOVE EVERYTHING, ALWAYS ---------------------------
+     A toast reports what just happened, so it has to be
+     readable even over a modal. A tooltip sits on top of all
+     of it because it can be triggered from inside any of
+     them — including from a control inside a toast.          */
+  --layer-toast:    700;
+  --layer-tooltip:  800;
+}
+
+/* ---- SCRIMS -------------------------------------------------
+   The wash behind a drawer or a modal. It sits one below the
+   thing it is dimming, never at the same level — same number
+   means the browser decides by DOM order, and the DOM order
+   changes the first time someone moves the markup.          */
+:root {
+  --layer-drawer-scrim: calc(var(--layer-drawer) - 1);
+  --layer-modal-scrim:  calc(var(--layer-modal)  - 1);
+}

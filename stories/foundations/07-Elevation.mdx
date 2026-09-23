@@ -1,0 +1,256 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ElevationLadder, LayerScale } from './docs/Elevation';
+import { SurfaceStack, WhenNot, BorderVsShadow, Interaction, RadiusAndShadow } from './docs/ElevationDemos';
+import { DoDont, Do, Dont } from './docs/Guidance';
+
+<Meta title="Foundations/Elevation" />
+
+# Elevation & Shadows
+
+<div className="lede">
+Five levels, and each one means something. Elevation says <em>this surface is in
+front of that one</em> — it is not decoration, and most things on a page should
+be at level 0. Switch the theme in the toolbar: the two themes are built
+differently on purpose, and every value below is read from the browser as you
+do it.
+</div>
+
+---
+
+## 1. The Scale
+
+<ElevationLadder />
+
+Offset and blur roughly double each level; alpha rises slowly. That is what
+makes a step visible without making the top of the scale look like a drop
+shadow from 2009.
+
+### One token, two mechanisms
+
+Every level is a `box-shadow` whose **first layer is a 1px ring**:
+
+```text
+0 0 0 1px <ring>,  <contact shadow>,  <ambient shadow>
+```
+
+The ring is what makes this survive dark mode, where a black shadow on a
+near-black page is invisible. It costs no layout space, it follows the corner
+radius for free, and it means a component asks for **one token** instead of
+remembering to add a border in one theme and not the other.
+
+### Why five and not six
+
+Each level has a job nothing else does: on the page, resting, lifted, floating,
+overlay. There is no level 5 — if you want something above a modal, the modal
+is the wrong container for it.
+
+---
+
+## 2. When Not To Use It
+
+The most common misuse in any design system: a shadow on every card. Twelve
+raised objects are twelve things competing for attention, which is the same as
+no hierarchy at all.
+
+<WhenNot />
+
+Before reaching for a level, try these first:
+
+| Instead of a shadow | Use |
+|---|---|
+| Separating two blocks of content | **Spacing.** A 48px gap separates better than any shadow. |
+| Separating rows in a list or table | **A divider.** One hairline, not twelve shadows. |
+| Making a card look like an object | **A border**, or the surface colour. |
+| Making something feel important | **Nothing.** Importance is size, position and words — not depth. |
+
+**A card does not need a shadow.** It needs one when it is genuinely in front
+of something: overlapping other content, floating over a photograph, or being
+dragged.
+
+---
+
+## 3. Surfaces
+
+<SurfaceStack />
+
+| Plane | Level | Built from |
+|---|---|---|
+| Page | 0 | `--color-surface-default` |
+| Surface — a band or section | 0 | `--color-surface-subtle`, no shadow |
+| Raised — a card | 1 | `--color-surface-raised` + `--elevation-1` |
+| Floating — dropdown, popover, tooltip | 3 | `--color-surface-raised` + `--elevation-3` |
+| Overlay — modal, drawer, toast | 4 | `--color-surface-raised` + `--elevation-4` + a scrim |
+
+**Surface colour and elevation move together.** A raised surface that does not
+change colour is relying on the shadow alone, which fails in dark mode and for
+anyone with a low-contrast display.
+
+---
+
+## 4. Light and Dark
+
+The two themes are **rebuilt, not reused**.
+
+| | Light | Dark |
+|---|---|---|
+| What separates surfaces | The shadow | The ring, and the surface colour |
+| Shadow colour | Warm brown `60 35 20` — grey reads as dirt on cream | Pure black — a warm shadow is a brown smudge on near-black |
+| Shadow at level 1 | A hairline shadow | **None.** Only the ring. |
+| Shadow at levels 3–4 | Large and soft | Tighter, stronger — it sits over a scrim, which is light enough for one to register |
+| Ring | Barely there, transparent below level 3 | Visible at every level |
+
+This follows the rule the Colour foundation already set: **on dark, surfaces
+lift by gaining light, never by gaining shadow.** A large soft shadow on a
+near-black page does nothing except cost a repaint.
+
+---
+
+## 5. Layers
+
+Elevation says how far forward something *looks*. Layers say what is actually
+in front of what. They are different questions with different answers — a
+tooltip has a smaller shadow than a modal but must appear above one.
+
+<LayerScale />
+
+**Levels are 100 apart** so a new one can be slotted between two existing ones
+without renumbering anything downstream. Scrims sit one below the thing they
+dim — never at the same number, because the browser then decides by DOM order,
+and the DOM order changes the first time someone moves the markup.
+
+**No component should write a number.** A raw `z-index` is a guess about every
+other component in the product, and the guess goes wrong the moment somebody
+adds a drawer.
+
+---
+
+## 6. Components
+
+| Component | Level | Layer |
+|---|---|---|
+| Section, band, table row | 0 | base |
+| Input, select, textarea | 0 — a border, not a shadow | base |
+| Button | 0 — a fill, not a shadow | base |
+| Card in a grid | 0 or 1 | base |
+| Card over a photograph | 2 | base |
+| Sticky filter bar | 2 | sticky |
+| Site header | 2 when scrolled, 0 at rest | header |
+| Dropdown, menu | 3 | dropdown |
+| Popover, date picker | 3 | popover |
+| Tooltip | 3 | tooltip |
+| Drawer | 4 | drawer |
+| Modal | 4 | modal |
+| Toast | 4 | toast |
+| Floating action button | 4 | base |
+
+**Buttons and inputs are level 0.** A button is not floating above the form it
+belongs to; it is part of it. Giving controls shadows is the fastest way to
+make a page look busy.
+
+---
+
+## 7. Interaction
+
+<Interaction />
+
+| State | Elevation |
+|---|---|
+| Default | its resting level |
+| Hover | **one step up**, and only if the thing is genuinely liftable |
+| Pressed | **one step down**, or level 0 — you are pushing it |
+| Focus | **unchanged.** Focus is a ring, not a height. |
+| Selected | **unchanged.** Selection is fill and border. |
+| Disabled | **unchanged**, or flattened to 0 |
+| Dragging | level 4, for as long as the gesture lasts |
+| Open | the level the floating surface owns — 3 or 4 |
+
+**Only the shadow animates.** A card that grows or translates on hover pushes
+its neighbours around and makes a grid feel unstable. `transition: box-shadow`,
+nothing else.
+
+---
+
+## 8. Borders and Radius
+
+<BorderVsShadow />
+
+| Situation | Treatment |
+|---|---|
+| Flat on the page | Neither |
+| Flat, but its own object — an input, a flat card | **Border** |
+| Genuinely above the page — a resting card | **Shadow** |
+| Floating over content it did not push aside — a popover | **Both** |
+
+A `box-shadow` follows the element's own radius automatically. The failure mode
+is faking one with a positioned element behind:
+
+<RadiusAndShadow />
+
+`overflow: hidden` on a parent clips a child's shadow, so put it on the
+smallest wrapper that needs it — see the Radius foundation.
+
+---
+
+## 9. Accessibility
+
+**Elevation is never the only signal.** A shadow is invisible in forced-colours
+mode, at low contrast-sensitivity, and on a bad display.
+
+| Requirement | How this system meets it |
+|---|---|
+| Boundaries stay visible | The ring is part of every level, and it is a real 1px line in dark and forced-colours mode. |
+| Focus stays distinguishable | Focus is an `outline`, never a change of elevation — the two cannot be confused. |
+| Interactive things are identifiable | Never by shadow alone. Fill, border, cursor and an accessible name do that work. |
+| Dark mode keeps separation | Surface colour carries it, with the ring behind it. Shadow is a bonus, not the mechanism. |
+| Reduced motion | The elevation *change* still happens; only the tween is dropped. Someone who asked for less motion still needs to see which card they picked up. |
+
+---
+
+## 10. Performance
+
+A `box-shadow` is cheap to paint once and expensive to repaint. Three rules:
+
+- **Animate `box-shadow` only on the thing being interacted with**, never across
+  a whole grid. Hovering a 40-card list should repaint one card.
+- **Never animate a shadow on a scroll handler.** The header's shadow at level 2
+  is toggled by a class, not recalculated per frame.
+- **Prefer a border or a surface colour** when either will do. Both are cheaper,
+  and both survive forced-colours mode.
+
+The ring layer is free: it is part of the same `box-shadow` the element already
+paints, not a second property.
+
+---
+
+## 11. Usage
+
+<DoDont>
+  <Do title="Ask for a level. box-shadow: var(--elevation-3)." />
+  <Dont title="Don't write a box-shadow by hand. A one-off shadow is a level nobody else can reuse." />
+  <Do title="Ask for a layer. z-index: var(--layer-popover)." />
+  <Dont title="Don't write z-index: 9999. It is a guess about every other component." />
+  <Do title="Leave most things at level 0." />
+  <Dont title="Don't put a shadow on every card in a grid — nothing leads." />
+  <Do title="Use spacing or a divider to separate content." />
+  <Dont title="Don't reach for a shadow when a 48px gap would say it better." />
+  <Do title="Lift one step on hover, and drop on press." />
+  <Dont title="Don't make a pressed button fly toward the viewer." />
+  <Do title="Change surface colour and elevation together." />
+  <Dont title="Don't rely on the shadow alone — it is invisible in dark mode and forced colours." />
+  <Do title="Transition box-shadow and nothing else." />
+  <Dont title="Don't grow or translate a card on hover; it shoves its neighbours around." />
+</DoDont>
+
+---
+
+## 12. Files
+
+| File | What is in it |
+|---|---|
+| `styles/design-system/12-elevation.css` | The five levels, built twice — once per theme. |
+| `styles/design-system/13-layer.css` | The z-index scale. |
+| `styles/01-design-tokens.css` | `--shadow-sm/md/lg`, kept as aliases so older CSS keeps working. |
+| `docs/09-elevation.md` | The same rules, written for someone reading the repo. |
+
+Figma: elevation is an effect style per level, and the ring is a 1px inner
+stroke on the same style, so one Figma style equals one CSS token.

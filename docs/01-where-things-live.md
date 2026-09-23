@@ -108,7 +108,11 @@ styles/
 │   ├── 08-radius.css                the five corner values
 │   ├── 09-size-primitives.css       the raw size scale
 │   ├── 10-size-semantic.css         control heights, icon sizes
-│   └── 11-icon.css                  icon alignment + icon button
+│   ├── 11-icon.css                  icon alignment + icon button
+│   ├── 12-elevation.css             the five depth levels
+│   ├── 13-layer.css                 the z-index scale
+│   ├── 14-motion.css                duration, easing, reduced motion
+│   └── 15-motion-patterns.css       fade, slide, collapse, loading
 ├── components/               one file per reusable component
 │   ├── button.css
 │   ├── header.css
@@ -130,6 +134,9 @@ Finding the right file:
 - *"There is too much air between sections"* → `03-grid.css`, `--section-gap`
 - *"Cards feel cramped"* → the card's own `.css` file, bump it one step
 - *"Corners are too round"* → `design-system/08-radius.css`
+- *"The shadows are too heavy"* → `design-system/12-elevation.css`
+- *"Something is appearing behind something else"* → `design-system/13-layer.css`
+- *"The animations are too slow"* → `design-system/14-motion.css`
 - *"I need an icon"* → Storybook → Foundations → Iconography, and copy the code
 
 Spacing has its own two pages: [04-spacing.md](04-spacing.md) for the rules and

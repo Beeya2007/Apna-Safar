@@ -1,0 +1,174 @@
+/* ============================================================
+   MOTION DOCS CHROME
+   ------------------------------------------------------------
+   Styles for the Motion foundation page only. Every duration
+   and curve below is a token — the docs are the first consumer.
+   ============================================================ */
+
+.mo-replay {
+  padding: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-content-primary);
+  font: inherit; font-size: 11px; cursor: pointer;
+}
+.mo-replay:hover { background: var(--color-state-hover); }
+.mo-replay:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+
+/* ---- DURATION AND EASING SCALES -----------------------------
+   The dot animates on mount via a CSS animation, so remounting
+   it (the Replay button bumps a key) replays the curve. */
+.mo-scale { margin: var(--space-4) 0 var(--space-8); }
+.mo-scale__row {
+  display: grid;
+  grid-template-columns: 130px 64px minmax(120px, 1fr) minmax(0, 1.3fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-1);
+}
+.mo-scale__name { font-size: 11px; font-weight: 600; }
+.mo-scale__val  { font-size: 11px; color: var(--color-content-primary); }
+.mo-scale__val--curve { font-size: 9px; }
+.mo-scale__use  { font-size: 11px; color: var(--color-content-secondary); }
+
+.mo-track {
+  position: relative;
+  height: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+}
+.mo-dot {
+  position: absolute;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-600);
+  animation: mo-run var(--motion-normal) var(--ease-standard) both;
+  animation-duration: inherit;
+}
+/* The row sets duration or timing-function inline; these two
+   classes decide which of the pair is being demonstrated. */
+.mo-dot      { animation-duration: var(--motion-normal); }
+.mo-dot--slow { animation-duration: var(--motion-slow); }
+
+@keyframes mo-run {
+  from { transform: translateX(0) }
+  to   { transform: translateX(calc(100% * 9)) }
+}
+
+@media (max-width: 800px) {
+  .mo-scale__row { grid-template-columns: 116px 56px minmax(0, 1fr); }
+  .mo-scale__use { display: none; }
+}
+
+/* ---- PATTERNS ----------------------------------------------- */
+.mo-patterns { margin: var(--space-4) 0 var(--space-6); }
+.mo-patterns__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-4);
+}
+.mo-pattern { display: grid; gap: var(--space-1); }
+.mo-pattern__stage {
+  display: grid; place-items: center;
+  height: 88px;
+  border: 1px solid var(--color-border-weak);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+.mo-pattern__box {
+  width: 56px; height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-600);
+}
+.mo-pattern__name { font-size: 12px; }
+.mo-pattern__cls  { font-size: 10px; color: var(--color-content-tertiary); }
+.mo-pattern__note { font-size: 11px; line-height: 1.4; color: var(--color-content-secondary); }
+
+/* ---- COLLAPSE ----------------------------------------------- */
+.mo-collapse { margin: var(--space-4) 0 var(--space-6); max-width: 420px; }
+.mo-collapse__trigger {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-content-primary);
+  font: inherit; font-size: 13px; text-align: left; cursor: pointer;
+}
+.mo-collapse__trigger:hover { background: var(--color-state-hover); }
+.mo-collapse__trigger:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+.mo-collapse__body {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: 12px; line-height: 1.6;
+  color: var(--color-content-secondary);
+}
+
+/* ---- INTERACTION -------------------------------------------- */
+.mo-inter { display: grid; gap: var(--space-3); margin: var(--space-4) 0 var(--space-6); }
+.mo-btn {
+  justify-self: start;
+  padding: var(--space-3) var(--space-5);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-600);
+  color: var(--color-content-inverse);
+  font: inherit; font-size: 13px; cursor: pointer;
+}
+.mo-btn:hover { background: var(--color-primary-700); }
+.mo-btn:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+.mo-card {
+  max-width: 260px;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-1);
+  font-size: 13px;
+}
+.mo-card:hover { box-shadow: var(--elevation-2); }
+.mo-inter__note,
+.mo-loading__note {
+  max-width: 62ch; margin: 0;
+  font-size: 12px; line-height: 1.6;
+  color: var(--color-content-secondary);
+}
+
+/* ---- LOADING ------------------------------------------------- */
+.mo-loading { display: grid; gap: var(--space-4); margin: var(--space-4) 0 var(--space-6); }
+.mo-loading__item { display: flex; align-items: center; gap: var(--space-3); }
+.mo-loading__lbl  { font-size: 11px; color: var(--color-content-tertiary); }
+.mo-spinner {
+  width: var(--icon-size-lg); height: var(--icon-size-lg);
+  border: 2px solid var(--color-border-medium);
+  border-top-color: var(--color-primary-600);
+  border-radius: var(--radius-full);
+}
+.mo-skeleton { display: grid; gap: var(--space-2); width: 220px; }
+.mo-skeleton__line { height: 12px; border-radius: var(--radius-sm); }
+
+/* ---- STAGGER ------------------------------------------------- */
+.mo-stagger { margin: var(--space-4) 0 var(--space-6); }
+.mo-stagger__list { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; max-width: 280px; }
+.mo-stagger__row {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-1);
+  font-size: 12px;
+}
+
+/* ---- REDUCED MOTION STATE ------------------------------------ */
+.mo-rm {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3);
+  margin: var(--space-4) 0;
+  padding: var(--space-3);
+  border-left: 2px solid var(--color-border-medium);
+  background: var(--color-surface-subtle);
+  font-size: 12px;
+  color: var(--color-content-secondary);
+}
+.mo-rm.is-on { border-left-color: var(--color-status-success-border); background: var(--color-status-success-surface); }
+.mo-rm strong { color: var(--color-content-primary); }

@@ -1,0 +1,169 @@
+/* ============================================================
+   ELEVATION DOCS CHROME
+   ------------------------------------------------------------
+   Styles for the Elevation foundation page only. Every shadow
+   below is a level, every corner a radius token, every gap a
+   spacing step — the docs are the first consumer.
+   ============================================================ */
+
+/* ---- THE LADDER --------------------------------------------- */
+.elv-ladder { display: grid; gap: var(--space-6); margin: var(--space-6) 0 var(--space-8); }
+.elv-ladder__row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6);
+}
+.elv-ladder__box {
+  display: grid; place-items: center;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  color: var(--color-content-tertiary);
+  font-size: 11px;
+}
+.elv-ladder__meta  { display: grid; gap: 2px; }
+.elv-ladder__name  { font-size: 13px; }
+.elv-ladder__token { font-size: 11px; color: var(--color-content-secondary); }
+.elv-ladder__use   { font-size: 11px; color: var(--color-content-tertiary); }
+.elv-ladder__value {
+  margin-top: var(--space-1);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--color-content-tertiary);
+  word-break: break-word;
+}
+
+@media (max-width: 800px) {
+  .elv-ladder__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+}
+
+/* ---- SURFACE STACK ------------------------------------------ */
+.elv-stack { margin: var(--space-4) 0 var(--space-8); }
+.elv-stack__page {
+  position: relative;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-default);
+  border: 1px dashed var(--color-border-medium);
+}
+.elv-stack__surface {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+}
+.elv-stack__raised {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-1);
+}
+.elv-stack__float {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-3);
+}
+.elv-stack__overlay {
+  position: absolute;
+  right: var(--space-6); bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-4);
+  font-size: 11px;
+}
+.elv-stack__tag { display: block; font-size: 10px; color: var(--color-content-tertiary); }
+
+/* ---- WHEN NOT ----------------------------------------------- */
+.elv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.elv-grid__card {
+  height: 64px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-weak);
+}
+.elv-grid__card--shadow { border-color: transparent; box-shadow: var(--elevation-2); }
+
+/* ---- BORDER / SHADOW / BOTH / NEITHER ----------------------- */
+.elv-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-4) 0 var(--space-6);
+}
+.elv-choice { display: grid; gap: var(--space-1); }
+.elv-choice__box {
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+}
+.elv-choice__box.is-border { border: 1px solid var(--color-border-medium); }
+.elv-choice__box.is-shadow { box-shadow: var(--elevation-1); }
+.elv-choice__box.is-both   { border: 1px solid var(--color-border-medium); box-shadow: var(--elevation-3); }
+.elv-choice__name { font-size: 12px; }
+.elv-choice__note { font-size: 11px; line-height: 1.4; color: var(--color-content-secondary); }
+
+/* ---- INTERACTION -------------------------------------------- */
+.elv-states { margin: var(--space-4) 0 var(--space-6); }
+.elv-states__row { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.elv-state {
+  display: grid; place-items: center; gap: 2px;
+  width: 132px; height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  font-size: 12px;
+}
+.elv-state small { font-size: 10px; color: var(--color-content-tertiary); }
+.elv-state--rest  { box-shadow: var(--elevation-1); }
+.elv-state--hover { box-shadow: var(--elevation-2); }
+.elv-state--press { box-shadow: var(--elevation-0); background: var(--color-state-pressed); }
+
+.elv-drag {
+  display: block;
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  color: var(--color-content-primary);
+  box-shadow: var(--elevation-1);
+  font: inherit; font-size: 12px; cursor: grab;
+  /* Only the shadow animates. Nothing moves, nothing resizes. */
+  transition: box-shadow 160ms ease;
+}
+.elv-drag.is-dragging { box-shadow: var(--elevation-4); cursor: grabbing; }
+.elv-drag:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+
+/* Someone who asked for less motion still needs to see which
+   card they picked up — the shadow stays, only the tween goes. */
+@media (prefers-reduced-motion: reduce) {
+  .elv-drag { transition: none; }
+}
+
+.elv-states__note {
+  max-width: 62ch;
+  margin: var(--space-4) 0 0;
+  font-size: 12px; line-height: 1.6;
+  color: var(--color-content-secondary);
+}
+
+/* ---- RADIUS + SHADOW ---------------------------------------- */
+.elv-fake { position: relative; width: 180px; height: 72px; }
+.elv-fake::before {
+  content: '';
+  position: absolute; inset: 4px -2px -4px;
+  background: rgb(var(--shadow-rgb) / 18%);
+  filter: blur(6px);
+  border-radius: var(--radius-none);   /* square, on purpose */
+}
+.elv-fake__card,
+.elv-real {
+  position: relative;
+  width: 180px; height: 72px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+}
+.elv-real { box-shadow: var(--elevation-3); }

@@ -1,0 +1,131 @@
+/* ============================================================
+   MOTION PATTERNS — the five things that actually happen
+   ------------------------------------------------------------
+   A component should not invent an animation. It should say
+   which of these it is doing, and the tokens in 14-motion.css
+   decide how fast and how far.
+
+       .motion-fade        something appears or goes
+       .motion-slide-up    something arrives from below
+       .motion-scale-in    something arrives in place
+       .motion-collapse    something opens or shuts
+       .motion-spin /
+       .motion-shimmer     something is loading
+
+   Every one of them animates only TRANSFORM and OPACITY, which
+   are the two properties the browser can move without redoing
+   layout or paint. Animating height, top or width instead is
+   the single biggest cause of a janky interface.
+
+   All of them stop moving under reduced motion, because they
+   read --motion-travel-off. The fade is what survives, which
+   is deliberate: a fade carries the information without the
+   movement that causes trouble.
+   ============================================================ */
+
+/* ---- FADE ---------------------------------------------------
+   The safest pattern, and the fallback for every other one. */
+@keyframes motion-fade-in  { from { opacity: 0 } to { opacity: 1 } }
+@keyframes motion-fade-out { from { opacity: 1 } to { opacity: 0 } }
+
+.motion-fade {
+  animation: motion-fade-in var(--motion-normal) var(--ease-enter) both;
+}
+.motion-fade--out {
+  animation: motion-fade-out var(--motion-fast) var(--ease-exit) both;
+}
+
+/* ---- SLIDE --------------------------------------------------
+   For a surface with a source: a dropdown from its trigger, a
+   toast from the edge. The distance is a spacing step, and it
+   collapses to nothing under reduced motion.                */
+@keyframes motion-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--space-2) * var(--motion-travel-off)));
+  }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes motion-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--space-2) * var(--motion-travel-off) * -1));
+  }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.motion-slide-up   { animation: motion-slide-up   var(--motion-normal) var(--ease-enter) both; }
+.motion-slide-down { animation: motion-slide-down var(--motion-normal) var(--ease-enter) both; }
+
+/* ---- SCALE --------------------------------------------------
+   For something with no direction to come from — a modal is
+   not sliding in from anywhere, it is simply now in front. */
+@keyframes motion-scale-in {
+  from { opacity: 0; transform: scale(var(--motion-scale-in)); }
+  to   { opacity: 1; transform: scale(var(--motion-scale-rest)); }
+}
+
+.motion-scale-in {
+  animation: motion-scale-in var(--motion-slow) var(--ease-emphasized) both;
+}
+
+/* ---- COLLAPSE -----------------------------------------------
+   Accordion, disclosure, filter panel. grid-template-rows is
+   the one way to animate "auto" height without measuring it in
+   JavaScript, and unlike a height transition it never needs a
+   magic max-height that clips long content.                 */
+.motion-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--motion-normal) var(--ease-standard);
+}
+.motion-collapse > * { overflow: hidden; }
+.motion-collapse[aria-expanded="true"],
+.motion-collapse.is-open { grid-template-rows: 1fr; }
+
+/* ---- INTERACTION --------------------------------------------
+   Hover and press. Fast, and never moving the element's box —
+   a control that grows on hover shoves its neighbours around
+   and makes a toolbar feel loose.                           */
+.motion-interactive {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard),
+    transform        var(--motion-fast) var(--ease-standard);
+}
+.motion-interactive:active { transform: scale(var(--motion-scale-press)); }
+
+/* ---- LOADING ------------------------------------------------
+   Linear, because a spinner has no start or end to ease.    */
+@keyframes motion-spin { to { transform: rotate(360deg) } }
+@keyframes motion-shimmer {
+  from { background-position: -150% 0 }
+  to   { background-position:  250% 0 }
+}
+
+.motion-spin {
+  animation: motion-spin var(--motion-loop-spin) var(--ease-linear) infinite;
+}
+.motion-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-surface-sunken) 0%,
+    var(--color-surface-subtle) 50%,
+    var(--color-surface-sunken) 100%
+  );
+  background-size: 200% 100%;
+  animation: motion-shimmer var(--motion-loop-shimmer) var(--ease-linear) infinite;
+}
+
+/* A loop is repetitive movement, which is the specific thing
+   vestibular disorders react to — so these stop entirely. The
+   skeleton stays visible as a static block and the spinner
+   stays visible as a static ring, which is why anything using
+   them must also say "Loading" in text. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-spin,
+  .motion-shimmer { animation: none; }
+  .motion-shimmer { background-image: none; background-color: var(--color-surface-sunken); }
+}

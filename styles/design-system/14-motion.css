@@ -1,0 +1,152 @@
+/* ============================================================
+   MOTION  —  duration, easing, travel, scale
+   ------------------------------------------------------------
+   Motion in this product has one job: to say WHAT CHANGED. If
+   an animation is not answering that question it should not be
+   there, and the fastest interface is one that never makes you
+   wait to find out.
+
+   THE RULE OF THUMB
+   The smaller and more frequent the interaction, the faster it
+   must be. A hover happens hundreds of times an hour, so it is
+   120ms and invisible as an animation. A drawer happens twice,
+   so it can afford 320ms to show where it came from.
+
+   NOTHING HERE EXCEEDS 320ms. A transition longer than that
+   stops reading as feedback and starts reading as latency.
+
+   TRAVEL DISTANCE IS NOT DEFINED HERE
+   A thing sliding 8px is travelling one spacing step. Motion
+   does not get its own 4/8/16/24 scale, because a second set
+   of the same four numbers is a second thing to keep in sync.
+   Use --space-1, --space-2, --space-4, --space-6.
+
+   REDUCED MOTION IS HANDLED AT THE BOTTOM OF THIS FILE, by
+   changing these tokens rather than by asking every component
+   to write a media query.
+   ============================================================ */
+
+:root {
+
+  /* --- DURATION -------------------------------------------- */
+
+  /* No transition at all. Not "very fast" — a real 0, for the
+     things that must feel like they already happened.        */
+  --motion-instant: 0ms;
+
+  /* MICRO — hover, focus, press, a colour or shadow change.
+     Fast enough that it reads as responsiveness rather than
+     as animation. Above ~150ms a hover starts to feel laggy. */
+  --motion-fast: 120ms;
+
+  /* STANDARD — dropdown, tooltip, popover, expand/collapse.
+     Long enough to show direction, short enough that nobody
+     waits for it.                                            */
+  --motion-normal: 200ms;
+
+  /* LARGE — modal, drawer, sheet. The only things that move
+     far enough to need this much time, and the only things
+     rare enough to spend it.                                 */
+  --motion-slow: 320ms;
+
+  /* --- EASING ----------------------------------------------
+     Four curves and a straight line. A component never writes
+     its own cubic-bezier: an easing curve is a house accent,
+     and five of them in one interface is a stutter.          */
+
+  /* Constant speed. ONLY for things that loop forever — a
+     spinner, an indeterminate bar. Everything a person triggers
+     should accelerate or decelerate, because nothing in the
+     physical world starts at full speed.                     */
+  --ease-linear: linear;
+
+  /* The default. Slight ease at both ends: it covers hover,
+     colour changes, and anything already on screen that is
+     simply changing.                                         */
+  --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+
+  /* ARRIVING — fast at first, settling at the end. A thing
+     entering the screen should decelerate into place, the way
+     something being set down does.                           */
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+
+  /* LEAVING — slow at first, then away. An exit accelerates,
+     because once a person has dismissed something they have
+     stopped caring about it.                                 */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* RARE. A stronger settle for a transition that is the whole
+     point of the moment — a drawer arriving, a success state.
+     On an everyday control it reads as showing off.          */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- SCALE -----------------------------------------------
+     Three values, all within 3% of resting. Scale is the most
+     easily overdone property in any motion system: past about
+     5% the interface stops feeling responsive and starts
+     feeling rubbery.                                         */
+  --motion-scale-in:    0.98;  /* entering — grows into place  */
+  --motion-scale-rest:  1;     /* at rest                      */
+  --motion-scale-press: 0.97;  /* pressed — pushes away        */
+
+  /* --- DELAY AND STAGGER -----------------------------------
+     A delay before FEEDBACK is a bug. These exist only for
+     sequencing things that arrive together, never for slowing
+     down a response to a click.                              */
+  --motion-delay-none:  0ms;
+  --motion-delay-short: 60ms;   /* a tooltip's grace period   */
+  --motion-delay-long:  400ms;  /* before a loading spinner —  */
+                                /* most requests finish first  */
+
+  --motion-stagger-sm: 30ms;  /* a list of rows                */
+  --motion-stagger-md: 60ms;  /* a few large cards             */
+
+  /* --- LOOPS -----------------------------------------------
+     A different kind of duration: these repeat forever, so
+     they are slower on purpose. A fast loop is a flicker.    */
+  --motion-loop-spin:    700ms;
+  --motion-loop-shimmer: 1400ms;
+
+  /* --- THE TRAVEL SWITCH ----------------------------------
+     Multiply any slide distance by this. It is 1 normally and
+     0 under reduced motion, which is how a component stops
+     moving without containing a media query:
+
+         transform: translateY(
+           calc(var(--space-2) * var(--motion-travel-off)));
+
+     It is declared here, BEFORE the media query below, because
+     two :root rules have equal specificity and the later one
+     wins — a default written afterwards would silently beat
+     the override it is meant to defer to.                    */
+  --motion-travel-off: 1;
+}
+
+/* ---- REDUCED MOTION ----------------------------------------
+   NOT "turn everything off". Someone who asked for less motion
+   still needs to know that a menu opened, and removing the
+   feedback entirely is a worse outcome than the animation.
+
+   So: movement and scaling go, opacity stays, durations drop
+   to the micro step. A component that reads these tokens gets
+   all of that for free and needs no media query of its own.
+
+   Loops are stopped outright — a spinner is repetitive motion,
+   which is the specific thing vestibular disorders react to.
+   Anything relying on one must also say so in words.        */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-normal: var(--motion-fast);
+    --motion-slow:   var(--motion-fast);
+
+    --motion-scale-in:    1;
+    --motion-scale-press: 1;
+
+    --motion-stagger-sm: 0ms;
+    --motion-stagger-md: 0ms;
+    --motion-delay-short: 0ms;
+
+    /* Nothing slides any more. See the note on the default. */
+    --motion-travel-off: 0;
+  }
+}

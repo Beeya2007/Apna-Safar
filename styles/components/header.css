@@ -8,7 +8,7 @@
 .site-header {
   position: sticky;                 /* stays visible while scrolling */
   top: 0;
-  z-index: 50;                      /* sits above page content       */
+  z-index: var(--layer-header);     /* sits above page content       */
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
 }

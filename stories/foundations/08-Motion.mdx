@@ -1,0 +1,278 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { DurationScale, EasingScale, ReducedMotionState } from './docs/Motion';
+import { Patterns, Collapse, Interaction, Loading, Stagger } from './docs/MotionDemos';
+import { DoDont, Do, Dont } from './docs/Guidance';
+
+<Meta title="Foundations/Motion" />
+
+# Motion
+
+<div className="lede">
+Motion here has one job: to say <strong>what changed</strong>. If an animation
+is not answering that question it should not exist. Nothing in this system runs
+longer than 320ms, and the things that happen most often are the fastest —
+a hover is 120ms because you will trigger it hundreds of times an hour.
+</div>
+
+---
+
+## 1. Principles
+
+**Motion should** say what changed, show where something came from, confirm an
+action was received, and keep a person oriented when the screen rearranges.
+
+**Motion should not** delay a response, decorate, move things a person is
+trying to read, or shift layout. The fastest interface is one that never makes
+you wait to find out what happened.
+
+The rule that settles most arguments: **the smaller and more frequent an
+interaction, the faster it must be.** A hover happens constantly, so it must be
+invisible as an animation. A drawer happens twice a session, so it can afford
+the time to show where it came from.
+
+---
+
+## 2. Duration
+
+<DurationScale />
+
+| Category | Token | Value | What |
+|---|---|---|---|
+| Instant | `--motion-instant` | 0ms | must feel like it already happened |
+| Micro | `--motion-fast` | 120ms | hover, focus, press, colour, shadow |
+| Standard | `--motion-normal` | 200ms | dropdown, tooltip, popover, collapse |
+| Large | `--motion-slow` | 320ms | modal, drawer, sheet |
+
+**Nothing exceeds 320ms.** Past that a transition stops reading as feedback and
+starts reading as latency. Above ~150ms a *hover* already feels laggy, which is
+why the micro step is well under it.
+
+There is no `slower`. A transition that needs 500ms is nearly always the wrong
+pattern — usually something sliding a long way that should have faded instead.
+
+---
+
+## 3. Easing
+
+<EasingScale />
+
+| Token | Curve | When |
+|---|---|---|
+| `--ease-linear` | `linear` | **Loops only.** A spinner has no start or end to ease. |
+| `--ease-standard` | `cubic-bezier(0.2, 0, 0.2, 1)` | The default — anything already on screen that is changing. |
+| `--ease-enter` | `cubic-bezier(0, 0, 0.2, 1)` | **Arriving.** Decelerates into place, the way something set down does. |
+| `--ease-exit` | `cubic-bezier(0.4, 0, 1, 1)` | **Leaving.** Accelerates away — once dismissed, a person has stopped caring about it. |
+| `--ease-emphasized` | `cubic-bezier(0.2, 0, 0, 1)` | Rare. A transition that *is* the moment. On an everyday control it reads as showing off. |
+
+**A component never writes its own `cubic-bezier`.** An easing curve is a house
+accent; five of them in one interface is a stutter.
+
+**Exits are faster than entrances.** An entrance is showing you something new
+and can take 200ms to do it. An exit is getting out of the way, and 120ms is
+generous.
+
+---
+
+## 4. Distance, Scale, Opacity
+
+**Distance has no tokens of its own, on purpose.** A thing sliding 8px is
+travelling one spacing step. A second set of the same four numbers is a second
+thing to keep in sync, so slides use `--space-1` (4px), `--space-2` (8px),
+`--space-4` (16px) and `--space-6` (24px).
+
+| Scale token | Value | When |
+|---|---|---|
+| `--motion-scale-in` | 0.98 | entering — grows into place |
+| `--motion-scale-rest` | 1 | at rest |
+| `--motion-scale-press` | 0.97 | pressed — pushes away from the finger |
+
+All three are within 3% of resting. Scale is the most easily overdone property
+in any motion system: past about 5% the interface stops feeling responsive and
+starts feeling rubbery.
+
+**Opacity is 0 or 1.** There is no mid-opacity token, because a half-faded
+control is a disabled control, and that is the colour foundation's job
+(`--color-content-disabled`) — not something to be communicated by transparency
+alone.
+
+---
+
+## 5. Patterns
+
+Five patterns, and a component picks one rather than inventing an animation.
+
+<Patterns />
+
+| Class | Animates | For |
+|---|---|---|
+| `.motion-fade` | opacity | the safest pattern, and every other one's fallback |
+| `.motion-slide-up` / `-down` | translate + opacity | a surface with a source — a dropdown from its trigger |
+| `.motion-scale-in` | scale + opacity | something with nowhere to come from — a modal is simply now in front |
+| `.motion-collapse` | grid rows | opening and shutting |
+| `.motion-spin` / `.motion-shimmer` | transform / background | loading |
+
+**Every one animates only `transform` and `opacity`** — the two properties a
+browser can move without redoing layout or paint.
+
+### Collapse
+
+<Collapse />
+
+`grid-template-rows: 0fr → 1fr` is the one way to animate to *auto* height
+without measuring in JavaScript, and unlike a `max-height` trick it never clips
+long content.
+
+---
+
+## 6. Transforms by Pattern
+
+| Component | Transform | Why |
+|---|---|---|
+| Dropdown, menu | `translateY` + opacity | it comes from its trigger |
+| Tooltip | `translateY` + opacity | same, but smaller travel |
+| Popover | `translateY` + opacity | anchored to something |
+| Modal | `scale` + opacity | it has no origin on screen |
+| Drawer, sheet | `translateX` / `translateY` | it comes from an edge |
+| Toast | `translateY` + opacity | it comes from an edge |
+| Accordion | grid rows | it grows in place |
+
+**Never `translate` a modal.** It did not come from anywhere; sliding it in
+invents a spatial relationship that does not exist.
+
+---
+
+## 7. Hover and Press
+
+<Interaction />
+
+| State | What moves | Duration |
+|---|---|---|
+| Hover | background, border, shadow — **never size or position** | `--motion-fast` |
+| Press | scale to 0.97 | `--motion-fast` |
+| Focus | nothing. A ring appears instantly. | `--motion-instant` |
+| Disabled | nothing | — |
+
+**Hover must not change an element's box.** A control that grows on hover
+shoves its neighbours around and makes a toolbar feel loose — and on a dense
+grid it can move the thing you were about to click.
+
+**Press goes in, never out.** A thing you are pushing should not fly toward
+you.
+
+**Focus never animates.** A focus ring that fades in is a focus ring you cannot
+find while tabbing quickly, and it must never be confusable with a hover.
+
+---
+
+## 8. Loading
+
+<Loading />
+
+| | Duration | Easing |
+|---|---|---|
+| Spinner | `--motion-loop-spin` 700ms | linear |
+| Skeleton shimmer | `--motion-loop-shimmer` 1400ms | linear |
+
+Loops are slower than transitions on purpose — a fast loop is a flicker.
+
+**Wait before showing a spinner.** `--motion-delay-long` (400ms) exists for
+this: most requests finish inside it, and a spinner that flashes for 80ms is
+worse than no spinner. A skeleton is better than a spinner whenever you know
+the shape of what is coming.
+
+---
+
+## 9. Stagger and Delay
+
+<Stagger />
+
+| Token | Value | For |
+|---|---|---|
+| `--motion-stagger-sm` | 30ms | a list of rows |
+| `--motion-stagger-md` | 60ms | a few large cards |
+| `--motion-delay-short` | 60ms | a tooltip's grace period |
+| `--motion-delay-long` | 400ms | before a loading spinner |
+
+**Stagger no more than about six items.** At 30ms each, the seventh is already
+waiting 180ms behind the first, and the list reads as a slow page rather than a
+considered one. Beyond that, fade the whole group at once.
+
+**A delay before feedback is a bug.** These exist for sequencing things that
+arrive together, never for slowing a response to a click.
+
+---
+
+## 10. Reduced Motion
+
+<ReducedMotionState />
+
+**Not "turn everything off".** Someone who asked for less motion still needs to
+know that a menu opened; removing the feedback is a worse outcome than the
+animation was.
+
+| | Normally | Reduced |
+|---|---|---|
+| Opacity fades | yes | **yes — this is what carries the information** |
+| Travel | one spacing step | 0 |
+| Scale | 0.98 / 0.97 | 1 |
+| `--motion-normal`, `--motion-slow` | 200 / 320ms | 120ms |
+| Stagger and delay | 30–60ms | 0 |
+| Spinner, shimmer | looping | **stopped, and still visible** |
+
+All of it happens by **changing the tokens**, in one media query at the bottom
+of `14-motion.css`. A component that reads them gets the whole behaviour free
+and needs no media query of its own.
+
+Loops stop completely, because repetitive movement is the specific thing
+vestibular disorders react to. They stay *visible* as static shapes — which is
+why anything using one must also say "Loading" in words.
+
+---
+
+## 11. Accessibility and Performance
+
+| Concern | Rule |
+|---|---|
+| Vestibular sensitivity | No large or repetitive movement. Nothing travels more than 24px. |
+| Flashing | Nothing in this system flashes. Never animate anything faster than 3Hz. |
+| State by motion alone | Never. An animation is invisible to a screen reader — change text, colour or an ARIA attribute too. |
+| Focus movement | Focus is never animated, and motion must never move a focused element out from under the keyboard. |
+| Properties | `transform` and `opacity` only. Animating `height`, `top` or `width` forces layout on every frame. |
+| Technology | **CSS transitions and keyframes.** This project has no animation library and does not need one — adding one would mean two systems that drift apart. |
+
+Use a **transition** when a state changes, and **keyframes** when something
+enters, leaves, or loops. Reach for JavaScript only for gesture-driven motion
+that tracks a finger, and there is none of that here yet.
+
+---
+
+## 12. Usage
+
+<DoDont>
+  <Do title="Use a duration token. transition: opacity var(--motion-normal) var(--ease-enter)." />
+  <Dont title="Don't write 0.3s ease. It is off the scale and the next component will pick a different number." />
+  <Do title="Use a pattern class for entrances: .motion-slide-up, .motion-scale-in." />
+  <Dont title="Don't write a @keyframes block inside a component file." />
+  <Do title="Animate transform and opacity." />
+  <Dont title="Don't animate height, top or width — it forces layout on every frame." />
+  <Do title="Make exits faster than entrances." />
+  <Dont title="Don't make a person wait 300ms to dismiss something." />
+  <Do title="Keep hover to colour and shadow." />
+  <Dont title="Don't grow an element on hover; it shoves its neighbours around." />
+  <Do title="Let reduced motion drop travel and scale but keep the fade." />
+  <Dont title="Don't disable every animation — the feedback is the part that mattered." />
+  <Do title="Wait 400ms before showing a spinner." />
+  <Dont title="Don't flash a spinner for 80ms; it reads as a glitch." />
+</DoDont>
+
+---
+
+## 13. Files
+
+| File | What is in it |
+|---|---|
+| `styles/design-system/14-motion.css` | Durations, easings, scale, delay, stagger — and the reduced-motion overrides. |
+| `styles/design-system/15-motion-patterns.css` | The five pattern classes and their keyframes. |
+| `docs/10-motion.md` | The same rules, written for someone reading the repo. |
+
+Distance comes from the spacing scale; there are no motion distance tokens.
