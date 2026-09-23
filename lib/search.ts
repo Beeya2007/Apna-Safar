@@ -14,6 +14,23 @@
 
 import type { Listing, PropertyType } from "./types";
 import { LISTINGS } from "./data/listings";
+import { nightsBetween } from "./format";
+
+/** Move an ISO date by a number of days.
+    All in UTC on purpose: building the date at local midnight
+    and reading it back with toISOString() lands on the day
+    before anywhere east of Greenwich. */
+function shiftDays(iso: string, by: number): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + by);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Does an open window touch the month starting at `anchor`? */
+function overlapsMonth(from: string, to: string, anchor: string): boolean {
+  const monthStart = anchor.slice(0, 7);
+  return from.slice(0, 7) <= monthStart && to.slice(0, 7) >= monthStart;
+}
 
 /** The shape of everything that can appear in the address. */
 export type SearchQuery = {
@@ -25,6 +42,11 @@ export type SearchQuery = {
   maxPrice?: string;
   amenity?: string;
   sort?: string;
+  /** Days either side the dates may stretch. "0" or absent is exact. */
+  nudge?: string;
+  /** Flexible search: how many nights, and which month. */
+  nights?: string;
+  month?: string;      // "2026-12-01"
 };
 
 export const SORT_OPTIONS = [
@@ -78,11 +100,36 @@ export function searchListings(query: SearchQuery): Listing[] {
 
   /* DATES — the placeholder data gives each listing a single
      open window, so a stay must sit inside it. Real
-     availability replaces this when the database arrives. */
+     availability replaces this when the database arrives.
+
+     `nudge` is how many days either side the visitor said they
+     could move. It means the SAME stay starting a little earlier
+     or later, so it can only ever find more places, never fewer.
+     A place qualifies if the stay fits anywhere in that span. */
   if (query.checkIn && query.checkOut) {
-    results = results.filter(
-      (l) => query.checkIn! >= l.availableFrom && query.checkOut! <= l.availableTo,
-    );
+    const give = parseInt(query.nudge ?? "0", 10) || 0;
+    const nights = nightsBetween(query.checkIn, query.checkOut);
+    const starts = Array.from({ length: give * 2 + 1 },
+      (_, i) => shiftDays(query.checkIn!, i - give));
+
+    results = results.filter((l) => starts.some(
+      (start) => start >= l.availableFrom
+              && shiftDays(start, nights) <= l.availableTo,
+    ));
+  }
+
+  /* FLEXIBLE — no dates, just "this long, roughly then". A place
+     qualifies if its open window is long enough and falls in the
+     month asked for. */
+  if (!query.checkIn && (query.nights || query.month)) {
+    const nights = parseInt(query.nights ?? "0", 10) || 0;
+    results = results.filter((l) => {
+      const windowNights = nightsBetween(l.availableFrom, l.availableTo);
+      const longEnough = nights === 0 || windowNights >= nights;
+      const rightMonth = !query.month
+        || overlapsMonth(l.availableFrom, l.availableTo, query.month);
+      return longEnough && rightMonth;
+    });
   }
 
   return sortListings(results, query.sort);

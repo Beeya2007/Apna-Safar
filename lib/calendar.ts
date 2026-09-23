@@ -91,3 +91,19 @@ export function nextRange(range: Range, clicked: string): Range {
   const startingOver = !range.from || range.to || clicked <= range.from;
   return startingOver ? { from: clicked } : { from: range.from, to: clicked };
 }
+
+/* --- MONTHS AS A CHOICE -------------------------------------
+   The flexible date picker offers months rather than dates, so
+   it needs them as a list and as words.                      */
+
+/** "2026-12-01" → "December 2026" */
+export function monthLabel(anchor: string): string {
+  const monthIndex = Number(anchor.slice(5, 7)) - 1;
+  return `${MONTH_NAMES[monthIndex]} ${anchor.slice(0, 4)}`;
+}
+
+/** This month and the next few, as anchors. */
+export function nextMonths(howMany: number): string[] {
+  const start = monthAnchor(todayIso());
+  return Array.from({ length: howMany }, (_, i) => shiftMonth(start, i));
+}

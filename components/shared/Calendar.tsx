@@ -23,6 +23,8 @@ export default function Calendar({
   startAt,
   labelFor,
   taken,
+  months = 1,
+  toneFor,
 }: {
   range: Range;
   onPick: (iso: string) => void;
@@ -36,29 +38,43 @@ export default function Calendar({
   labelFor?: (iso: string) => string | undefined;
   /** Dates already taken. Tinted, and not choosable. */
   taken?: Set<string>;
+  /** How many months to show side by side. One by default. */
+  months?: number;
+  /** Cheap or dear, per date. Colours the cell. */
+  toneFor?: (iso: string) => "lower" | "higher" | undefined;
 }) {
   const floor = minDate ?? todayIso();
   const [anchor, setAnchor] = useState(
     monthAnchor(startAt ?? range.from ?? floor),
   );
-  const month = buildMonth(anchor);
+  /* One anchor moves them all: showing September and October,
+     "next" must land on October and November, not on two
+     unrelated months. */
+  const shown = Array.from({ length: Math.max(1, months) },
+    (_, i) => buildMonth(shiftMonth(anchor, i)));
 
   return (
-    <div className="calendar">
+    <div className={months > 1 ? "calendar calendar--wide" : "calendar"}>
 
-      {/* MONTH BAR — back, the month, forward */}
+      {/* MONTH BAR — back, the months on show, forward */}
       <div className="calendar__bar">
         <button type="button" className="calendar__arrow"
           onClick={() => setAnchor(shiftMonth(anchor, -1))}
           aria-label="Previous month">‹</button>
-        <span className="calendar__month" aria-live="polite">{month.label}</span>
+        <span className="calendar__months" aria-live="polite">
+          {shown.map((m) => (
+            <span className="calendar__month" key={m.anchor}>{m.label}</span>
+          ))}
+        </span>
         <button type="button" className="calendar__arrow"
           onClick={() => setAnchor(shiftMonth(anchor, 1))}
           aria-label="Next month">›</button>
       </div>
 
-      {/* THE GRID */}
-      <div className="calendar__grid" role="grid">
+      {/* THE GRIDS — one per month on show */}
+      <div className="calendar__months-grid">
+      {shown.map((month) => (
+      <div className="calendar__grid" role="grid" key={month.anchor}>
         {WEEKDAYS.map((day) => (
           <span className="calendar__weekday" key={day}>{day.slice(0, 1)}</span>
         ))}
@@ -73,6 +89,9 @@ export default function Calendar({
           const isEnd = day.iso === range.to;
           const inRange = isBetween(day.iso, range.from ?? "", range.to ?? "");
           const note = labelFor?.(day.iso);
+          /* A colour on a date nobody can choose would say
+             something about a night that is not for sale. */
+          const tone = disabled ? undefined : toneFor?.(day.iso);
 
           const classes = [
             "calendar__day",
@@ -80,6 +99,7 @@ export default function Calendar({
             inRange ? "calendar__day--between" : "",
             isTaken ? "calendar__day--taken" : "",
             disabled && !isTaken ? "calendar__day--off" : "",
+            tone ? `calendar__day--${tone}` : "",
           ].filter(Boolean).join(" ");
 
           return (
@@ -96,6 +116,8 @@ export default function Calendar({
             </button>
           );
         })}
+      </div>
+      ))}
       </div>
     </div>
   );

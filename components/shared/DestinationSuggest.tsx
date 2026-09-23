@@ -6,114 +6,88 @@
    from lib/data/content.ts, so this panel and the destination
    pages can never disagree about what exists.
 
+   The first row asks the browser where the visitor is and then
+   re-sorts the list by how far each place is. It only appears
+   before anything is typed.
+
+   Which rows there are is decided in destination-rows.ts. This
+   file only draws them.
+
    Styles live in: styles/components/destination-suggest.css
    ============================================================ */
 
 "use client";
 
-import type { Icon } from "@phosphor-icons/react";
 import Popover from "./Popover";
-import { DESTINATIONS } from "@/lib/data/content";
-import {
-  MapPin, Umbrella, Mountains, Boat,
-  CastleTurret, Plant, Waves, Sun, Tree,
-} from "@phosphor-icons/react";
+import { NavigationArrow } from "@phosphor-icons/react";
+import { rowsFor, nearbyReason, type GeoState } from "./destination-rows";
 
-/* Safe to edit — which mark each destination shows, by slug.
-   A destination that is not listed here falls back to a map
-   pin, so adding one to lib/data/content.ts never breaks this
-   panel and never needs a developer. */
-const ICONS: Record<string, Icon> = {
-  goa:         Umbrella,
-  manali:      Mountains,
-  kerala:      Boat,
-  udaipur:     CastleTurret,
-  coorg:       Plant,
-  rishikesh:   Waves,
-  pondicherry: Sun,
-  shillong:    Tree,
-};
+export type { GeoState } from "./destination-rows";
 
 export default function DestinationSuggest({
-  open,
-  query,
-  activeIndex,
-  onPick,
-  onClose,
+  open, query, geo, activeIndex, onPick, onLocate, onClose,
 }: {
   open: boolean;
-  /** What is typed in the field. Empty shows the whole list. */
   query: string;
+  geo: GeoState;
   /** Row highlighted by the arrow keys, or -1 for none. */
   activeIndex: number;
   onPick: (name: string) => void;
+  onLocate: () => void;
   onClose: () => void;
 }) {
-  const matches = matching(query);
+  const rows = rowsFor(query, geo);
 
   return (
     <Popover open={open} onClose={onClose}>
       <div className="destination-suggest">
         <p className="destination-suggest__heading">
-          {query ? "Matching destinations" : "Suggested destinations"}
+          {query ? "Matching destinations"
+            : geo.status === "ready" ? "Nearest to you first"
+            : "Suggested destinations"}
         </p>
 
-        {matches.length === 0 ? (
+        {rows.length === 0 ? (
           <p className="destination-suggest__none">
             Nowhere by that name yet. Search it anyway — we match on
             the place written in each listing too.
           </p>
         ) : (
-          <ul
-            id="where-suggestions"
-            className="destination-suggest__list"
-            role="listbox"
-          >
-            {matches.map((destination, index) => {
-              const Mark = ICONS[destination.slug] ?? MapPin;
-              return (
-                <li key={destination.slug}>
-                  <button
-                    type="button"
-                    role="option"
-                    aria-selected={index === activeIndex}
-                    className={
-                      index === activeIndex
-                        ? "destination-suggest__item destination-suggest__item--active"
-                        : "destination-suggest__item"
-                    }
-                    /* Mouse down, not click: the field blurs before a
-                       click lands, which would shut the panel first. */
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => onPick(destination.name)}
-                  >
-                    <span className="destination-suggest__tile" aria-hidden>
-                      <Mark size={24} />
+          <ul id="where-suggestions" className="destination-suggest__list" role="listbox">
+            {rows.map((row, index) => (
+              <li key={row.kind === "nearby" ? "nearby" : row.slug}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={index === activeIndex}
+                  className={[
+                    "destination-suggest__item",
+                    index === activeIndex ? "destination-suggest__item--active" : "",
+                  ].filter(Boolean).join(" ")}
+                  /* Mouse down, not click: the field blurs before a
+                     click lands, which would shut the panel first. */
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => row.kind === "nearby" ? onLocate() : onPick(row.name)}
+                >
+                  <span className="destination-suggest__tile" aria-hidden>
+                    {row.kind === "nearby"
+                      ? <NavigationArrow size={24} />
+                      : <row.Mark size={24} />}
+                  </span>
+                  <span className="destination-suggest__text">
+                    <span className="destination-suggest__name">
+                      {row.kind === "nearby" ? "Nearby" : row.name}
                     </span>
-                    <span className="destination-suggest__text">
-                      <span className="destination-suggest__name">
-                        {destination.name}
-                      </span>
-                      <span className="destination-suggest__reason">
-                        {destination.tagline}
-                      </span>
+                    <span className="destination-suggest__reason">
+                      {row.kind === "nearby" ? nearbyReason(geo) : row.reason}
                     </span>
-                  </button>
-                </li>
-              );
-            })}
+                  </span>
+                </button>
+              </li>
+            ))}
           </ul>
         )}
       </div>
     </Popover>
   );
-}
-
-/* Which destinations match what has been typed. Exported so the
-   search bar can count them for its arrow keys without having
-   to repeat the rule. */
-export function matching(query: string) {
-  const typed = query.trim().toLowerCase();
-  if (!typed) return DESTINATIONS;
-  return DESTINATIONS.filter((d) => d.name.toLowerCase().includes(typed));
 }

@@ -51,6 +51,12 @@
   --color-success:        #4A7C59;  /* "Trip confirmed"          */
   --color-warning:        #8A5A12;  /* "Only 2 seats left"       */
   --color-error:          #B3291E;  /* "Please pick a date"      */
+
+  /* Calendar price tints. Pale on purpose: they sit behind a
+     date you still have to read. The solid colours above are
+     used for the text on top of them. */
+  --color-success-wash:   #E4EDE6;  /* a cheaper night           */
+  --color-error-wash:     #F7E3E1;  /* a dearer night            */
   --color-disabled-bg:    #E7DDD1;  /* a button you cannot press */
   --color-disabled-text:  #7C6F62;
   --color-focus-ring:     rgba(194, 64, 43, 0.35); /* keyboard outline */

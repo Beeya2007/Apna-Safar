@@ -46,6 +46,9 @@ export default function EditSearchForm({ query }: { query: SearchQuery }) {
     if (query.maxPrice) params.set("maxPrice", query.maxPrice);
     if (query.amenity) params.set("amenity", query.amenity);
     if (query.sort) params.set("sort", query.sort);
+    if (query.nudge) params.set("nudge", query.nudge);
+    if (query.nights) params.set("nights", query.nights);
+    if (query.month) params.set("month", query.month);
     router.push(`/search?${params.toString()}`);
   }
 

@@ -15,10 +15,11 @@ import { useRouter } from "next/navigation";
 import type { Range } from "@/lib/calendar";
 import { shortDate } from "@/lib/format";
 import Popover from "@/components/shared/Popover";
-import Calendar from "@/components/shared/Calendar";
+import DatesPanel from "@/components/shared/DatesPanel";
+import { NO_FLEXIBLE, type Flexible } from "@/components/shared/FlexibleDates";
 import Dropdown from "@/components/shared/Dropdown";
 import WhereField from "@/components/shared/WhereField";
-import { nextRange } from "@/lib/calendar";
+import { monthLabel, nextRange } from "@/lib/calendar";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
 /* Edit this list to change the guest counts offered. */
@@ -36,25 +37,42 @@ export default function SearchBar() {
   const [range, setRange] = useState<Range>({});
   const [guests, setGuests] = useState("");
   const [datesOpen, setDatesOpen] = useState(false);
+  const [nudge, setNudge] = useState(0);
+  const [flexible, setFlexible] = useState<Flexible>(NO_FLEXIBLE);
 
   function handleSearch() {
     const params = new URLSearchParams();
     if (where) params.set("where", where);
     if (range.from) params.set("checkIn", range.from);
     if (range.to) params.set("checkOut", range.to);
+    if (range.from && nudge) params.set("nudge", String(nudge));
+    if (flexible.nights) params.set("nights", String(flexible.nights));
+    if (flexible.month) params.set("month", flexible.month);
     if (guests) params.set("guests", guests);
     router.push(`/search?${params.toString()}`);
   }
 
+  /* The panel does not close itself when the range completes:
+     the flexibility chips sit under the calendar, and shutting
+     the panel would put them out of reach. "Done" closes it. */
   function pickDate(iso: string) {
-    const picked = nextRange(range, iso);
-    setRange(picked);
-    if (picked.from && picked.to) setDatesOpen(false);
+    setRange(nextRange(range, iso));
   }
 
-  const dateText = range.from
-    ? `${shortDate(range.from)}${range.to ? ` – ${shortDate(range.to)}` : ""}`
-    : "Any week";
+  const dateText = whenText();
+
+  /* What the When field says when it is shut. */
+  function whenText(): string {
+    if (range.from) {
+      const dates = `${shortDate(range.from)}${range.to ? ` – ${shortDate(range.to)}` : ""}`;
+      return nudge ? `${dates} ± ${nudge}d` : dates;
+    }
+    if (flexible.nights || flexible.month) {
+      const how = flexible.nights ? `${flexible.nights} nights` : "A stay";
+      return flexible.month ? `${how} in ${monthLabel(flexible.month)}` : how;
+    }
+    return "Any week";
+  }
 
   return (
     <div className="search-bar">
@@ -75,13 +93,15 @@ export default function SearchBar() {
         </button>
 
         <Popover open={datesOpen} onClose={() => setDatesOpen(false)}>
-          <Calendar range={range} onPick={pickDate} />
-          <div className="datefield__foot">
-            <button type="button" className="datefield__clear"
-              onClick={() => setRange({})}>Clear dates</button>
-            <button type="button" className="button button--primary button--small"
-              onClick={() => setDatesOpen(false)}>Done</button>
-          </div>
+          <DatesPanel
+            range={range}
+            onPick={pickDate}
+            nudge={nudge}
+            onNudge={setNudge}
+            flexible={flexible}
+            onFlexible={setFlexible}
+            onDone={() => setDatesOpen(false)}
+          />
         </Popover>
       </div>
 

@@ -117,3 +117,59 @@
 
 .calendar__day--picked .calendar__note { color: var(--color-text-inverse); }
 
+
+/* ---- TWO MONTHS SIDE BY SIDE -------------------------------
+   The search calendar shows two months so a trip that crosses
+   the end of a month can be picked without paging. The booking
+   panel and the host screen still show one. */
+
+.calendar--wide { min-width: auto; }
+
+.calendar__months {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  gap: var(--space-md);
+}
+
+.calendar__months-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+@media (max-width: 1100px) {
+  /* Below this the two-month panel runs off the side of the
+     window, so show the first month only. The second would
+     otherwise wrap into a column two dates wide. */
+  .calendar--wide .calendar__months-grid > .calendar__grid:nth-child(n + 2),
+  .calendar--wide .calendar__months > .calendar__month:nth-child(n + 2) {
+    display: none;
+  }
+}
+
+/* ---- PRICE TINTS -------------------------------------------
+   Green is a cheaper night than usual, red a dearer one. Both
+   are worked out in lib/nightly.ts from the places actually
+   free that night — see the "How it works" note in the panel.
+
+   Colour is never the only signal: the price itself is on the
+   cell, so this reads the same to someone who cannot tell the
+   two tints apart. */
+
+.calendar__day--lower {
+  background: var(--color-success-wash);
+  color: var(--color-success);
+}
+
+.calendar__day--higher {
+  background: var(--color-error-wash);
+  color: var(--color-error);
+}
+
+/* The chosen dates win: a range has to stay readable as a range. */
+.calendar__day--picked.calendar__day--lower,
+.calendar__day--picked.calendar__day--higher {
+  background: var(--color-brand);
+  color: var(--color-text-inverse);
+}

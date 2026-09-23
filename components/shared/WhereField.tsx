@@ -13,7 +13,8 @@
 "use client";
 
 import { useState } from "react";
-import DestinationSuggest, { matching } from "./DestinationSuggest";
+import DestinationSuggest from "./DestinationSuggest";
+import { rowsFor, type GeoState } from "./destination-rows";
 
 export default function WhereField({
   value,
@@ -29,10 +30,12 @@ export default function WhereField({
   const styles = variant === "bar"
     ? { label: "search-bar__label", input: "search-bar__input", hint: "Search destinations" }
     : { label: "field__label",      input: "field__input",      hint: "Anywhere" };
+
   const [open, setOpen] = useState(false);
   /* -1 means nothing is highlighted, so Enter submits the search
      instead of picking a row nobody asked for. */
   const [active, setActive] = useState(-1);
+  const [geo, setGeo] = useState<GeoState>({ status: "idle" });
 
   function choose(name: string) {
     onChange(name);
@@ -40,19 +43,43 @@ export default function WhereField({
     setActive(-1);
   }
 
+  /* Ask the browser where we are. The coordinates are not sent
+     anywhere: they stay in this component and lib/nearby.ts
+     does the arithmetic. The browser shows its own prompt. */
+  function locate() {
+    if (!navigator.geolocation) {
+      setGeo({ status: "refused", why: "This browser cannot share a location" });
+      return;
+    }
+    setGeo({ status: "locating" });
+    navigator.geolocation.getCurrentPosition(
+      (pos) => setGeo({
+        status: "ready",
+        at: { lat: pos.coords.latitude, lng: pos.coords.longitude },
+      }),
+      () => setGeo({
+        status: "refused",
+        why: "We could not get your location — pick a place instead",
+      }),
+      { timeout: 10_000 },
+    );
+  }
+
   function handleKey(e: React.KeyboardEvent<HTMLInputElement>) {
-    const count = matching(value).length;
-    if (!open || count === 0) return;
+    const rows = rowsFor(value, geo);
+    if (!open || rows.length === 0) return;
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActive((i) => (i + 1) % count);
+      setActive((i) => (i + 1) % rows.length);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setActive((i) => (i <= 0 ? count - 1 : i - 1));
+      setActive((i) => (i <= 0 ? rows.length - 1 : i - 1));
     } else if (e.key === "Enter" && active >= 0) {
       e.preventDefault();
-      choose(matching(value)[active].name);
+      const row = rows[active];
+      if (row.kind === "nearby") locate();
+      else choose(row.name);
     }
   }
 
@@ -80,8 +107,10 @@ export default function WhereField({
       <DestinationSuggest
         open={open}
         query={value}
+        geo={geo}
         activeIndex={active}
         onPick={choose}
+        onLocate={locate}
         onClose={() => setOpen(false)}
       />
     </>

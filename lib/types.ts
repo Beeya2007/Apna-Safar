@@ -126,6 +126,10 @@ export type Destination = {
   tagline: string;
   emoji: string;
   listingCount: number;
+  /* Where the place actually is, so "near me" can be worked
+     out in the browser without asking a mapping service. */
+  lat: number;             // 15.4909
+  lng: number;             // 73.8278
 };
 
 /** A bookable thing to do, as opposed to a place to sleep. */
