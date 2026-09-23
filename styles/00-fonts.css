@@ -4,43 +4,41 @@
    The app uses TWO typefaces:
 
      Season Mix  — headlines and accents. Loaded from files in
-                   public/fonts/ (see the licence warning below).
+                   public/fonts/ (see the licence note below).
      SF Pro      — all body text. NOT loaded here, because it is
                    already on the reader's device. See the note
                    at the bottom.
 
    ############################################################
-   #  LICENCE WARNING — READ BEFORE DEPLOYING                 #
+   #  LICENCE — STILL A TRIAL                                 #
    #                                                          #
-   #  Season Mix is a TRIAL font. It is licensed for personal #
-   #  evaluation only. Putting these files on a public server #
-   #  redistributes them, which the licence forbids.          #
+   #  The Season Mix files in public/fonts/ are TRIAL files,  #
+   #  licensed for personal evaluation only. They are now     #
+   #  committed and served from the live site, which the      #
+   #  trial licence does not permit. This was a deliberate    #
+   #  decision, not an oversight.                             #
    #                                                          #
-   #  The .otf files are therefore listed in .gitignore, so   #
-   #  they cannot be committed or deployed by accident. The   #
-   #  app works on this machine and falls back to Georgia     #
-   #  anywhere the files are missing.                         #
-   #                                                          #
-   #  TO GO LIVE: buy a web licence from Sunday Fonts, drop   #
-   #  the .woff2 files they send into public/fonts/, update   #
-   #  the four blocks below, and remove the .gitignore line.  #
+   #  TO PUT IT RIGHT: buy a web licence from Sunday Fonts    #
+   #  and replace the four .woff files in public/fonts/ with  #
+   #  the licensed ones, keeping the same four names.         #
+   #  Nothing in this file needs to change.                   #
    ############################################################
 
    This file only LOADS fonts. Which font does which job is
    decided in 01-design-tokens.css (--font-display, --font-body,
    --font-script).
 
-   These are .otf rather than .woff2 because the trial ships as
-   OpenType. Browsers read it fine, it is just a bigger file.
-   The licensed version will come as .woff2 and should replace
-   these.
+   The four files here are copies of the weights we actually
+   use, taken from the full download in
+   public/fonts/Season Mix Font/ and renamed. That folder is
+   the untouched original and is not deployed.
    ============================================================ */
 
 /* ---- SEASON MIX — display, accents, headings -------------- */
 
 @font-face {
   font-family: "Season Mix";
-  src: url("/fonts/seasonmix-light.otf") format("opentype");
+  src: url("/fonts/seasonmix-light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;   /* show fallback text at once, swap when ready */
@@ -48,7 +46,7 @@
 
 @font-face {
   font-family: "Season Mix";
-  src: url("/fonts/seasonmix-regular.otf") format("opentype");
+  src: url("/fonts/seasonmix-regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -56,7 +54,7 @@
 
 @font-face {
   font-family: "Season Mix";
-  src: url("/fonts/seasonmix-bold.otf") format("opentype");
+  src: url("/fonts/seasonmix-bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -65,7 +63,7 @@
 /* The italic doubles as the accent face — the "passion" word */
 @font-face {
   font-family: "Season Mix";
-  src: url("/fonts/seasonmix-regularitalic.otf") format("opentype");
+  src: url("/fonts/seasonmix-regularitalic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
