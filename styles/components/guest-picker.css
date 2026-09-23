@@ -46,7 +46,6 @@
 .guest-picker__link {
   font-size: var(--text-small);
   color: var(--color-text-muted);
-  text-decoration: underline;
 }
 
 .guest-picker__link:hover { color: var(--color-text); }
@@ -61,6 +60,11 @@
 }
 
 .guest-picker__step {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard);
   display: grid;
   place-items: center;
   width: var(--control-height-md);
@@ -73,7 +77,7 @@
 }
 
 .guest-picker__step:hover:not(:disabled) {
-  border-color: var(--color-text);
+  border-color: var(--color-border-hover);
 }
 
 .guest-picker__step:focus-visible {

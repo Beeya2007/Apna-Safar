@@ -24,7 +24,7 @@ export default function SiteHeader() {
       <div className="page-container site-header__inner">
 
         {/* LOGO — links back to the home page */}
-        <Link href="/" className="site-header__logo">
+        <Link href="/" className="site-header__logo link-plain">
           <House className="icon" size={24} />
           <span>ApnaSafar</span>
         </Link>

@@ -41,3 +41,33 @@
     overflow-y: auto;
   }
 }
+
+/* ---- OPENING AND CLOSING -----------------------------------
+   A panel has a source — the field it belongs to — so it rises
+   the one spacing step from it rather than simply appearing.
+   Leaving is quicker than arriving: you have already decided.
+
+   Both durations come from the motion foundation, so the
+   reduced-motion block in 14-motion.css governs them without
+   this file knowing anything about it. */
+
+@keyframes popover-in {
+  from { opacity: 0; transform: translateY(calc(var(--space-2) * var(--motion-travel-off))); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popover-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(calc(var(--space-1) * var(--motion-travel-off))); }
+}
+
+.popover--entering {
+  animation: popover-in var(--motion-normal) var(--ease-enter) both;
+}
+
+.popover--leaving {
+  animation: popover-out var(--motion-fast) var(--ease-exit) both;
+  /* On the way out it must not swallow clicks aimed at what is
+     underneath — including the field that is opening next. */
+  pointer-events: none;
+}

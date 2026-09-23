@@ -33,7 +33,7 @@ export default function AccountHomeSection() {
 
       <div className="account__tiles">
         {TILES.map((tile) => (
-          <Link key={tile.href} href={tile.href} className="account-tile">
+          <Link key={tile.href} href={tile.href} className="account-tile link-plain">
             <tile.Icon className="account-tile__icon icon" size={24} />
             <h2 className="account-tile__title">{tile.title}</h2>
             <p className="account-tile__body">{tile.body}</p>

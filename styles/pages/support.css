@@ -37,7 +37,6 @@
 
 .support__links a:hover {
   color: var(--color-brand);
-  text-decoration: underline;
 }
 
 .support__contact {
@@ -49,7 +48,6 @@
 
 .support__contact a {
   color: var(--color-brand);
-  text-decoration: underline;
 }
 
 
@@ -76,5 +74,4 @@
 
 .article__back a {
   color: var(--color-brand);
-  text-decoration: underline;
 }

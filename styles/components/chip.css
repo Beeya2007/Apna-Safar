@@ -10,11 +10,16 @@
    ============================================================ */
 
 .chip {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard);
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--color-text);
   background: transparent;
-  border: 1px solid var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xs);
   padding: var(--space-sm) var(--space-md);
 }

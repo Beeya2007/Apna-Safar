@@ -34,7 +34,7 @@
   color: var(--color-text-muted);
 }
 
-.listing-title__meta a { text-decoration: underline; }
+
 
 .listing-title__actions { display: flex; gap: var(--space-sm); }
 
@@ -84,7 +84,7 @@
   right: var(--space-md);
   bottom: var(--space-md);
   background: var(--color-bg);
-  border: 1px solid var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: var(--space-sm) var(--space-md);
   font-size: var(--text-small);

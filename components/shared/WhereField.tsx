@@ -19,11 +19,19 @@ import { rowsFor, type GeoState } from "./destination-rows";
 export default function WhereField({
   value,
   onChange,
+  open,
+  onOpenChange,
+  onPicked,
 }: {
   value: string;
   onChange: (value: string) => void;
+  /** Which field is open is the search bar's business, not
+      ours: picking a place here opens the next one. */
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onPicked: () => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const setOpen = onOpenChange;
   /* -1 means nothing is highlighted, so Enter submits the search
      instead of picking a row nobody asked for. */
   const [active, setActive] = useState(-1);
@@ -31,8 +39,9 @@ export default function WhereField({
 
   function choose(name: string) {
     onChange(name);
-    setOpen(false);
     setActive(-1);
+    /* Answered. The next question opens itself. */
+    onPicked();
   }
 
   /* Ask the browser where we are. The coordinates are not sent

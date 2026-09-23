@@ -81,3 +81,24 @@
   .modal__foot { flex-direction: column-reverse; }
   .modal__foot .button { width: 100%; }
 }
+
+/* ---- OPENING -----------------------------------------------
+   A modal has no source to travel from — it is simply now in
+   front of everything — so it scales up rather than sliding.
+   The backdrop only fades: two things moving differently at
+   once reads as a glitch. */
+
+@keyframes modal-backdrop-in { from { opacity: 0 } to { opacity: 1 } }
+
+@keyframes modal-panel-in {
+  from { opacity: 0; transform: scale(var(--motion-scale-in)); }
+  to   { opacity: 1; transform: scale(var(--motion-scale-rest)); }
+}
+
+.modal {
+  animation: modal-backdrop-in var(--motion-normal) var(--ease-standard) both;
+}
+
+.modal__panel {
+  animation: modal-panel-in var(--motion-slow) var(--ease-emphasized) both;
+}

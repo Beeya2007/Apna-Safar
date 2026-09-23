@@ -35,6 +35,11 @@
 }
 
 .dates-panel__tab {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard);
   padding: var(--space-sm) var(--space-lg);
   border: 0;
   border-radius: var(--radius-full);
@@ -53,6 +58,11 @@
 }
 
 .dates-panel__info {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard);
   display: grid;
   place-items: center;
   width: var(--control-height-md);
@@ -129,18 +139,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-top: var(--space-md);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-border);
-}
-
-/* Pushed to the bottom, so Done is in the same place on both
-   tabs even though the Flexible one holds less. */
-.dates-panel__foot {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: auto;
-  padding-top: var(--space-md);
+  margin-top: var(--space-lg);
 }
 
 /* ---- FLEXIBLE TAB ------------------------------------------ */

@@ -43,8 +43,12 @@ export default function SearchBar({ query }: {
     to: query?.checkOut,
   });
   const [guests, setGuests] = useState<Guests>(guestsFromQuery(query ?? {}));
-  const [datesOpen, setDatesOpen] = useState(false);
-  const [whoOpen, setWhoOpen] = useState(false);
+  /* One field is open at a time, and answering one opens the
+     next: the bar asks three questions in order, so it should
+     behave like it. null is all three shut. */
+  const [field, setField] = useState<"where" | "when" | "who" | null>(null);
+  const toggle = (which: "where" | "when" | "who") =>
+    setField((open) => (open === which ? null : which));
   const [nudge, setNudge] = useState(Number(query?.nudge ?? 0) || 0);
   const [flexible, setFlexible] = useState<Flexible>({
     nights: Number(query?.nights ?? 0) || 0,
@@ -76,7 +80,10 @@ export default function SearchBar({ query }: {
      the flexibility chips sit under the calendar, and shutting
      the panel would put them out of reach. "Done" closes it. */
   function pickDate(iso: string) {
-    setRange(nextRange(range, iso));
+    const picked = nextRange(range, iso);
+    setRange(picked);
+    /* Both ends chosen — that question is answered too. */
+    if (picked.from && picked.to) setField("who");
   }
 
   const dateText = whenText();
@@ -99,7 +106,13 @@ export default function SearchBar({ query }: {
 
       {/* FIELD — destination, offering the places we know about */}
       <div className="search-bar__field search-bar__field--popover">
-        <WhereField value={where} onChange={setWhere} />
+        <WhereField
+          value={where}
+          onChange={setWhere}
+          open={field === "where"}
+          onOpenChange={(open) => setField(open ? "where" : null)}
+          onPicked={() => setField("when")}
+        />
       </div>
 
       <div className="search-bar__divider" />
@@ -108,11 +121,11 @@ export default function SearchBar({ query }: {
       <div className="search-bar__field search-bar__field--popover">
         <span className="search-bar__label">When</span>
         <button type="button" className="search-bar__trigger"
-          onClick={() => setDatesOpen(!datesOpen)} aria-expanded={datesOpen}>
+          onClick={() => toggle("when")} aria-expanded={field === "when"}>
           {dateText}
         </button>
 
-        <Popover open={datesOpen} onClose={() => setDatesOpen(false)}>
+        <Popover open={field === "when"} onClose={() => setField(null)}>
           <DatesPanel
             range={range}
             onPick={pickDate}
@@ -120,7 +133,6 @@ export default function SearchBar({ query }: {
             onNudge={setNudge}
             flexible={flexible}
             onFlexible={setFlexible}
-            onDone={() => setDatesOpen(false)}
           />
         </Popover>
       </div>
@@ -131,11 +143,11 @@ export default function SearchBar({ query }: {
       <div className="search-bar__field search-bar__field--popover">
         <span className="search-bar__label">Who</span>
         <button type="button" className="search-bar__trigger"
-          onClick={() => setWhoOpen(!whoOpen)} aria-expanded={whoOpen}>
+          onClick={() => toggle("who")} aria-expanded={field === "who"}>
           {guestSummary(guests)}
         </button>
 
-        <Popover open={whoOpen} onClose={() => setWhoOpen(false)} align="right">
+        <Popover open={field === "who"} onClose={() => setField(null)} align="right">
           <GuestPicker value={guests} onChange={setGuests} />
         </Popover>
       </div>

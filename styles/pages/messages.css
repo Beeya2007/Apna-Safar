@@ -121,7 +121,6 @@
 .thread__place {
   font-size: var(--text-small);
   color: var(--color-text-muted);
-  text-decoration: underline;
 }
 
 .thread__messages {

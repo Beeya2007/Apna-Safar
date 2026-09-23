@@ -13,7 +13,7 @@ import { Heart, Star } from "@phosphor-icons/react";
 
 export default function ListingCard({ listing }: { listing: Listing }) {
   return (
-    <Link href={`/listing/${listing.id}`} className="listing-card">
+    <Link href={`/listing/${listing.id}`} className="listing-card link-plain">
 
       {/* PHOTO — cover image with a favourite heart on top */}
       <div className="listing-card__photo">

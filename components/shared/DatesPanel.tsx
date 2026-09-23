@@ -29,7 +29,7 @@ import { Info, X } from "@phosphor-icons/react";
 export const NUDGES = [0, 1, 2, 3, 7, 14];
 
 export default function DatesPanel({
-  range, onPick, nudge, onNudge, flexible, onFlexible, onDone,
+  range, onPick, nudge, onNudge, flexible, onFlexible,
 }: {
   range: Range;
   onPick: (iso: string) => void;
@@ -38,7 +38,6 @@ export default function DatesPanel({
   onNudge: (days: number) => void;
   flexible: Flexible;
   onFlexible: (next: Flexible) => void;
-  onDone: () => void;
 }) {
   const [tab, setTab] = useState<"dates" | "flexible">("dates");
   const [explaining, setExplaining] = useState(false);
@@ -137,11 +136,6 @@ export default function DatesPanel({
       ) : (
         <FlexibleDates value={flexible} onChange={onFlexible} />
       )}
-
-      <div className="dates-panel__foot">
-        <button type="button" className="button button--primary button--small"
-          onClick={onDone}>Done</button>
-      </div>
 
     </div>
   );

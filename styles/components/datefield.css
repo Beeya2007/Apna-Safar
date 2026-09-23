@@ -29,7 +29,7 @@
   background: var(--color-bg);
 }
 
-.datefield__box:hover { border-color: var(--color-text); }
+.datefield__box:hover { border-color: var(--color-border-hover); }
 
 .datefield__box[aria-expanded="true"] {
   border-color: var(--color-brand);
@@ -59,7 +59,6 @@
 .datefield__clear {
   font-size: var(--text-small);
   color: var(--color-text-muted);
-  text-decoration: underline;
   background: none;
   border: 0;
 }

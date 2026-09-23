@@ -35,7 +35,7 @@ export default function CategoriesSection() {
           <Link
             key={category.label}
             href={`/search?type=${encodeURIComponent(category.label)}`}
-            className="categories__item"
+            className="categories__item link-plain"
           >
             <category.Icon className="categories__icon icon" size={24} />
             <span>{category.label}</span>

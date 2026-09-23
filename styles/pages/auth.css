@@ -41,7 +41,6 @@
   margin-top: var(--space-md);
   font-size: var(--text-small);
   color: var(--color-text-muted);
-  text-decoration: underline;
   background: none;
   border: 0;
 }
@@ -56,7 +55,6 @@
 .auth__switch a,
 .auth__legal a {
   color: var(--color-brand);
-  text-decoration: underline;
 }
 
 .auth__legal {

@@ -70,7 +70,6 @@
 .panel__link {
   font-size: var(--text-small);
   color: var(--color-brand);
-  text-decoration: underline;
 }
 
 

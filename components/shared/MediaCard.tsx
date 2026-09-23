@@ -23,7 +23,7 @@ export default function MediaCard({
   note?: string;
 }) {
   return (
-    <Link href={href} className="media-card">
+    <Link href={href} className="media-card link-plain">
       <span className="media-card__tile" aria-hidden>{emoji}</span>
       <h3 className="media-card__title">{title}</h3>
       <p className="media-card__meta">{meta}</p>

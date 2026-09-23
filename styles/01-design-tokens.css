@@ -44,6 +44,11 @@
   /* --- LINES ---------------------------------------------- */
   --color-border:         #D8C4B2;  /* quiet hairlines, input outlines */
   --color-border-strong:  #C2402B;  /* the terracotta ticket outline   */
+  /* A border is never darker than the words next to it — it
+     would draw the eye before the writing does. This is the
+     darkest a hairline gets: lighter than --color-text, darker
+     than --color-border, so hover still reads as a change. */
+  --color-border-hover:   #B9A08A;
 
   /* --- STATUS ---------------------------------------------
      Not in the reference image, but every real form needs

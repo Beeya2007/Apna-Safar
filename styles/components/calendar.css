@@ -27,6 +27,11 @@
 }
 
 .calendar__arrow {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard);
   display: grid;
   place-items: center;
   width: var(--touch-target);
@@ -39,7 +44,7 @@
 }
 
 .calendar__arrow:hover {
-  border-color: var(--color-text);
+  border-color: var(--color-border-hover);
   background: var(--color-bg-alt);
 }
 
@@ -72,6 +77,11 @@
 /* One date. Square, so a month reads as a block rather than
    as a list of numbers. */
 .calendar__day {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color     var(--motion-fast) var(--ease-standard),
+    color            var(--motion-fast) var(--ease-standard),
+    box-shadow       var(--motion-fast) var(--ease-standard);
   display: grid;
   place-content: center;
   gap: 2px;
@@ -84,7 +94,7 @@
 }
 
 .calendar__day:hover:not(:disabled) {
-  border-color: var(--color-text);
+  border-color: var(--color-border-hover);
 }
 
 /* The two ends of the chosen range */
@@ -110,9 +120,10 @@
 }
 
 /* Dates in the past, or outside what the host has opened */
+/* Disabled, and that is all. A line through a date reads as
+   "this was cancelled" rather than "this has gone". */
 .calendar__day--off {
   color: var(--color-disabled-text);
-  text-decoration: line-through;
   cursor: not-allowed;
 }
 
