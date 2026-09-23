@@ -62,14 +62,12 @@
 .search-bar__input::placeholder { color: var(--color-text-muted); }
 
 /* Round terracotta search button on the far right.
-   It stretches to whatever height the fields end up being, and
-   its width follows that height, so it stays a true circle
-   however the fields are padded. */
+   Width and height are the SAME token, so it can only ever be
+   a circle — change the one value and both sides follow.
+   56px is the height the fields beside it come out at. */
 .search-bar__submit {
-  align-self: stretch;
-  height: auto;
-  width: auto;
-  aspect-ratio: 1;
+  height: var(--control-height-xl);
+  width: var(--control-height-xl);
   border-radius: var(--radius-full);
   background: var(--color-brand);
   color: var(--color-text-inverse);
@@ -89,9 +87,7 @@
   /* Stacked, it becomes a full-width bar, so it is no longer
      a circle and must give the aspect ratio back. */
   .search-bar__submit {
-    align-self: auto;
     width: 100%;
-    aspect-ratio: auto;
     height: var(--control-height-lg);
     border-radius: var(--radius-sm);
   }
