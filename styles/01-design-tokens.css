@@ -66,6 +66,28 @@
   --color-disabled-text:  #7C6F62;
   --color-focus-ring:     rgba(194, 64, 43, 0.35); /* keyboard outline */
 
+  /* --- SKELETON & INK -------------------------------------
+     The placeholder blocks shown while data is still loading,
+     and the ink that spreads through them.
+
+     The block is warm paper, one step up from the page, so a
+     loading screen still looks like this product rather than a
+     generic grey wireframe.
+
+     The ink is the INDIGO from the design-system palette — the
+     one cool family we own. It is the only cool colour on a
+     warm page, which is exactly why a loading state reads as
+     "something is happening here" without shouting. There is no
+     purple in this palette; indigo is the nearest thing to it.
+
+     Raise --ink-strength to make the ink heavier. Past about
+     0.4 it stops looking like a stain and starts looking like a
+     second background colour.                                 */
+  --color-skeleton:      var(--color-neutral-100);   /* the block itself */
+  --color-skeleton-edge: var(--color-neutral-200);   /* its hairline     */
+  --color-skeleton-ink:  var(--color-secondary-600); /* indigo #4D72B3   */
+  --ink-strength:        0.3;                        /* peak opacity     */
+
   /* --- WARM NEUTRALS --------------------------------------
      Greys with a little warmth in them, so nothing on the
      cream page ever looks cold or blue.                      */

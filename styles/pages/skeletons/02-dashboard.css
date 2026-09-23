@@ -1,0 +1,50 @@
+/* ============================================================
+   SKELETONS PAGE — the full-dashboard specimen
+   ------------------------------------------------------------
+   The layout of the one specimen that shows a whole screen
+   loading at once: header, avatar, stats, chart, list.
+   ============================================================ */
+
+.dash {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-6);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.dash__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-skeleton-edge);
+}
+.dash__actions { display: flex; gap: var(--space-3); }
+
+.dash__identity {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.dash__identity-text {
+  flex: 1;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.dash__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .dash__stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .dash { padding: var(--space-4); gap: var(--space-6); }
+  .dash__stats { grid-template-columns: 1fr; }
+}

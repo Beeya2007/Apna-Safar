@@ -1,0 +1,150 @@
+/* ============================================================
+   SKELETON — the shapes shown while data is still loading
+   ------------------------------------------------------------
+   Grey-on-cream stand-ins for content that has not arrived yet:
+   a line of text, an avatar, a photo, a button. They are
+   deliberately dull. The only thing with any colour in them is
+   the ink, which lives in skeleton-ink.css.
+
+   Used by <Skeleton /> and friends in components/shared/.
+
+   THE FOUR KNOBS, settable on any skeleton or on any ancestor:
+     --ink-duration   how long one spread takes   (default 2600ms)
+     --ink-strength   how heavy the ink looks     (default 0.3)
+     --color-skeleton-ink   what colour the ink is
+     --skeleton-radius      corner size on this shape
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. THE BLOCK
+   Every placeholder is this, with a shape class on top.
+   ------------------------------------------------------------ */
+.skeleton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--color-skeleton);
+  border-radius: var(--skeleton-radius, var(--radius-md));
+  --ink-duration: var(--motion-loop-ink);
+  /* How far this block is down the queue. Set from React so a
+     dashboard's drops land in sequence rather than all at once. */
+  --ink-offset: calc(var(--skeleton-index, 0) * var(--motion-stagger-md));
+}
+
+/* The filter definitions <InkFilter /> renders once, near the
+   top of the body. They draw nothing themselves. */
+.skeleton-filters { position: absolute; width: 0; height: 0; }
+
+/* ------------------------------------------------------------
+   2. THE SHAPES
+   Sizes come from the spacing scale, so a placeholder line is
+   exactly as tall as the gap conventions elsewhere.
+   ------------------------------------------------------------ */
+
+/* A line of body text. */
+.skeleton--line {
+  height: var(--space-3);
+  --skeleton-radius: var(--radius-full);
+}
+
+/* A heading. Taller, squarer, and short of the full width,
+   because a real heading almost never fills its line. */
+.skeleton--heading {
+  height: var(--space-6);
+  width: 55%;
+  --skeleton-radius: var(--radius-sm);
+}
+
+/* An avatar or any round badge. */
+.skeleton--circle {
+  width: var(--space-12);
+  height: var(--space-12);
+  flex: none;
+  --skeleton-radius: var(--radius-full);
+}
+
+/* A button or a chip. */
+.skeleton--button {
+  height: var(--space-10);
+  width: var(--space-24);
+  --skeleton-radius: var(--radius-sm);
+}
+
+/* A photo. The big surface, so the big corner. */
+.skeleton--media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  --skeleton-radius: var(--radius-lg);
+}
+
+/* Anything else — a chart well, a map, a panel. */
+.skeleton--block {
+  width: 100%;
+  height: var(--space-16);
+}
+
+/* ------------------------------------------------------------
+   3. THE LABEL
+   Screen readers get the word "Loading"; nobody sees it. Same
+   technique as .sr-only in design-system/06-type-behavior.css,
+   restated because the app does not load that file.
+   ------------------------------------------------------------ */
+.skeleton-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------
+   4. PARAGRAPH — a few lines of text
+   The last line is short, the way a real paragraph ends.
+   ------------------------------------------------------------ */
+.skeleton-text {
+  display: grid;
+  gap: var(--space-2);
+}
+.skeleton-text__line:last-child { width: 62%; }
+
+/* ------------------------------------------------------------
+   5. CARD — photo, title, two lines, a price
+   ------------------------------------------------------------ */
+.skeleton-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-skeleton-edge);
+  border-radius: var(--radius-lg);
+}
+.skeleton-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* ------------------------------------------------------------
+   6. TABLE — a header strip and a stack of rows
+   ------------------------------------------------------------ */
+.skeleton-table {
+  display: grid;
+  gap: var(--space-3);
+}
+.skeleton-table__row {
+  display: grid;
+  grid-template-columns: var(--space-10) 2fr 1fr 1fr;
+  align-items: center;
+  gap: var(--space-4);
+}
+.skeleton-table__row .skeleton--circle {
+  width: var(--space-10);
+  height: var(--space-10);
+}
+
+@media (max-width: 640px) {
+  .skeleton-table__row { grid-template-columns: var(--space-10) 1fr 1fr; }
+  .skeleton-table__row > :last-child { display: none; }
+}

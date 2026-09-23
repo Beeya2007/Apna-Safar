@@ -1,0 +1,117 @@
+/* ============================================================
+   SKELETONS PAGE — the loading-state reference at /skeletons
+   ------------------------------------------------------------
+   The control panel, the headings and the stages the specimens
+   sit on. The dashboard specimen is in 02-dashboard.css; the
+   placeholders themselves in styles/components/skeleton.css.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. PAGE HEADING
+   ------------------------------------------------------------ */
+.specimen__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  margin-bottom: var(--space-3);
+}
+.specimen__lede {
+  max-width: var(--width-text);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}
+
+/* ------------------------------------------------------------
+   2. THE CONTROL PANEL
+   Sticks to the top so you can change the ink while looking at
+   the dashboard further down the page.
+   ------------------------------------------------------------ */
+.ink-lab {
+  display: grid;
+  gap: var(--space-16);
+  margin-top: var(--space-10);
+}
+
+.ink-lab__controls {
+  position: sticky;
+  top: var(--space-4);
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-2);
+}
+
+.ink-lab__control {
+  display: grid;
+  gap: var(--space-2);
+}
+.ink-lab__control--switch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ink-lab__label {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.ink-lab__label b { color: var(--color-text); }
+
+.ink-lab__swatches {
+  display: flex;
+  gap: var(--space-2);
+}
+.ink-lab__swatch {
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+.ink-lab__swatch[aria-pressed="true"] {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .ink-lab__controls { gap: var(--space-4); padding: var(--space-3); }
+}
+
+/* ------------------------------------------------------------
+   3. A SPECIMEN — one titled block of placeholders
+   ------------------------------------------------------------ */
+.specimen__title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-2);
+}
+.specimen__note {
+  max-width: var(--width-text);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.specimen__stage {
+  display: grid;
+  gap: var(--space-4);
+}
+.specimen__stage--cards {
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  .specimen__stage--cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .specimen__stage--cards { grid-template-columns: 1fr; }
+}

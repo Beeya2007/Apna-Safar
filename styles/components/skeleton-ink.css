@@ -1,0 +1,148 @@
+/* ============================================================
+   SKELETON INK — a drop spreading through the placeholder
+   ------------------------------------------------------------
+   The loading animation. Instead of a bar of light sweeping
+   left to right, a drop of indigo lands in the middle of each
+   placeholder and spreads outward until it reaches the edges,
+   then fades and lands again.
+
+   HOW IT IS MADE, because the mechanism is not guessable:
+   three soft circles sit near the middle of the block, each
+   growing from nothing to past the edge on its own clock. They
+   are drawn inside a layer running an SVG filter, which fuses
+   them into one blob and then roughens its outline so the edge
+   is ragged like a stain rather than round like a balloon. The
+   filter is in components/shared/InkFilter.tsx, commented.
+
+   Only transform and opacity animate; the filter never changes.
+
+   Used by <Skeleton /> in components/shared/Skeleton.tsx.
+   The shapes it paints on are in skeleton.css.
+   ============================================================ */
+
+/* ---- 1. THE INK LAYER ---------------------------------------
+   Sits over the placeholder, clipped to its corners. */
+.skeleton__ink {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  opacity: var(--ink-strength);
+  pointer-events: none;
+  /* Keeps the filter's repainting inside this box rather than
+     letting it invalidate the rest of the page. */
+  contain: paint;
+}
+
+/* ---- 2. THE FILTERED FIELD ----------------------------------
+   Everything inside gets fused and roughened. Three variants so
+   two placeholders side by side never bloom the same shape —
+   perfect symmetry is what makes an effect look computed. */
+.skeleton__field {
+  position: absolute;
+  inset: 0;
+  filter: url(#skeleton-ink-a);
+}
+.skeleton__field--b { filter: url(#skeleton-ink-b); }
+.skeleton__field--c { filter: url(#skeleton-ink-c); }
+
+/* ---- 3. THE DROPS -------------------------------------------
+   Sized against the block, so a wide line spreads sideways and
+   a square card spreads round. left/top place the drop; the
+   transform does all the moving. */
+.skeleton__drop {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(
+    closest-side,
+    var(--color-skeleton-ink) 0%,
+    color-mix(in srgb, var(--color-skeleton-ink) 55%, transparent) 58%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.05);
+  will-change: transform, opacity;
+  animation-duration: var(--ink-duration);
+  animation-timing-function: var(--ease-enter); /* bursts, then settles */
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  /* The off switch. Set --ink-play: paused on any ancestor. */
+  animation-play-state: var(--ink-play, running);
+}
+
+/* The three clocks. Deliberately not multiples of each other:
+   drops that share a rhythm re-form the same shape every cycle,
+   and the eye picks that up within about three loops. */
+.skeleton__drop--1 {
+  left: 50%; top: 50%;
+  animation-name: skeleton-ink-1;
+  animation-delay: var(--ink-offset);
+}
+.skeleton__drop--2 {
+  left: 44%; top: 56%;
+  animation-name: skeleton-ink-2;
+  animation-duration: calc(var(--ink-duration) * 1.19);
+  animation-delay: calc(var(--ink-offset) + var(--ink-duration) * 0.11);
+}
+.skeleton__drop--3 {
+  left: 57%; top: 45%;
+  animation-name: skeleton-ink-3;
+  animation-duration: calc(var(--ink-duration) * 0.83);
+  animation-delay: calc(var(--ink-offset) + var(--ink-duration) * 0.24);
+}
+
+/* ------------------------------------------------------------
+   4. THE BLOOM
+   Same story three times with different proportions: appear,
+   spread past the edge, fade out. Each one ends fully invisible,
+   which is why the loop has no seam — there is nothing left on
+   screen at the moment it starts again.
+   ------------------------------------------------------------ */
+@keyframes skeleton-ink-1 {
+  0%   { transform: translate(-50%, -50%) scale(0.05, 0.05); opacity: 0; }
+  12%  { opacity: 1; }
+  70%  { opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.18, 1.02); opacity: 0; }
+}
+@keyframes skeleton-ink-2 {
+  0%   { transform: translate(-50%, -50%) scale(0.04, 0.06); opacity: 0; }
+  14%  { opacity: 0.85; }
+  68%  { opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(0.98, 1.12); opacity: 0; }
+}
+@keyframes skeleton-ink-3 {
+  0%   { transform: translate(-50%, -50%) scale(0.06, 0.04); opacity: 0; }
+  16%  { opacity: 0.75; }
+  72%  { opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.09, 0.93); opacity: 0; }
+}
+
+/* ------------------------------------------------------------
+   5. THE CHEAP EDGE
+   The ragged edge is the expensive part: the browser redraws
+   that filter for every placeholder, every frame. On a screen
+   with dozens of them at once, put .ink-plain on the region.
+   The ink still lands and spreads, with a plain soft edge
+   instead of a ragged one — a little less alive, far less work.
+   ------------------------------------------------------------ */
+.ink-plain .skeleton__field,
+.ink-plain .skeleton__field--b,
+.ink-plain .skeleton__field--c { filter: blur(6px); }
+
+/* ------------------------------------------------------------
+   6. REDUCED MOTION
+   A loop is repetitive movement, which is the thing vestibular
+   disorders react to — so it stops completely. What is left is
+   one still, soft bloom in the middle of the block: the screen
+   still reads as unfinished, nothing moves. Anything using this
+   must also say "Loading" in words, and <Skeleton /> does.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton__drop {
+    animation: none;
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  .skeleton__ink { opacity: calc(var(--ink-strength) * 0.55); }
+}

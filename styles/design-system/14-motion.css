@@ -107,6 +107,13 @@
   --motion-loop-spin:    700ms;
   --motion-loop-shimmer: 1400ms;
 
+  /* INK — a drop spreading to the edge of a skeleton and
+     settling. Slower than the shimmer on purpose: diffusion
+     that finishes in a second reads as a flash, not a liquid.
+     This is the one loop long enough to feel unhurried, which
+     is the whole point of it. */
+  --motion-loop-ink:     2600ms;
+
   /* --- THE TRAVEL SWITCH ----------------------------------
      Multiply any slide distance by this. It is 1 normally and
      0 under reduced motion, which is how a component stops
