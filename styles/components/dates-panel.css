@@ -66,30 +66,62 @@
 
 .dates-panel__info:hover { background: var(--color-bg-alt); color: var(--color-text); }
 
-/* ---- THE KEY — what the two tints mean --------------------- */
+/* ---- WHAT THE COLOURS MEAN ---------------------------------
+   The small panel behind the (i). It holds the key and the
+   reason for it together, so a red date has one place to be
+   explained rather than two. */
 
-.dates-panel__key {
+.dates-panel__why { position: relative; }
+
+.price-key {
+  position: relative;
+  width: 260px;
+  max-width: 100%;
+}
+
+.price-key__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: var(--control-height-sm);
+  height: var(--control-height-sm);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.price-key__close:hover { background: var(--color-bg-alt); color: var(--color-text); }
+
+.price-key__row {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-top: var(--space-md);
-  font-size: var(--text-small);
-  color: var(--color-text-muted);
-}
-
-.dates-panel__swatch {
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
+  /* Room for the close button on the first line. */
+  padding-right: var(--control-height-sm);
+  margin-bottom: var(--space-sm);
 }
 
 /* The swatch is the solid colour, not the pale one: at 10px a
    wash is invisible. */
-.dates-panel__swatch--lower  { background: var(--color-success); }
-.dates-panel__swatch--higher { background: var(--color-error); }
+.price-key__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
 
-/* Second swatch needs air after the first label. */
-.dates-panel__swatch--higher { margin-left: var(--space-md); }
+.price-key__swatch--lower  { background: var(--color-success); }
+.price-key__swatch--higher { background: var(--color-error); }
+
+.price-key__note {
+  margin-top: var(--space-md);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
 
 /* ---- HOW FAR THE DATES CAN MOVE ---------------------------- */
 

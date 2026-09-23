@@ -146,7 +146,13 @@
 
 .search-bar { --search-panel-height: 631px; }
 
-.search-bar__field--popover .popover {
+/* The two places one of the three panels actually sits: straight
+   in the field (Where, When), or inside the Dropdown (Who).
+   Named explicitly rather than matching any descendant, because
+   a popover nested INSIDE one of these panels — the colour key
+   behind the (i) — is its own small thing and keeps its size. */
+.search-bar__field--popover > .popover,
+.search-bar__field--popover > .dropdown > .popover {
   height: var(--search-panel-height);
   /* Never taller than the window; the panel scrolls instead. */
   max-height: calc(100vh - 140px);
@@ -155,7 +161,8 @@
 
 /* The one child of the popover fills it, rather than sitting
    at the top of an otherwise empty box. */
-.search-bar__field--popover .popover > * { height: 100%; }
+.search-bar__field--popover > .popover > *,
+.search-bar__field--popover > .dropdown > .popover > * { height: 100%; }
 
 @media (max-width: 1100px) {
   /* One month instead of two: taller, because six week rows
@@ -166,5 +173,6 @@
 @media (max-width: 560px) {
   /* The popover is full-screen here and sizes itself. */
   .search-bar { --search-panel-height: auto; }
-  .search-bar__field--popover .popover { height: auto; max-height: none; }
+  .search-bar__field--popover > .popover,
+  .search-bar__field--popover > .dropdown > .popover { height: auto; max-height: none; }
 }

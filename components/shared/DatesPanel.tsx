@@ -6,9 +6,10 @@
    who know roughly, and is components/shared/FlexibleDates.tsx.
 
    The calendar tints each date by what a night there typically
-   costs. Where that number comes from is lib/nightly.ts, and
-   the "How it works" note says so in plain words, because a
-   colour nobody can explain is just decoration.
+   costs. What the two tints mean, and where the figure comes
+   from, is behind the (i) beside the tabs — one place, rather
+   than a key under the calendar saying the colours exist and a
+   separate note explaining them.
 
    Styles live in: styles/components/dates-panel.css
    ============================================================ */
@@ -20,8 +21,8 @@ import type { Range } from "@/lib/calendar";
 import { priceTone } from "@/lib/nightly";
 import Calendar from "./Calendar";
 import FlexibleDates, { type Flexible } from "./FlexibleDates";
-import Modal from "./Modal";
-import { Info } from "@phosphor-icons/react";
+import Popover from "./Popover";
+import { Info, X } from "@phosphor-icons/react";
 
 /* Safe to edit — how much either side of the chosen dates a
    search may stretch. The first one means "these dates only". */
@@ -64,14 +65,49 @@ export default function DatesPanel({
           ))}
         </div>
 
-        <button
-          type="button"
-          className="dates-panel__info"
-          aria-label="How this calendar works"
-          onClick={() => setExplaining(true)}
-        >
-          <Info size={20} />
-        </button>
+        {/* WHAT THE COLOURS MEAN — the key and the reason for
+            it, together, where someone puzzled by a red date
+            will go looking. */}
+        <div className="dates-panel__why">
+          <button
+            type="button"
+            className="dates-panel__info"
+            aria-label="What the colours mean"
+            aria-expanded={explaining}
+            onClick={() => setExplaining(!explaining)}
+          >
+            <Info size={20} />
+          </button>
+
+          <Popover open={explaining} onClose={() => setExplaining(false)} align="right">
+            <div className="price-key">
+              <button
+                type="button"
+                className="price-key__close"
+                aria-label="Close"
+                onClick={() => setExplaining(false)}
+              >
+                <X size={16} />
+              </button>
+
+              <p className="price-key__row">
+                <span className="price-key__swatch price-key__swatch--lower" aria-hidden />
+                Lower price
+              </p>
+              <p className="price-key__row">
+                <span className="price-key__swatch price-key__swatch--higher" aria-hidden />
+                Higher price
+              </p>
+
+              <p className="price-key__note">
+                A tinted date is the average nightly price of the places
+                actually free that night. Green is cheaper than a typical
+                night with us, red is dearer. A date with nothing free
+                takes no colour rather than a guess.
+              </p>
+            </div>
+          </Popover>
+        </div>
       </div>
 
       {tab === "dates" ? (
@@ -82,14 +118,6 @@ export default function DatesPanel({
             months={2}
             toneFor={priceTone}
           />
-
-          {/* THE KEY — what the two tints mean */}
-          <p className="dates-panel__key">
-            <span className="dates-panel__swatch dates-panel__swatch--lower" aria-hidden />
-            Lower price
-            <span className="dates-panel__swatch dates-panel__swatch--higher" aria-hidden />
-            Higher price
-          </p>
 
           {/* HOW MUCH THE DATES CAN MOVE */}
           <div className="dates-panel__nudges">
@@ -115,21 +143,6 @@ export default function DatesPanel({
           onClick={onDone}>Done</button>
       </div>
 
-      <Modal
-        open={explaining}
-        onClose={() => setExplaining(false)}
-        title="How this calendar works"
-      >
-        <p>
-          A tinted date shows what a night there usually costs. Green is
-          cheaper than a typical night with us, red is dearer.
-        </p>
-        <p>
-          The figure is the average nightly price of the places actually
-          free on that date. A date with nothing free has no average, so
-          it takes no colour rather than a guess.
-        </p>
-      </Modal>
     </div>
   );
 }
