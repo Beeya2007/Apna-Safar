@@ -4,8 +4,6 @@
    ============================================================ */
 
 import type { Listing } from "@/lib/types";
-import { PHOTO_CREDITS } from "@/lib/data/photo-credits";
-import PhotoCredit from "@/components/shared/PhotoCredit";
 
 export default function PhotoGallerySection({ listing }: { listing: Listing }) {
   const [cover, ...rest] = listing.photos;
@@ -27,11 +25,6 @@ export default function PhotoGallerySection({ listing }: { listing: Listing }) {
         ))}
 
         <button className="gallery__all">Show all photos</button>
-      </div>
-
-      {/* CREDIT — who took the photos */}
-      <div className="page-container gallery__credit">
-        <PhotoCredit credits={PHOTO_CREDITS.listings[listing.id] ?? []} />
       </div>
     </section>
   );
