@@ -79,6 +79,9 @@
   object-fit: cover;
 }
 
+/* The "Photos by …" line under the grid */
+.gallery__credit { margin-top: var(--space-sm); }
+
 .gallery__all {
   position: absolute;
   right: var(--space-md);

@@ -48,6 +48,7 @@ import "@/styles/components/price-lines.css";
 import "@/styles/components/empty-state.css";
 import "@/styles/components/media-card.css";
 import "@/styles/components/review.css";
+import "@/styles/components/photo-credit.css";
 import "@/styles/components/skeleton.css";
 import "@/styles/components/skeleton-ink.css";
 import "@/styles/pages/home.css";         // 15. individual pages

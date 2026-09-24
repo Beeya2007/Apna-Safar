@@ -10,6 +10,8 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react";
 import type { Destination } from "@/lib/types";
 import { LISTINGS } from "@/lib/data/listings";
+import { PHOTO_CREDITS } from "@/lib/data/photo-credits";
+import PhotoCredit from "@/components/shared/PhotoCredit";
 import PageHeading from "@/components/shared/PageHeading";
 import ListingCard from "@/components/shared/ListingCard";
 import EmptyState from "@/components/shared/EmptyState";
@@ -24,13 +26,19 @@ export default function DestinationSection({
 
   return (
     <>
-      {/* 1. BANNER — the place, named */}
+      {/* 1. BANNER — a photo of the place, with its name on top */}
       <section className="destination-banner">
-        <div className="page-container">
-          <span className="destination-banner__emoji" aria-hidden>{destination.emoji}</span>
+        <img className="destination-banner__photo" src={destination.photo} alt="" />
+        <div className="destination-banner__overlay" />
+        <div className="page-container destination-banner__content">
           <h1 className="destination-banner__title">{destination.name}</h1>
           <p className="destination-banner__tagline">{destination.tagline}</p>
         </div>
+        {PHOTO_CREDITS.destinations[destination.slug] && (
+          <div className="destination-banner__credit">
+            <PhotoCredit credits={[PHOTO_CREDITS.destinations[destination.slug]]} onPhoto />
+          </div>
+        )}
       </section>
 
       {/* 2. THE PLACES TO STAY */}

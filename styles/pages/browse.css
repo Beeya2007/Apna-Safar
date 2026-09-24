@@ -63,19 +63,46 @@
 
 /* ------------------------------------------------------------
    3. DESTINATION
+   A photo of the place across the full width, darkened a
+   little so the name and tagline read in light text.
    ------------------------------------------------------------ */
 
 .destination-banner {
-  background: var(--color-bg-alt);
-  border-bottom: 1px solid var(--color-border);
-  padding-block: var(--space-2xl);
+  position: relative;               /* lets the photo sit behind */
+  background: var(--color-bg-alt);  /* shows while the photo loads */
+  padding-block: var(--space-3xl);
   text-align: center;
+  overflow: hidden;
 }
 
-.destination-banner__emoji {
-  display: block;
-  font-size: 3rem;
-  margin-bottom: var(--space-sm);
+/* The photo fills the banner, cropped to fit */
+.destination-banner__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark veil so the light text stays readable */
+.destination-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+}
+
+.destination-banner__content {
+  position: relative;
+  z-index: var(--layer-raised);
+  color: var(--color-text-inverse);
+}
+
+/* "Photo by …" tucked into the bottom-right corner */
+.destination-banner__credit {
+  position: absolute;
+  right: var(--space-md);
+  bottom: var(--space-sm);
+  z-index: var(--layer-raised);
 }
 
 .destination-banner__title {
@@ -86,6 +113,5 @@
 
 .destination-banner__tagline {
   margin-top: var(--space-sm);
-  color: var(--color-text-muted);
   font-size: var(--text-heading);
 }

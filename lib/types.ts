@@ -119,12 +119,20 @@ export type Conversation = {
   messages: Message[];
 };
 
+/** Who took a photo, so they can be credited under it. */
+export type PhotoCredit = {
+  photographer: string;    // "Rohit George"
+  profile: string;         // their Pexels page
+  source: string;          // the photo's Pexels page
+};
+
 /** A city or region with its own landing page. */
 export type Destination = {
   slug: string;            // "goa"
   name: string;            // "Goa"
   tagline: string;
   emoji: string;
+  photo: string;           // "/images/destinations/goa.jpg" — the banner
   listingCount: number;
   /* Where the place actually is, so "near me" can be worked
      out in the browser without asking a mapping service. */

@@ -7,14 +7,14 @@
 import type { Destination, Experience, HelpArticle } from "../types";
 
 export const DESTINATIONS: Destination[] = [
-  { slug: "goa",         name: "Goa",         emoji: "🏖️", lat: 15.4909, lng: 73.8278, listingCount: 1, tagline: "Beaches at both ends and a lot of quiet in between." },
-  { slug: "manali",      name: "Manali",      emoji: "🏔️", lat: 32.2432, lng: 77.1892, listingCount: 1, tagline: "Cedar, snow, and roads that close without warning." },
-  { slug: "kerala",      name: "Kerala",      emoji: "🛶", lat: 9.9312, lng: 76.2673, listingCount: 1, tagline: "Water instead of streets, for a few days at least." },
-  { slug: "udaipur",     name: "Udaipur",     emoji: "🏰", lat: 24.5854, lng: 73.7125, listingCount: 1, tagline: "Lakes, ghats, and houses older than most countries." },
-  { slug: "coorg",       name: "Coorg",       emoji: "🌿", lat: 12.4244, lng: 75.7382, listingCount: 1, tagline: "Coffee, rain, and nothing much to do on purpose." },
-  { slug: "rishikesh",   name: "Rishikesh",   emoji: "🏞️", lat: 30.0869, lng: 78.2676, listingCount: 1, tagline: "The river is the reason. Everything else is nearby." },
-  { slug: "pondicherry", name: "Pondicherry", emoji: "🌤️", lat: 11.9416, lng: 79.8083, listingCount: 1, tagline: "Shuttered windows and bakeries worth planning around." },
-  { slug: "shillong",    name: "Shillong",    emoji: "🌲", lat: 25.5788, lng: 91.8933, listingCount: 1, tagline: "Pine ridges, low cloud, and very good live music." },
+  { slug: "goa",         name: "Goa",         emoji: "🏖️", photo: "/images/destinations/goa.jpg", lat: 15.4909, lng: 73.8278, listingCount: 1, tagline: "Beaches at both ends and a lot of quiet in between." },
+  { slug: "manali",      name: "Manali",      emoji: "🏔️", photo: "/images/destinations/manali.jpg", lat: 32.2432, lng: 77.1892, listingCount: 1, tagline: "Cedar, snow, and roads that close without warning." },
+  { slug: "kerala",      name: "Kerala",      emoji: "🛶", photo: "/images/destinations/kerala.jpg", lat: 9.9312, lng: 76.2673, listingCount: 1, tagline: "Water instead of streets, for a few days at least." },
+  { slug: "udaipur",     name: "Udaipur",     emoji: "🏰", photo: "/images/destinations/udaipur.jpg", lat: 24.5854, lng: 73.7125, listingCount: 1, tagline: "Lakes, ghats, and houses older than most countries." },
+  { slug: "coorg",       name: "Coorg",       emoji: "🌿", photo: "/images/destinations/coorg.jpg", lat: 12.4244, lng: 75.7382, listingCount: 1, tagline: "Coffee, rain, and nothing much to do on purpose." },
+  { slug: "rishikesh",   name: "Rishikesh",   emoji: "🏞️", photo: "/images/destinations/rishikesh.jpg", lat: 30.0869, lng: 78.2676, listingCount: 1, tagline: "The river is the reason. Everything else is nearby." },
+  { slug: "pondicherry", name: "Pondicherry", emoji: "🌤️", photo: "/images/destinations/pondicherry.jpg", lat: 11.9416, lng: 79.8083, listingCount: 1, tagline: "Shuttered windows and bakeries worth planning around." },
+  { slug: "shillong",    name: "Shillong",    emoji: "🌲", photo: "/images/destinations/shillong.jpg", lat: 25.5788, lng: 91.8933, listingCount: 1, tagline: "Pine ridges, low cloud, and very good live music." },
 ];
 
 export function destinationBySlug(slug: string): Destination | undefined {
