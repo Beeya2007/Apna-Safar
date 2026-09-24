@@ -49,7 +49,8 @@ export type CancellationPolicy = "flexible" | "moderate" | "strict";
 export type Host = {
   id: string;
   name: string;
-  avatar: string;          // emoji, until real photos exist
+  avatar: string;          // emoji, shown if there's no photo
+  photo?: string;          // "/images/people/h1.jpg"
   joinedYear: number;
   responseRate: number;    // percent, 0 to 100
   isVerified: boolean;
@@ -61,7 +62,8 @@ export type Review = {
   id: string;
   listingId: string;
   author: string;
-  avatar: string;
+  avatar: string;          // emoji, shown if there's no photo
+  photo?: string;          // "/images/people/r1.jpg"
   date: string;            // ISO date
   rating: number;
   text: string;

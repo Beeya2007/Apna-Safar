@@ -9,6 +9,7 @@
 import type { Review } from "@/lib/types";
 import { longDate } from "@/lib/format";
 import { Star } from "@phosphor-icons/react";
+import Avatar from "@/components/shared/Avatar";
 
 export default function ReviewCard({ review }: { review: Review }) {
   return (
@@ -16,7 +17,7 @@ export default function ReviewCard({ review }: { review: Review }) {
 
       {/* WHO WROTE IT — avatar, name, date */}
       <header className="review__head">
-        <span className="review__avatar" aria-hidden>{review.avatar}</span>
+        <Avatar className="review__avatar" photo={review.photo} emoji={review.avatar} />
         <div>
           <p className="review__author">{review.author}</p>
           <p className="review__date">{longDate(review.date)}</p>

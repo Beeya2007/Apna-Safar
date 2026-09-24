@@ -9,6 +9,7 @@ import type { Conversation } from "@/lib/types";
 import { listingById } from "@/lib/data/listings";
 import { hostById } from "@/lib/data/people";
 import ConversationList from "./ConversationList";
+import Avatar from "@/components/shared/Avatar";
 
 export default function ThreadSection({ conversation }: { conversation: Conversation }) {
   const host = hostById(conversation.hostId)!;
@@ -26,7 +27,7 @@ export default function ThreadSection({ conversation }: { conversation: Conversa
         {/* RIGHT — this one */}
         <div className="thread__panel">
           <header className="thread__head">
-            <span className="thread__avatar" aria-hidden>{host.avatar}</span>
+            <Avatar className="thread__avatar" photo={host.photo} emoji={host.avatar} />
             <div>
               <h1 className="thread__name">{host.name}</h1>
               <Link className="thread__place" href={`/listing/${listing.id}`}>

@@ -11,6 +11,7 @@ export const PHOTO_CREDITS: {
   listings: Record<string, PhotoCredit[]>;
   destinations: Record<string, PhotoCredit>;
   experiences: Record<string, PhotoCredit>;
+  people: Record<string, PhotoCredit>;
 } = {
   "listings": {
     "1": [
@@ -302,6 +303,98 @@ export const PHOTO_CREDITS: {
       "photographer": "Soubhagya Maharana",
       "profile": "https://www.pexels.com/@soubhagya23",
       "source": "https://www.pexels.com/photo/people-during-ganga-aarti-ceremony-18887232/"
+    }
+  },
+  "people": {
+    "h1": {
+      "photographer": "Ashutosh Kumar",
+      "profile": "https://www.pexels.com/@ashutosh-kumar-2162352017",
+      "source": "https://www.pexels.com/photo/portrait-of-woman-in-traditional-indian-attire-38281680/"
+    },
+    "h2": {
+      "photographer": "Sebastian Timothy",
+      "profile": "https://www.pexels.com/@timothysebastian",
+      "source": "https://www.pexels.com/photo/man-in-black-jacket-11545005/"
+    },
+    "h3": {
+      "photographer": "Abhishek  Shekhawat",
+      "profile": "https://www.pexels.com/@absoluteabhi",
+      "source": "https://www.pexels.com/photo/smiling-man-with-traditional-pink-turban-36342203/"
+    },
+    "h4": {
+      "photographer": "Ethan Sarkar",
+      "profile": "https://www.pexels.com/@ethan-sarkar-2060961318",
+      "source": "https://www.pexels.com/photo/elderly-woman-in-traditional-shawl-portrait-29820147/"
+    },
+    "h5": {
+      "photographer": "Prudvi Raj",
+      "profile": "https://www.pexels.com/@prudvi-raj-1202091",
+      "source": "https://www.pexels.com/photo/a-bearded-man-in-an-olive-colored-shirt-6595899/"
+    },
+    "h6": {
+      "photographer": "Daniil Kondrashin",
+      "profile": "https://www.pexels.com/@konrads-photo",
+      "source": "https://www.pexels.com/photo/blond-woman-wearing-eyeglasses-13793985/"
+    },
+    "r1": {
+      "photographer": "Deepak Maurya",
+      "profile": "https://www.pexels.com/@143deepak",
+      "source": "https://www.pexels.com/photo/grayscale-photo-of-a-handsome-man-with-a-headband-looking-at-the-camera-7276073/"
+    },
+    "r2": {
+      "photographer": "PATRICIA Barros",
+      "profile": "https://www.pexels.com/@patricia-barros-2161001905",
+      "source": "https://www.pexels.com/photo/portrait-of-a-woman-in-vibrant-sari-outdoors-37145167/"
+    },
+    "r3": {
+      "photographer": "Deepak Maurya",
+      "profile": "https://www.pexels.com/@143deepak",
+      "source": "https://www.pexels.com/photo/grayscale-photo-of-a-bearded-man-14183123/"
+    },
+    "r4": {
+      "photographer": "Ravinder Ravi",
+      "profile": "https://www.pexels.com/@ravinder-ravi-108844465",
+      "source": "https://www.pexels.com/photo/portrait-of-a-woman-in-traditional-attire-outdoors-38982379/"
+    },
+    "r5": {
+      "photographer": "ravi k",
+      "profile": "https://www.pexels.com/@ravi-k-301762",
+      "source": "https://www.pexels.com/photo/a-portrait-of-a-bearded-man-11800909/"
+    },
+    "r6": {
+      "photographer": "Manish M",
+      "profile": "https://www.pexels.com/@manish-m-2148639571",
+      "source": "https://www.pexels.com/photo/young-woman-in-traditional-saree-outdoors-39559946/"
+    },
+    "r7": {
+      "photographer": "Nikhil Manan",
+      "profile": "https://www.pexels.com/@nikhil-manan-1536524",
+      "source": "https://www.pexels.com/photo/smiling-man-in-traditional-indian-turban-28945957/"
+    },
+    "r8": {
+      "photographer": "Uday Veeru",
+      "profile": "https://www.pexels.com/@uday-veeru-2148554804",
+      "source": "https://www.pexels.com/photo/portrait-of-a-woman-in-warm-lighting-38451328/"
+    },
+    "r9": {
+      "photographer": "Deepak Maurya",
+      "profile": "https://www.pexels.com/@143deepak",
+      "source": "https://www.pexels.com/photo/monochrome-photo-of-a-man-with-facial-hair-looking-away-7276086/"
+    },
+    "r10": {
+      "photographer": "Nataliya Vaitkevich",
+      "profile": "https://www.pexels.com/@n-voitkevich",
+      "source": "https://www.pexels.com/photo/close-up-photo-of-woman-s-face-4772182/"
+    },
+    "r11": {
+      "photographer": "Noorain Saleem",
+      "profile": "https://www.pexels.com/@noorain-saleem-88530788",
+      "source": "https://www.pexels.com/photo/an-elderly-bearded-man-smiling-11905784/"
+    },
+    "r12": {
+      "photographer": "Elka Elias",
+      "profile": "https://www.pexels.com/@elka-elias-2164032779",
+      "source": "https://www.pexels.com/photo/portrait-of-smiling-woman-in-denim-jacket-at-night-39598425/"
     }
   }
 };

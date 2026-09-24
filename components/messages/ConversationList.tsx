@@ -8,6 +8,7 @@ import Link from "next/link";
 import { CONVERSATIONS } from "@/lib/data/bookings";
 import { listingById } from "@/lib/data/listings";
 import { hostById } from "@/lib/data/people";
+import Avatar from "@/components/shared/Avatar";
 
 export default function ConversationList({ activeId }: { activeId?: string }) {
   return (
@@ -27,7 +28,7 @@ export default function ConversationList({ activeId }: { activeId?: string }) {
                 : "conversation"
             }
           >
-            <span className="conversation__avatar" aria-hidden>{host.avatar}</span>
+            <Avatar className="conversation__avatar" photo={host.photo} emoji={host.avatar} />
             <span className="conversation__body">
               <span className="conversation__name">
                 {host.name}

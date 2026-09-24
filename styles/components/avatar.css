@@ -1,0 +1,18 @@
+/* ============================================================
+   AVATAR
+   ------------------------------------------------------------
+   The photo inside a round avatar. The circle itself (its size
+   and background) is set wherever the avatar is used, e.g.
+   .review__avatar in review.css. Used by <Avatar />.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. AVATAR PHOTO — fills the circle, cropped to fit
+   ------------------------------------------------------------ */
+
+.avatar__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;   /* takes the circle from its parent */
+}

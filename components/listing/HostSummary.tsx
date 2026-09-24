@@ -5,6 +5,7 @@
 
 import type { Host, Listing } from "@/lib/types";
 import { count } from "@/lib/format";
+import Avatar from "@/components/shared/Avatar";
 
 export default function HostSummary({
   listing,
@@ -29,7 +30,7 @@ export default function HostSummary({
           </h2>
           <p className="host-summary__facts">{facts.join(" · ")}</p>
         </div>
-        <span className="host-summary__avatar" aria-hidden>{host.avatar}</span>
+        <Avatar className="host-summary__avatar" photo={host.photo} emoji={host.avatar} />
       </div>
 
       <p className="host-summary__credentials">

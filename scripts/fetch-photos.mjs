@@ -14,56 +14,18 @@
    - 5 photos per listing  → public/images/listings/<id>-<n>.jpg
    - 1 banner per destination → public/images/destinations/<slug>.jpg
    - 1 photo per experience   → public/images/experiences/<id>.jpg
+   - 1 portrait per person    → public/images/people/<id>.jpg
    - who took each one     → lib/data/photo-credits.ts
 
+   The search words live in scripts/photo-searches.mjs.
    The API key lives in .env.local (never committed).
    ============================================================ */
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
-/* ------------------------------------------------------------
-   LISTING SEARCHES — one per listing. Safe to edit.
-   If a listing's photos look wrong, change its words and run
-   the script again. The id must match lib/data/listings.ts.
-   ------------------------------------------------------------ */
-const LISTING_SEARCHES = [
-  { id: "1", query: "goa beach villa" },
-  { id: "2", query: "wooden cabin mountains snow" },
-  { id: "3", query: "kerala houseboat backwaters" },
-  { id: "4", query: "udaipur haveli courtyard" },
-  { id: "5", query: "coffee plantation cottage" },
-  { id: "6", query: "rishikesh ganges river" },
-  { id: "7", query: "pondicherry colonial street" },
-  { id: "8", query: "cabin forest hills fog" },
-];
-
-/* ------------------------------------------------------------
-   DESTINATION SEARCHES — one per destination. Safe to edit.
-   The slug must match lib/data/content.ts.
-   ------------------------------------------------------------ */
-const DESTINATION_SEARCHES = [
-  { slug: "goa",         query: "goa beach palm trees" },
-  { slug: "manali",      query: "manali mountains" },
-  { slug: "kerala",      query: "kerala backwaters" },
-  { slug: "udaipur",     query: "udaipur lake palace" },
-  { slug: "coorg",       query: "coorg hills green" },
-  { slug: "rishikesh",   query: "rishikesh bridge river" },
-  { slug: "pondicherry", query: "pondicherry street" },
-  { slug: "shillong",    query: "meghalaya hills" },
-];
-
-/* ------------------------------------------------------------
-   EXPERIENCE SEARCHES — one per experience. Safe to edit.
-   The id must match EXPERIENCES in lib/data/content.ts.
-   ------------------------------------------------------------ */
-const EXPERIENCE_SEARCHES = [
-  { id: "e1", query: "fish market india" },
-  { id: "e2", query: "coffee beans roasting" },
-  { id: "e3", query: "indian cooking spices" },
-  { id: "e4", query: "canoe kerala canal" },
-  { id: "e5", query: "waterfall meghalaya" },
-  { id: "e6", query: "ganga aarti" },
-];
+import {
+  LISTING_SEARCHES, DESTINATION_SEARCHES, EXPERIENCE_SEARCHES, PEOPLE_SEARCHES,
+} from "./photo-searches.mjs";
 
 const PHOTOS_PER_LISTING = 5;
 const CREDITS_FILE = "lib/data/photo-credits.ts";
@@ -93,13 +55,13 @@ async function fetchAndSave(query, count, size, fileFor) {
 
 /* Start from the credits already saved, so running one kind
    doesn't wipe the others. */
-let credits = { listings: {}, destinations: {}, experiences: {} };
+let credits = { listings: {}, destinations: {}, experiences: {}, people: {} };
 try {
   const saved = await readFile(CREDITS_FILE, "utf8");
   credits = { ...credits, ...JSON.parse(saved.slice(saved.indexOf("} = ") + 4, saved.lastIndexOf(";"))) };
 } catch {}
 
-const only = process.argv[2];   // "listings", "destinations", "experiences" or nothing
+const only = process.argv[2];   // "listings", "destinations", "experiences", "people" or nothing
 const wanted = (kind) => !only || only === kind;
 
 if (wanted("listings")) await mkdir("public/images/listings", { recursive: true });
@@ -123,6 +85,23 @@ for (const { id, query } of wanted("experiences") ? EXPERIENCE_SEARCHES : []) {
   credits.experiences[id] = credit;
 }
 
+/* Portraits: a square crop, and never the same face twice. */
+if (wanted("people")) await mkdir("public/images/people", { recursive: true });
+const usedFaces = new Set();
+for (const { id, query } of wanted("people") ? PEOPLE_SEARCHES : []) {
+  const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=20&orientation=portrait`;
+  const response = await fetch(url, { headers: { Authorization: key } });
+  if (!response.ok) throw new Error(`Pexels said ${response.status} for "${query}"`);
+  const { photos } = await response.json();
+  const photo = photos.find((p) => !usedFaces.has(p.id));
+  if (!photo) { console.log(`No unused portrait for "${query}" — skipped ${id}`); continue; }
+  usedFaces.add(photo.id);
+  const image = await fetch(`${photo.src.original}?auto=compress&cs=tinysrgb&fit=crop&w=240&h=240`);
+  await writeFile(`public/images/people/${id}.jpg`, Buffer.from(await image.arrayBuffer()));
+  credits.people[id] = { photographer: photo.photographer.trim(), profile: photo.photographer_url, source: photo.url };
+  console.log(`Portrait for ${id} ("${query}")`);
+}
+
 await writeFile(CREDITS_FILE, `/* ============================================================
    PHOTO CREDITS — who took each photo. All are from Pexels.
    ------------------------------------------------------------
@@ -136,6 +115,7 @@ export const PHOTO_CREDITS: {
   listings: Record<string, PhotoCredit[]>;
   destinations: Record<string, PhotoCredit>;
   experiences: Record<string, PhotoCredit>;
+  people: Record<string, PhotoCredit>;
 } = ${JSON.stringify(credits, null, 2)};
 `);
 console.log(`Credits written to ${CREDITS_FILE}`);

@@ -13,6 +13,7 @@ import Panel from "@/components/shared/Panel";
 import DataRow from "@/components/shared/DataRow";
 import PriceLines from "@/components/shared/PriceLines";
 import StatusPill from "@/components/shared/StatusPill";
+import Avatar from "@/components/shared/Avatar";
 
 export default function TripDetailSection({
   booking,
@@ -66,7 +67,7 @@ export default function TripDetailSection({
           {/* 5. YOUR HOST */}
           <Panel title="Your host">
             <div className="trip-detail__host">
-              <span className="trip-detail__avatar" aria-hidden>{host.avatar}</span>
+              <Avatar className="trip-detail__avatar" photo={host.photo} emoji={host.avatar} />
               <div>
                 <p className="trip-detail__hostname">{host.name}</p>
                 <p className="trip-detail__hostmeta">
