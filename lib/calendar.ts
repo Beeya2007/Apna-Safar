@@ -69,11 +69,6 @@ export function buildMonth(anchor: string): Month {
     days.push({ iso: toIso(year, monthIndex, date), date });
   }
 
-  /* Pad to six full weeks. A month needs five rows or six
-     depending on the day it starts, and without this the panel
-     changes height as you page through it — which moves the
-     buttons under the visitor's cursor. */
-  while (days.length < 42) days.push(null);
 
   return {
     anchor,

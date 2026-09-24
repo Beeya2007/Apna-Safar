@@ -149,7 +149,12 @@
    outside the bar is affected: the same Dropdown and Popover
    are used in forms elsewhere and must stay their own size. */
 
-.search-bar { --search-panel-height: 631px; }
+/* THE NUMBER: the tallest the three panels ever get, which is
+   always the Dates tab showing a month that needs six week rows
+   rather than five. Measured, not guessed — if the dates panel
+   gains or loses a row of controls, open it on a six-row month
+   (November 2026) and put its height here. */
+.search-bar { --search-panel-height: 527px; }
 
 /* Direct child only. A popover nested INSIDE one of these
    panels — the colour key behind the (i) — is its own small
@@ -166,9 +171,9 @@
 .search-bar__field--popover > .popover > * { height: 100%; }
 
 @media (max-width: 1100px) {
-  /* One month instead of two: taller, because six week rows
+  /* One month instead of two: taller, because the six week rows
      stack rather than sitting side by side. */
-  .search-bar { --search-panel-height: 724px; }
+  .search-bar { --search-panel-height: 620px; }
 }
 
 @media (max-width: 560px) {

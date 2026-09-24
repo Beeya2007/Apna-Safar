@@ -135,11 +135,15 @@
 
 /* ---- HOW FAR THE DATES CAN MOVE ---------------------------- */
 
+/* Pinned to the foot: a month needing six rows is one row
+   taller than one needing five, and the chips should not move
+   under the cursor when you page between them. */
 .dates-panel__nudges {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-top: var(--space-lg);
+  margin-top: auto;
+  padding-top: var(--space-lg);
 }
 
 /* ---- FLEXIBLE TAB ------------------------------------------ */
