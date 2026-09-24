@@ -43,14 +43,12 @@
   align-items: start;
 }
 
-/* The big emoji square standing in for a photo */
-.experience__tile {
-  display: grid;
-  place-items: center;
+/* The big photo of the experience, cropped to fit */
+.experience__photo {
+  width: 100%;
   aspect-ratio: 3 / 2;
-  font-size: 4rem;
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
+  object-fit: cover;
+  background: var(--color-bg-alt);   /* shows while it loads */
   border-radius: var(--radius-lg);
 }
 

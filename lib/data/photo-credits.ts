@@ -10,6 +10,7 @@ import type { PhotoCredit } from "../types";
 export const PHOTO_CREDITS: {
   listings: Record<string, PhotoCredit[]>;
   destinations: Record<string, PhotoCredit>;
+  experiences: Record<string, PhotoCredit>;
 } = {
   "listings": {
     "1": [
@@ -269,6 +270,38 @@ export const PHOTO_CREDITS: {
       "photographer": "Subhadeep Kundu",
       "profile": "https://www.pexels.com/@sratk07",
       "source": "https://www.pexels.com/photo/scenic-view-of-mountain-ranges-10101268/"
+    }
+  },
+  "experiences": {
+    "e1": {
+      "photographer": "Ishay  Botbol",
+      "profile": "https://www.pexels.com/@ishay-botbol-541049",
+      "source": "https://www.pexels.com/photo/woman-sitting-near-fishes-and-basins-1304154/"
+    },
+    "e2": {
+      "photographer": "Juan Pablo Serrano",
+      "profile": "https://www.pexels.com/@juanpphotoandvideo",
+      "source": "https://www.pexels.com/photo/shallow-focus-photo-of-coffee-beans-894695/"
+    },
+    "e3": {
+      "photographer": "Kamakshi",
+      "profile": "https://www.pexels.com/@kamakshi-72543796",
+      "source": "https://www.pexels.com/photo/colorful-assortment-of-indian-spices-on-wooden-surface-30296301/"
+    },
+    "e4": {
+      "photographer": "Frank van Dijk",
+      "profile": "https://www.pexels.com/@frank-van-dijk-121009207",
+      "source": "https://www.pexels.com/photo/traditional-canoes-in-kerala-backwaters-36998152/"
+    },
+    "e5": {
+      "photographer": "Rasel",
+      "profile": "https://www.pexels.com/@rasel-601355",
+      "source": "https://www.pexels.com/photo/person-standing-on-bridge-near-waterfalls-1403036/"
+    },
+    "e6": {
+      "photographer": "Soubhagya Maharana",
+      "profile": "https://www.pexels.com/@soubhagya23",
+      "source": "https://www.pexels.com/photo/people-during-ganga-aarti-ceremony-18887232/"
     }
   }
 };

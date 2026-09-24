@@ -23,7 +23,7 @@ export default function ExperienceDetailSection({
       />
 
       <div className="experience__layout">
-        <span className="experience__tile" aria-hidden>{experience.emoji}</span>
+        <img className="experience__photo" src={experience.photo} alt={experience.title} />
 
         <Panel title="The details">
           <DataRow label="Where" value={experience.location} />

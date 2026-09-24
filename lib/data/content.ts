@@ -22,22 +22,22 @@ export function destinationBySlug(slug: string): Destination | undefined {
 }
 
 export const EXPERIENCES: Experience[] = [
-  { id: "e1", title: "Morning fish market walk", location: "Pondicherry, Tamil Nadu", emoji: "🐟",
+  { id: "e1", title: "Morning fish market walk", location: "Pondicherry, Tamil Nadu", emoji: "🐟", photo: "/images/experiences/e1.jpg",
     durationHours: 3, pricePerPerson: 1200, rating: 4.9, reviewCount: 64,
     description: "Start at five, when the boats come in and the auction is loud. Ends with breakfast at a stall that has been there longer than anyone can remember." },
-  { id: "e2", title: "Coffee estate and roasting", location: "Coorg, Karnataka", emoji: "☕",
+  { id: "e2", title: "Coffee estate and roasting", location: "Coorg, Karnataka", emoji: "☕", photo: "/images/experiences/e2.jpg",
     durationHours: 4, pricePerPerson: 1800, rating: 4.8, reviewCount: 41,
     description: "Walk the rows, pick if it is the season, then roast a small batch and take it home. Run by the family who own the estate." },
-  { id: "e3", title: "Old city cooking, start to finish", location: "Udaipur, Rajasthan", emoji: "🍲",
+  { id: "e3", title: "Old city cooking, start to finish", location: "Udaipur, Rajasthan", emoji: "🍲", photo: "/images/experiences/e3.jpg",
     durationHours: 5, pricePerPerson: 2400, rating: 5.0, reviewCount: 88,
     description: "Shop the market for what is actually good that day, then cook six dishes in a home kitchen and eat all of them." },
-  { id: "e4", title: "Sunrise paddle on the backwaters", location: "Alleppey, Kerala", emoji: "🛶",
+  { id: "e4", title: "Sunrise paddle on the backwaters", location: "Alleppey, Kerala", emoji: "🛶", photo: "/images/experiences/e4.jpg",
     durationHours: 3, pricePerPerson: 1500, rating: 4.7, reviewCount: 122,
     description: "A canoe, two paddles and the narrow canals the houseboats cannot reach. Quiet enough to hear the village waking up." },
-  { id: "e5", title: "Ridge walk and waterfall swim", location: "Shillong, Meghalaya", emoji: "💦",
+  { id: "e5", title: "Ridge walk and waterfall swim", location: "Shillong, Meghalaya", emoji: "💦", photo: "/images/experiences/e5.jpg",
     durationHours: 6, pricePerPerson: 2100, rating: 4.8, reviewCount: 37,
     description: "Six hours on foot with a long stop to swim. Moderate pace, some scrambling, worth it for the last twenty minutes alone." },
-  { id: "e6", title: "Evening ghats and aarti", location: "Rishikesh, Uttarakhand", emoji: "🪔",
+  { id: "e6", title: "Evening ghats and aarti", location: "Rishikesh, Uttarakhand", emoji: "🪔", photo: "/images/experiences/e6.jpg",
     durationHours: 2, pricePerPerson: 900, rating: 4.6, reviewCount: 153,
     description: "Walk the quieter bank at dusk, then sit for the ceremony with someone who can explain what is happening and why." },
 ];

@@ -146,6 +146,7 @@ export type Experience = {
   title: string;
   location: string;
   emoji: string;
+  photo: string;           // "/images/experiences/e1.jpg"
   durationHours: number;
   pricePerPerson: number;  // whole rupees
   rating: number;

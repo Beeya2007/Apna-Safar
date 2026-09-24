@@ -5,15 +5,21 @@
 
      node --env-file=.env.local scripts/fetch-photos.mjs
 
+   To redo just one kind, name it at the end — the others keep
+   the photos they already have:
+
+     node --env-file=.env.local scripts/fetch-photos.mjs experiences
+
    It saves:
    - 5 photos per listing  → public/images/listings/<id>-<n>.jpg
    - 1 banner per destination → public/images/destinations/<slug>.jpg
+   - 1 photo per experience   → public/images/experiences/<id>.jpg
    - who took each one     → lib/data/photo-credits.ts
 
    The API key lives in .env.local (never committed).
    ============================================================ */
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 /* ------------------------------------------------------------
    LISTING SEARCHES — one per listing. Safe to edit.
@@ -46,6 +52,19 @@ const DESTINATION_SEARCHES = [
   { slug: "shillong",    query: "meghalaya hills" },
 ];
 
+/* ------------------------------------------------------------
+   EXPERIENCE SEARCHES — one per experience. Safe to edit.
+   The id must match EXPERIENCES in lib/data/content.ts.
+   ------------------------------------------------------------ */
+const EXPERIENCE_SEARCHES = [
+  { id: "e1", query: "fish market india" },
+  { id: "e2", query: "coffee beans roasting" },
+  { id: "e3", query: "indian cooking spices" },
+  { id: "e4", query: "canoe kerala canal" },
+  { id: "e5", query: "waterfall meghalaya" },
+  { id: "e6", query: "ganga aarti" },
+];
+
 const PHOTOS_PER_LISTING = 5;
 const CREDITS_FILE = "lib/data/photo-credits.ts";
 
@@ -72,20 +91,36 @@ async function fetchAndSave(query, count, size, fileFor) {
   return credits;
 }
 
-const credits = { listings: {}, destinations: {} };
+/* Start from the credits already saved, so running one kind
+   doesn't wipe the others. */
+let credits = { listings: {}, destinations: {}, experiences: {} };
+try {
+  const saved = await readFile(CREDITS_FILE, "utf8");
+  credits = { ...credits, ...JSON.parse(saved.slice(saved.indexOf("} = ") + 4, saved.lastIndexOf(";"))) };
+} catch {}
 
-await mkdir("public/images/listings", { recursive: true });
-for (const { id, query } of LISTING_SEARCHES) {
+const only = process.argv[2];   // "listings", "destinations", "experiences" or nothing
+const wanted = (kind) => !only || only === kind;
+
+if (wanted("listings")) await mkdir("public/images/listings", { recursive: true });
+for (const { id, query } of wanted("listings") ? LISTING_SEARCHES : []) {
   credits.listings[id] = await fetchAndSave(query, PHOTOS_PER_LISTING, "large",
     (i) => `public/images/listings/${id}-${i + 1}.jpg`);
 }
 
 /* Banners are full-width, so they use the bigger size. */
-await mkdir("public/images/destinations", { recursive: true });
-for (const { slug, query } of DESTINATION_SEARCHES) {
+if (wanted("destinations")) await mkdir("public/images/destinations", { recursive: true });
+for (const { slug, query } of wanted("destinations") ? DESTINATION_SEARCHES : []) {
   const [credit] = await fetchAndSave(query, 1, "large2x",
     () => `public/images/destinations/${slug}.jpg`);
   credits.destinations[slug] = credit;
+}
+
+if (wanted("experiences")) await mkdir("public/images/experiences", { recursive: true });
+for (const { id, query } of wanted("experiences") ? EXPERIENCE_SEARCHES : []) {
+  const [credit] = await fetchAndSave(query, 1, "large",
+    () => `public/images/experiences/${id}.jpg`);
+  credits.experiences[id] = credit;
 }
 
 await writeFile(CREDITS_FILE, `/* ============================================================
@@ -100,6 +135,7 @@ import type { PhotoCredit } from "../types";
 export const PHOTO_CREDITS: {
   listings: Record<string, PhotoCredit[]>;
   destinations: Record<string, PhotoCredit>;
+  experiences: Record<string, PhotoCredit>;
 } = ${JSON.stringify(credits, null, 2)};
 `);
 console.log(`Credits written to ${CREDITS_FILE}`);

@@ -22,6 +22,7 @@ export default function ExperiencesSection() {
             key={experience.id}
             href={`/experiences/${experience.id}`}
             emoji={experience.emoji}
+            photo={experience.photo}
             title={experience.title}
             meta={`${experience.location} · ${count(experience.durationHours, "hour")}`}
             note={`${rupees(experience.pricePerPerson)} a person · ★ ${experience.rating}`}
